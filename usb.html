@@ -1,0 +1,528 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>USB &mdash; qop 0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="qop 0.1 documentation" href="index.html"/>
+        <link rel="up" title="驱动开发" href="driver_dev.html"/>
+        <link rel="next" title="看门狗(watchdog)" href="wdog.html"/>
+        <link rel="prev" title="UART" href="uart.html"/> 
+
+  
+  <script src="static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> qop
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">开发板简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hardware.html">硬件接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="flash.html">烧写镜像</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="driver_dev.html">驱动开发</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="fiq_debugger.html">FIQ-Debugger</a></li>
+<li class="toctree-l2"><a class="reference internal" href="char.html">字符设备驱动</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gpio.html">GPIO状态调试</a></li>
+<li class="toctree-l2"><a class="reference internal" href="i2c.html">I2C</a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html">DVFS Usser Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mmc.html">SD/MMC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="regmap.html">Regmap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="spi.html">SPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uart.html">UART</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">USB</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">USB通信协议基础</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#usblinux">USB在Linux系统中的架构框图</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hostsysfs">Host设备在sysfs的信息</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hostdebugfs">Host设备在debugfs的信息</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#usbmon">usbmon 架构</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#usbmon-ascii-capture">usbmon ASCII capture</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#usbmon-binary-capture">usbmon binary capture</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#bulk-only">Bulk-Only传输协议</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">应用实例1(USB应用编程)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id3">基础概念(核心数据结构)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">情景简介</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">数据通信流程简图</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">源代码</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">应用实例2(USB设备驱动编程)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#firefly-rk3399-usb">Firefly_RK3399 USB</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="wdog.html">看门狗(watchdog)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lcd.html">LCD驱动</a></li>
+<li class="toctree-l2"><a class="reference internal" href="driver_timer.html">TIMER 使用</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">常见问题</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/54shady/kernel_drivers_examples/tree/Firefly_RK3399">More Documentation</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">qop</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="driver_dev.html">驱动开发</a> &raquo;</li>
+      
+    <li>USB</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="sources/usb.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="usb">
+<h1>USB<a class="headerlink" href="#usb" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>USB通信协议基础<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="./protocol.md">USB通信协议基础</a></p>
+<p><a class="reference external" href="http://processors.wiki.ti.com/index.php/Linux_Core_DWC3_User%27s_Guide">参考文章Linux Core DWC3 User’s
+Guide</a></p>
+<p><a class="reference external" href="http://processors.wiki.ti.com/index.php/Usbgeneralpage">参考文章Usbgeneralpage</a></p>
+</div>
+<div class="section" id="usblinux">
+<h2>USB在Linux系统中的架构框图<a class="headerlink" href="#usblinux" title="Permalink to this headline">¶</a></h2>
+<div class="figure align-default" id="id8">
+<img alt="architecture" src="images/architecture.png" />
+<p class="caption"><span class="caption-text">architecture</span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id9">
+<img alt="mass\_storage" src="images/mass_storage.png" />
+<p class="caption"><span class="caption-text">mass_storage</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="hostsysfs">
+<h2>Host设备在sysfs的信息<a class="headerlink" href="#hostsysfs" title="Permalink to this headline">¶</a></h2>
+<p>下面的是rk3399中的usb信息</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ls</span> <span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">bus</span><span class="o">/</span><span class="n">usb</span><span class="o">/</span><span class="n">devices</span><span class="o">/</span>
+<span class="mi">1</span><span class="o">-</span><span class="mi">0</span><span class="p">:</span><span class="mf">1.0</span>  <span class="mi">1</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="mf">1.0</span>  <span class="mi">3</span><span class="o">-</span><span class="mi">0</span><span class="p">:</span><span class="mf">1.0</span>  <span class="mi">5</span><span class="o">-</span><span class="mi">0</span><span class="p">:</span><span class="mf">1.0</span>  <span class="n">usb1</span>  <span class="n">usb3</span>  <span class="n">usb5</span>
+<span class="mi">1</span><span class="o">-</span><span class="mi">1</span>      <span class="mi">2</span><span class="o">-</span><span class="mi">0</span><span class="p">:</span><span class="mf">1.0</span>  <span class="mi">4</span><span class="o">-</span><span class="mi">0</span><span class="p">:</span><span class="mf">1.0</span>  <span class="mi">6</span><span class="o">-</span><span class="mi">0</span><span class="p">:</span><span class="mf">1.0</span>  <span class="n">usb2</span>  <span class="n">usb4</span>  <span class="n">usb6</span>
+</pre></div>
+</div>
+<p>usb1-usb6表示有6个usb控制器</p>
+<p>usb设备命名格式如下</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bus</span><span class="o">-</span><span class="n">port</span><span class="p">:</span><span class="n">config</span><span class="o">.</span><span class="n">interface</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="hostdebugfs">
+<h2>Host设备在debugfs的信息<a class="headerlink" href="#hostdebugfs" title="Permalink to this headline">¶</a></h2>
+<p>debugfs中信息位置如下</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span> <span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">kernel</span><span class="o">/</span><span class="n">debug</span><span class="o">/</span><span class="n">usb</span><span class="o">/</span><span class="n">devices</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="usbmon">
+<h2>usbmon 架构<a class="headerlink" href="#usbmon" title="Permalink to this headline">¶</a></h2>
+<div class="figure align-default" id="id10">
+<img alt="usbmon" src="images/usbmon.png" />
+<p class="caption"><span class="caption-text">usbmon</span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
+</div>
+<div class="section" id="usbmon-ascii-capture">
+<h3>usbmon ASCII capture<a class="headerlink" href="#usbmon-ascii-capture" title="Permalink to this headline">¶</a></h3>
+<p>编译内核支持usbmon为模块</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mount</span> <span class="o">-</span><span class="n">t</span> <span class="n">debugfs</span> <span class="n">none_debugfs</span> <span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">kernel</span><span class="o">/</span><span class="n">debug</span>
+<span class="n">mdprobe</span> <span class="n">usbmon</span>
+<span class="n">cat</span> <span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">kernel</span><span class="o">/</span><span class="n">debug</span><span class="o">/</span><span class="n">usbmon</span><span class="o">/</span><span class="mi">1</span><span class="n">u</span> <span class="o">&gt;</span> <span class="n">usbmon</span><span class="o">.</span><span class="n">mon</span>
+<span class="o">./</span><span class="n">vusb</span><span class="o">-</span><span class="n">analyzer</span> <span class="n">usbmon</span><span class="o">.</span><span class="n">mon</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="usbmon-binary-capture">
+<h3>usbmon binary capture<a class="headerlink" href="#usbmon-binary-capture" title="Permalink to this headline">¶</a></h3>
+<p>编译内核支持usbmon为模块</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">modprobe</span> <span class="n">usbmon</span>
+
+<span class="n">ls</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">usbmon</span><span class="o">*</span>
+<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">usbmon0</span>  <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">usbmon1</span>  <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">usbmon2</span>
+
+<span class="n">tcpdump</span> <span class="o">-</span><span class="n">i</span> <span class="n">usbmon1</span> <span class="o">-</span><span class="n">w</span> <span class="n">usbmon</span><span class="o">.</span><span class="n">pcap</span> <span class="o">&amp;</span>
+<span class="o">./</span><span class="n">wireshark</span> <span class="n">usbmon</span><span class="o">.</span><span class="n">pcap</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="bulk-only">
+<h2>Bulk-Only传输协议<a class="headerlink" href="#bulk-only" title="Permalink to this headline">¶</a></h2>
+<p>设备插入到USB后,USB即对设备进行搜索,并要求设备提供相应的描述符.在USBHost得到上述描述符后,即完成了设备的配置,识别出为Bulk-Only的Mass
+Storage设备,然后即进入Bulk-Only传输方式
+在此方式下,USB与设备间的所有数据均通过Bulk-In和Bulk-Out来进行传输,不再通过控制端点传输任何数据</p>
+<p>在这种传输方式下,有三种类型的数据在USB和设备之间传送,CBW、CSW和普通数据.</p>
+<p>CBW(Command Block Wrapper,即命令块包)是从USB Host发送到设备的命令,
+命令格式遵从接口中的bInterfaceSubClass
+所指定的命令块,可以是为SCSI或是自定义传输命令集</p>
+<p>USB设备需要将SCSI(自定义的)命令从CBW中提取出来,执行相应的命令,完成以后,向Host发出反映当前命令执行状态的CSW(Command
+Status Wrapper),Host根据CSW来决定是否继续发送下一个CBW或是数据</p>
+<p>Host要求USB设备执行的命令可能为发送数据,则此时需要将特定数据传送出去,完毕后发出CSW,以使Host进行下一步的操作</p>
+<p>CBW数据结构如下(kernel/include/linux/usb/storage.h)</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* command block wrapper */</span>
+<span class="k">struct</span> <span class="n">bulk_cb_wrap</span> <span class="p">{</span>
+    <span class="n">__le32</span>  <span class="n">Signature</span><span class="p">;</span>      <span class="cm">/* Contains &#39;USBC&#39; */</span>
+    <span class="n">u32</span> <span class="n">Tag</span><span class="p">;</span>            <span class="cm">/* Unique per command id */</span>
+    <span class="n">__le32</span>  <span class="n">DataTransferLength</span><span class="p">;</span> <span class="cm">/* Size of the data */</span>
+    <span class="n">u8</span>  <span class="n">Flags</span><span class="p">;</span>          <span class="cm">/* Direction in bit 7 */</span>
+    <span class="n">u8</span>  <span class="n">Lun</span><span class="p">;</span>            <span class="cm">/* LUN (normally 0) */</span>
+    <span class="n">u8</span>  <span class="n">Length</span><span class="p">;</span>         <span class="cm">/* Of the CDB, &lt;= MAX_COMMAND_SIZE */</span>
+    <span class="n">u8</span>  <span class="n">CDB</span><span class="p">[</span><span class="mi">16</span><span class="p">];</span>        <span class="cm">/* Command Data Block */</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>CSW数据结构如下</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* command status wrapper */</span>
+<span class="k">struct</span> <span class="n">bulk_cs_wrap</span> <span class="p">{</span>
+    <span class="n">__le32</span>  <span class="n">Signature</span><span class="p">;</span>      <span class="cm">/* Should = &#39;USBS&#39; */</span>
+    <span class="n">u32</span> <span class="n">Tag</span><span class="p">;</span>            <span class="cm">/* Same as original command */</span>
+    <span class="n">__le32</span>  <span class="n">Residue</span><span class="p">;</span>        <span class="cm">/* Amount not transferred */</span>
+    <span class="n">u8</span>  <span class="n">Status</span><span class="p">;</span>         <span class="cm">/* See below */</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>各字段含义</p>
+<p>Signature</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">固定值</span><span class="p">:</span> <span class="n">字符串</span><span class="s1">&#39;USBC&#39;</span>
+</pre></div>
+</div>
+<p>Tag</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>主机发送的一个命令块标识，设备需要原样作为dCSWTag（CSW中的一部分）再发送给Host;主要用于关联CSW到对应的CBW
+</pre></div>
+</div>
+<p>FLags</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">反映数据传输的方向</span><span class="p">,</span><span class="mi">0</span><span class="n">表示来自Host</span><span class="p">,</span> <span class="mi">1</span><span class="n">表示发至Host</span>
+</pre></div>
+</div>
+<p>Lun</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">对于有多个LUN逻辑单元的设备</span><span class="p">,</span><span class="n">用来选择具体目标</span><span class="o">.</span><span class="n">如果没有多个LUN</span><span class="p">,</span><span class="n">则写0</span>
+</pre></div>
+</div>
+<p>Length</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">命令的长度</span><span class="p">,</span><span class="n">范围在0</span><span class="o">~</span><span class="mi">16</span>
+</pre></div>
+</div>
+<p>CDB</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">传输的具体命令</span><span class="p">,</span><span class="n">符合bInterfaceSubClass中定义的命令规范</span>
+</pre></div>
+</div>
+<p>Residue</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">还需要传送的数据</span><span class="p">,</span><span class="n">此数据根据dCBWDataTransferLength本次已经传送的数据得到</span>
+</pre></div>
+</div>
+<p>Status</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">指示命令的执行状态</span><span class="o">.</span><span class="n">如果命令正确执行</span><span class="p">,</span><span class="n">bCSWStatus返回0</span> <span class="n">即可</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>应用实例1(USB应用编程)<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h3>基础概念(核心数据结构)<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>CBW(Command Block Wrapper)</p>
+<p>CDB(Command Data Block)</p>
+<p>CSW(Command Status Wrapper)</p>
+<p>每一个CBW都对应有一个CSW,且它们的Tag是相同且唯一的</p>
+</div>
+<div class="section" id="id4">
+<h3>情景简介<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>本应用实例为一个使用usb来传输数据的烧写工具软件rkflashtool</p>
+<p>Host端rkflashtool,使用libusb库进行usb通讯</p>
+<p>其中CBW中的CDB自定义为相应的命令,详细见代码</p>
+<p>Slave端(开发板),进入下载模式后枚举成MassStroage设备,循环等待接收命令,处理命令</p>
+</div>
+<div class="section" id="id5">
+<h3>数据通信流程简图<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>读流程(usb_read) -
+Host发送cbw,其中cdb里包含读命令,Slave解析后返回相应的数据,Slave返回csw</p>
+<p>写流程(usb_write) -
+Host发送cbw,其中cdb里包含写命令,并发送要写的数据,Slave返回csw</p>
+<p>下图中的所有术语是按主机的角度说明的</p>
+<div class="figure align-default" id="id11">
+<img alt="work flow" src="images/sequenceDiagram.png" />
+<p class="caption"><span class="caption-text">work flow</span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
+</div>
+<p>Libusb编程核心步骤</p>
+<p>初始化,设置调试级别,使用vid,pid打开设备,连接设备,获取设备通讯接口,获取描述符</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">libusb_init</span>
+<span class="n">libusb_set_debug</span>
+<span class="n">libusb_open_device_with_vid_pid</span>
+<span class="n">libusb_kernel_driver_active</span>
+<span class="n">libusb_claim_interface</span>
+<span class="n">libusb_get_device_descriptor</span>
+</pre></div>
+</div>
+<p>控制传输接口</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">libusb_control_transfer</span>
+</pre></div>
+</div>
+<p>bulk传输接口</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">libusb_bulk_transfer</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id6">
+<h3>源代码<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://github.com/54shady/rkflashtool">HOST端软件代码rkflashtool</a></p>
+<p><a class="reference external" href="./cmd_rockusb.c">SLAVE端软件代码rockusb</a></p>
+</div>
+</div>
+<div class="section" id="id7">
+<h2>应用实例2(USB设备驱动编程)<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>需要去掉下面两个配置才能做下面的实验</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CONFIG_USB_HID</span>
+<span class="n">CONFIG_HID_GENERIC</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="./usbmouse_as_key.c">详细流程见代码注释</a></p>
+<p>驱动大致说明如下</p>
+<p>使用usb鼠标来模拟一个键盘设备,将鼠标左键定义为按键”L”,
+鼠标右键定义为按键”S”,滚轮按键定义为”Enter”</p>
+<p>测试方法1</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hexdump</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="nb">input</span><span class="o">/</span><span class="n">event3</span> <span class="o">//</span><span class="n">这里的event3对应我的鼠标设备</span>
+</pre></div>
+</div>
+<p>测试方法2</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">tty1</span>    <span class="o">//</span><span class="n">按下鼠标左右</span><span class="p">,</span><span class="n">和滚轮查看是否有相应字符输出到串口</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="firefly-rk3399-usb">
+<h2>Firefly_RK3399 USB<a class="headerlink" href="#firefly-rk3399-usb" title="Permalink to this headline">¶</a></h2>
+<p>RK3399支持两个Type-C USB3, DP,两个USB2.0 HOST</p>
+<p>Type-C0 USB3支持OTG(USB Peripheral和USB HOST)</p>
+<p>Type-C1 USB3仅支持USB3 HOST</p>
+<p>在Firefly_RK3399上,两路TypeC物理形态如下</p>
+<p>Type-C0 USB3设计为Type-C USB3</p>
+<p>Type-C1 USB3设计为Type-A USB3 HOST</p>
+<p>RK3399DTS的默认配置支持Type-C0 USB3 OTG,Type-C1 USB3 HOST</p>
+<p>Type-C0 USB3 OTG(dr_mode = otg)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usbdrd3_0</span><span class="p">:</span> <span class="n">usb</span><span class="nd">@fe800000</span> <span class="p">{</span>
+    <span class="n">compatible</span> <span class="o">=</span> <span class="s2">&quot;rockchip,rk3399-dwc3&quot;</span><span class="p">;</span>
+    <span class="n">clocks</span> <span class="o">=</span> <span class="o">&lt;&amp;</span><span class="n">cru</span> <span class="n">SCLK_USB3OTG0_REF</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;&amp;</span><span class="n">cru</span> <span class="n">SCLK_USB3OTG0_SUSPEND</span><span class="o">&gt;</span><span class="p">,</span>
+         <span class="o">&lt;&amp;</span><span class="n">cru</span> <span class="n">ACLK_USB3OTG0</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;&amp;</span><span class="n">cru</span> <span class="n">ACLK_USB3_GRF</span><span class="o">&gt;</span><span class="p">;</span>
+    <span class="n">clock</span><span class="o">-</span><span class="n">names</span> <span class="o">=</span> <span class="s2">&quot;ref_clk&quot;</span><span class="p">,</span> <span class="s2">&quot;suspend_clk&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;bus_clk&quot;</span><span class="p">,</span> <span class="s2">&quot;grf_clk&quot;</span><span class="p">;</span>
+    <span class="n">power</span><span class="o">-</span><span class="n">domains</span> <span class="o">=</span> <span class="o">&lt;&amp;</span><span class="n">power</span> <span class="n">RK3399_PD_USB3</span><span class="o">&gt;</span><span class="p">;</span>
+    <span class="n">resets</span> <span class="o">=</span> <span class="o">&lt;&amp;</span><span class="n">cru</span> <span class="n">SRST_A_USB3_OTG0</span><span class="o">&gt;</span><span class="p">;</span>
+    <span class="n">reset</span><span class="o">-</span><span class="n">names</span> <span class="o">=</span> <span class="s2">&quot;usb3-otg&quot;</span><span class="p">;</span>
+    <span class="c1">#address-cells = &lt;2&gt;;</span>
+    <span class="c1">#size-cells = &lt;2&gt;;</span>
+    <span class="n">ranges</span><span class="p">;</span>
+    <span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;disabled&quot;</span><span class="p">;</span>
+    <span class="n">usbdrd_dwc3_0</span><span class="p">:</span> <span class="n">dwc3</span><span class="nd">@fe800000</span> <span class="p">{</span>
+        <span class="n">compatible</span> <span class="o">=</span> <span class="s2">&quot;snps,dwc3&quot;</span><span class="p">;</span>
+        <span class="n">reg</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mh">0x0</span> <span class="mh">0xfe800000</span> <span class="mh">0x0</span> <span class="mh">0x100000</span><span class="o">&gt;</span><span class="p">;</span>
+        <span class="n">interrupts</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">GIC_SPI</span> <span class="mi">105</span> <span class="n">IRQ_TYPE_LEVEL_HIGH</span> <span class="mi">0</span><span class="o">&gt;</span><span class="p">;</span>
+        <span class="n">dr_mode</span> <span class="o">=</span> <span class="s2">&quot;otg&quot;</span><span class="p">;</span>
+        <span class="n">phys</span> <span class="o">=</span> <span class="o">&lt;&amp;</span><span class="n">u2phy0_otg</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;&amp;</span><span class="n">tcphy0</span> <span class="mi">1</span><span class="o">&gt;</span><span class="p">;</span>
+        <span class="n">phy</span><span class="o">-</span><span class="n">names</span> <span class="o">=</span> <span class="s2">&quot;usb2-phy&quot;</span><span class="p">,</span> <span class="s2">&quot;usb3-phy&quot;</span><span class="p">;</span>
+        <span class="n">phy_type</span> <span class="o">=</span> <span class="s2">&quot;utmi_wide&quot;</span><span class="p">;</span>
+        <span class="n">snps</span><span class="p">,</span><span class="n">dis_enblslpm_quirk</span><span class="p">;</span>
+        <span class="n">snps</span><span class="p">,</span><span class="n">dis</span><span class="o">-</span><span class="n">u2</span><span class="o">-</span><span class="n">freeclk</span><span class="o">-</span><span class="n">exists</span><span class="o">-</span><span class="n">quirk</span><span class="p">;</span>
+        <span class="n">snps</span><span class="p">,</span><span class="n">dis</span><span class="o">-</span><span class="k">del</span><span class="o">-</span><span class="n">phy</span><span class="o">-</span><span class="n">power</span><span class="o">-</span><span class="n">chg</span><span class="o">-</span><span class="n">quirk</span><span class="p">;</span>
+        <span class="n">snps</span><span class="p">,</span><span class="n">xhci</span><span class="o">-</span><span class="n">slow</span><span class="o">-</span><span class="n">suspend</span><span class="o">-</span><span class="n">quirk</span><span class="p">;</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;disabled&quot;</span><span class="p">;</span>
+    <span class="p">};</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>Type-C1 USB3 HOST(dr_mode = host)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usbdrd3_1</span><span class="p">:</span> <span class="n">usb</span><span class="nd">@fe900000</span> <span class="p">{</span>
+    <span class="n">compatible</span> <span class="o">=</span> <span class="s2">&quot;rockchip,rk3399-dwc3&quot;</span><span class="p">;</span>
+    <span class="n">clocks</span> <span class="o">=</span> <span class="o">&lt;&amp;</span><span class="n">cru</span> <span class="n">SCLK_USB3OTG1_REF</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;&amp;</span><span class="n">cru</span> <span class="n">SCLK_USB3OTG1_SUSPEND</span><span class="o">&gt;</span><span class="p">,</span>
+         <span class="o">&lt;&amp;</span><span class="n">cru</span> <span class="n">ACLK_USB3OTG1</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;&amp;</span><span class="n">cru</span> <span class="n">ACLK_USB3_GRF</span><span class="o">&gt;</span><span class="p">;</span>
+    <span class="n">clock</span><span class="o">-</span><span class="n">names</span> <span class="o">=</span> <span class="s2">&quot;ref_clk&quot;</span><span class="p">,</span> <span class="s2">&quot;suspend_clk&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;bus_clk&quot;</span><span class="p">,</span> <span class="s2">&quot;grf_clk&quot;</span><span class="p">;</span>
+    <span class="n">power</span><span class="o">-</span><span class="n">domains</span> <span class="o">=</span> <span class="o">&lt;&amp;</span><span class="n">power</span> <span class="n">RK3399_PD_USB3</span><span class="o">&gt;</span><span class="p">;</span>
+    <span class="n">resets</span> <span class="o">=</span> <span class="o">&lt;&amp;</span><span class="n">cru</span> <span class="n">SRST_A_USB3_OTG1</span><span class="o">&gt;</span><span class="p">;</span>
+    <span class="n">reset</span><span class="o">-</span><span class="n">names</span> <span class="o">=</span> <span class="s2">&quot;usb3-otg&quot;</span><span class="p">;</span>
+    <span class="c1">#address-cells = &lt;2&gt;;</span>
+    <span class="c1">#size-cells = &lt;2&gt;;</span>
+    <span class="n">ranges</span><span class="p">;</span>
+    <span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;disabled&quot;</span><span class="p">;</span>
+    <span class="n">usbdrd_dwc3_1</span><span class="p">:</span> <span class="n">dwc3</span><span class="nd">@fe900000</span> <span class="p">{</span>
+        <span class="n">compatible</span> <span class="o">=</span> <span class="s2">&quot;snps,dwc3&quot;</span><span class="p">;</span>
+        <span class="n">reg</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mh">0x0</span> <span class="mh">0xfe900000</span> <span class="mh">0x0</span> <span class="mh">0x100000</span><span class="o">&gt;</span><span class="p">;</span>
+        <span class="n">interrupts</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">GIC_SPI</span> <span class="mi">110</span> <span class="n">IRQ_TYPE_LEVEL_HIGH</span> <span class="mi">0</span><span class="o">&gt;</span><span class="p">;</span>
+        <span class="n">dr_mode</span> <span class="o">=</span> <span class="s2">&quot;host&quot;</span><span class="p">;</span>
+        <span class="n">phys</span> <span class="o">=</span> <span class="o">&lt;&amp;</span><span class="n">u2phy1_otg</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;&amp;</span><span class="n">tcphy1</span> <span class="mi">1</span><span class="o">&gt;</span><span class="p">;</span>
+        <span class="n">phy</span><span class="o">-</span><span class="n">names</span> <span class="o">=</span> <span class="s2">&quot;usb2-phy&quot;</span><span class="p">,</span> <span class="s2">&quot;usb3-phy&quot;</span><span class="p">;</span>
+        <span class="n">phy_type</span> <span class="o">=</span> <span class="s2">&quot;utmi_wide&quot;</span><span class="p">;</span>
+        <span class="n">snps</span><span class="p">,</span><span class="n">dis_enblslpm_quirk</span><span class="p">;</span>
+        <span class="n">snps</span><span class="p">,</span><span class="n">dis</span><span class="o">-</span><span class="n">u2</span><span class="o">-</span><span class="n">freeclk</span><span class="o">-</span><span class="n">exists</span><span class="o">-</span><span class="n">quirk</span><span class="p">;</span>
+        <span class="n">snps</span><span class="p">,</span><span class="n">dis</span><span class="o">-</span><span class="k">del</span><span class="o">-</span><span class="n">phy</span><span class="o">-</span><span class="n">power</span><span class="o">-</span><span class="n">chg</span><span class="o">-</span><span class="n">quirk</span><span class="p">;</span>
+        <span class="n">snps</span><span class="p">,</span><span class="n">xhci</span><span class="o">-</span><span class="n">slow</span><span class="o">-</span><span class="n">suspend</span><span class="o">-</span><span class="n">quirk</span><span class="p">;</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;disabled&quot;</span><span class="p">;</span>
+    <span class="p">};</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="wdog.html" class="btn btn-neutral float-right" title="看门狗(watchdog)" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="uart.html" class="btn btn-neutral" title="UART" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, qop.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="static/jquery.js"></script>
+      <script type="text/javascript" src="static/underscore.js"></script>
+      <script type="text/javascript" src="static/doctools.js"></script>
+      <script type="text/javascript" src="static/language_data.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

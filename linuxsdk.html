@@ -1,0 +1,277 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Qop核心板使用手册 &mdash; qop 0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="qop 0.1 documentation" href="index.html"/> 
+
+  
+  <script src="static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> qop
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">开发板简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hardware.html">硬件接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="flash.html">烧写镜像</a></li>
+<li class="toctree-l1"><a class="reference internal" href="driver_dev.html">驱动开发</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">常见问题</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/54shady/kernel_drivers_examples/tree/Firefly_RK3399">More Documentation</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">qop</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Qop核心板使用手册</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="sources/linuxsdk.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="qop">
+<h1>Qop核心板使用手册<a class="headerlink" href="#qop" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>开发前准备工作<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>编译环境配置(ubuntu 16.04)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">git</span> <span class="n">gcc</span><span class="o">-</span><span class="n">arm</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnueabihf</span> <span class="n">u</span><span class="o">-</span><span class="n">boot</span><span class="o">-</span><span class="n">tools</span> <span class="n">device</span><span class="o">-</span><span class="n">tree</span><span class="o">-</span><span class="n">compiler</span> <span class="n">mtools</span>
+<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">parted</span> <span class="n">libudev</span><span class="o">-</span><span class="n">dev</span> <span class="n">libusb</span><span class="o">-</span><span class="mf">1.0</span><span class="o">-</span><span class="mi">0</span><span class="o">-</span><span class="n">dev</span> <span class="n">python</span><span class="o">-</span><span class="n">linaro</span><span class="o">-</span><span class="n">image</span><span class="o">-</span><span class="n">tools</span>
+<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">linaro</span><span class="o">-</span><span class="n">image</span><span class="o">-</span><span class="n">tools</span> <span class="n">libssl</span><span class="o">-</span><span class="n">dev</span> <span class="n">autotools</span><span class="o">-</span><span class="n">dev</span> <span class="n">libsigsegv2</span> <span class="n">m4</span> <span class="n">libdrm</span><span class="o">-</span><span class="n">dev</span>
+<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">curl</span> <span class="n">sed</span> <span class="n">make</span> <span class="n">binutils</span> <span class="n">build</span><span class="o">-</span><span class="n">essential</span> <span class="n">gcc</span> <span class="n">g</span><span class="o">++</span> <span class="n">bash</span>
+<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">patch</span> <span class="n">gzip</span> <span class="n">bzip2</span> <span class="n">perl</span> <span class="n">tar</span> <span class="n">cpio</span> <span class="n">python</span> <span class="n">unzip</span> <span class="n">rsync</span>
+<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">file</span> <span class="n">bc</span> <span class="n">wget</span> <span class="n">libncurses5</span> <span class="n">libglib2</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="n">dev</span> <span class="n">openssh</span><span class="o">-</span><span class="n">client</span> <span class="n">lib32stdc</span><span class="o">++</span><span class="mi">6</span>
+</pre></div>
+</div>
+<p>安装ARM交叉编译工具链和编译内核相关软件包</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">gcc</span><span class="o">-</span><span class="n">arm</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnueabihf</span> <span class="n">libssl1</span><span class="o">.</span><span class="mf">0.0</span> <span class="n">libssl</span><span class="o">-</span><span class="n">dev</span>
+<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">gcc</span><span class="o">-</span><span class="n">aarch64</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnu</span> <span class="n">device</span><span class="o">-</span><span class="n">tree</span><span class="o">-</span><span class="n">compiler</span> <span class="n">lzop</span> <span class="n">libncurses5</span><span class="o">-</span><span class="n">dev</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="linuxsdk">
+<h2>LinuxSDK代码下载<a class="headerlink" href="#linuxsdk" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="kerneluboot">
+<h3>下载kernel和uboot代码<a class="headerlink" href="#kerneluboot" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">xxxx</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>固件烧写<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="rk-usb">
+<h3>安装 RK USB 驱动<a class="headerlink" href="#rk-usb" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">下载</span> <span class="n">Release_DriverAssistant</span><span class="o">.</span><span class="n">zip</span> <span class="p">,</span><span class="n">解压</span><span class="p">,</span><span class="n">然后运行里面的</span> <span class="n">DriverInstall</span><span class="o">.</span><span class="n">exe</span>
+<span class="o">.</span><span class="n">为了所有设备都使用更新的驱动</span><span class="p">,</span><span class="n">请先选择</span><span class="s2">&quot;驱动卸载&quot;</span><span class="p">,</span><span class="n">然后再选择</span><span class="s2">&quot;驱动安装&quot;</span><span class="o">.</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id5">
+<img alt="驱动安装" src="images/upgrade_firmware1.png" />
+<p class="caption"><span class="caption-text">驱动安装</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="id3">
+<h3>进入下载模式<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>设备先断开电源适配器和Type-C数据线的连接</p></li>
+<li><p>USB数据线一端连接主机,Type-C一端连接开发板Type-C母口.</p></li>
+<li><p>按住设备上的 RECOVERY （恢复）键并保持.</p></li>
+<li><p>接上电源</p></li>
+<li><p>大约两秒钟后,松开 RECOVERY 键.</p></li>
+</ul>
+<div class="figure align-default" id="id6">
+<img alt="进入下载模式" src="images/upgrade_firmware2.png" />
+<p class="caption"><span class="caption-text">进入下载模式</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="update">
+<h3>烧录update固件<a class="headerlink" href="#update" title="Permalink to this headline">¶</a></h3>
+<p>烧写统一固件 update.img 的步骤如下</p>
+<ul class="simple">
+<li><p>切换至”升级固件”页.</p></li>
+<li><p>按”固件”按钮,打开要升级的固件文件.升级工具会显示详细的固件信息.</p></li>
+<li><p>按”升级”按钮开始升级.</p></li>
+</ul>
+<div class="figure align-default" id="id7">
+<img alt="烧写update" src="images/upgrade_firmware4.png" />
+<p class="caption"><span class="caption-text">烧写update</span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="id4">
+<h3>烧录分区固件<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>烧写分区映像的步骤如下</p>
+<ul class="simple">
+<li><p>切换至”下载镜像”页.</p></li>
+<li><p>勾选需要烧录的分区,可以多选.</p></li>
+<li><p>确保映像文件的路径正确,需要的话,点路径右边的空白表格单元格来重新选择.</p></li>
+<li><p>点击”执行”按钮开始升级,升级结束后设备会自动重启.</p></li>
+</ul>
+<div class="figure align-default" id="id8">
+<img alt="烧写分区固件" src="images/upgrade_firmware5.png" />
+<p class="caption"><span class="caption-text">烧写分区固件</span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, qop.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="static/jquery.js"></script>
+      <script type="text/javascript" src="static/underscore.js"></script>
+      <script type="text/javascript" src="static/doctools.js"></script>
+      <script type="text/javascript" src="static/language_data.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,273 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>FIQ-Debugger &mdash; qop 0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="qop 0.1 documentation" href="index.html"/>
+        <link rel="up" title="驱动开发" href="driver_dev.html"/>
+        <link rel="next" title="字符设备驱动" href="char.html"/>
+        <link rel="prev" title="驱动开发" href="driver_dev.html"/> 
+
+  
+  <script src="static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> qop
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">开发板简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hardware.html">硬件接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="flash.html">烧写镜像</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="driver_dev.html">驱动开发</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">FIQ-Debugger</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">代码实现</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">内核配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">进入FIQ Debugger</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#process-thread">Process/Thread状态</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="char.html">字符设备驱动</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gpio.html">GPIO状态调试</a></li>
+<li class="toctree-l2"><a class="reference internal" href="i2c.html">I2C</a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html">DVFS Usser Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mmc.html">SD/MMC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="regmap.html">Regmap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="spi.html">SPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uart.html">UART</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usb.html">USB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wdog.html">看门狗(watchdog)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lcd.html">LCD驱动</a></li>
+<li class="toctree-l2"><a class="reference internal" href="driver_timer.html">TIMER 使用</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">常见问题</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/54shady/kernel_drivers_examples/tree/Firefly_RK3399">More Documentation</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">qop</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="driver_dev.html">驱动开发</a> &raquo;</li>
+      
+    <li>FIQ-Debugger</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="sources/fiq_debugger.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="fiq-debugger">
+<h1>FIQ-Debugger<a class="headerlink" href="#fiq-debugger" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="http://blog.csdn.net/azloong/article/details/45768633">参考文章:Linux/Android常用调试工具</a></p>
+<div class="section" id="id1">
+<h2>代码实现<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>参考 kernel/drivers/staging/android/fiq_debugger/fiq_debugger.c</p>
+</div>
+<div class="section" id="id2">
+<h2>内核配置<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CONFIG_FIQ_DEBUGGER</span>                         <span class="o">//</span> <span class="n">使能fiq</span> <span class="n">debugger</span>
+<span class="n">CONFIG_FIQ_DEBUGGER_CONSOLE</span>                 <span class="o">//</span> <span class="n">fiq</span> <span class="n">debugger与console可以互相切换</span>
+<span class="n">CONFIG_FIQ_DEBUGGER_CONSOLE_DEFAULT_ENABLE</span>  <span class="o">//</span> <span class="n">启动时默认串口在console模式</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>进入FIQ Debugger<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>使用minicom进入FIQ Debug mode
+(在RK3399上按完ctrl+a+f后还要按fiq才能进入debug模式,在函数fiq_debugger_handle_uart_interrupt中设置的)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ctrl</span><span class="o">+</span><span class="n">a</span><span class="o">+</span><span class="n">z</span><span class="o">+</span><span class="n">f</span> <span class="n">或</span> <span class="n">ctrl</span><span class="o">+</span><span class="n">a</span><span class="o">+</span><span class="n">f</span>
+</pre></div>
+</div>
+<p>退出debug模式</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">输入console</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="process-thread">
+<h2>Process/Thread状态<a class="headerlink" href="#process-thread" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;R (running)&quot;</span><span class="p">,</span>  <span class="o">/*</span>   <span class="mi">0</span> <span class="o">*/</span>
+<span class="s2">&quot;S (sleeping)&quot;</span><span class="p">,</span>  <span class="o">/*</span>   <span class="mi">1</span> <span class="o">*/</span>
+<span class="s2">&quot;D (disk sleep)&quot;</span><span class="p">,</span> <span class="o">/*</span>   <span class="mi">2</span> <span class="o">*/</span>
+<span class="s2">&quot;T (stopped)&quot;</span><span class="p">,</span>  <span class="o">/*</span>   <span class="mi">4</span> <span class="o">*/</span>
+<span class="s2">&quot;t (tracing stop)&quot;</span><span class="p">,</span> <span class="o">/*</span>   <span class="mi">8</span> <span class="o">*/</span>
+<span class="s2">&quot;Z (zombie)&quot;</span><span class="p">,</span>  <span class="o">/*</span>  <span class="mi">16</span> <span class="o">*/</span>
+<span class="s2">&quot;X (dead)&quot;</span><span class="p">,</span>  <span class="o">/*</span>  <span class="mi">32</span> <span class="o">*/</span>
+<span class="s2">&quot;x (dead)&quot;</span><span class="p">,</span>  <span class="o">/*</span>  <span class="mi">64</span> <span class="o">*/</span>
+<span class="s2">&quot;K (wakekill)&quot;</span><span class="p">,</span>  <span class="o">/*</span> <span class="mi">128</span> <span class="o">*/</span>
+<span class="s2">&quot;W (waking)&quot;</span><span class="p">,</span>  <span class="o">/*</span> <span class="mi">256</span> <span class="o">*/</span>
+</pre></div>
+</div>
+<p>通常一般的Process处于的状态都是S(sleeping)，而如果一旦发现处于如D(disk
+sleep)、T(stopped)、Z(zombie)等就要认真审查</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="char.html" class="btn btn-neutral float-right" title="字符设备驱动" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="driver_dev.html" class="btn btn-neutral" title="驱动开发" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, qop.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="static/jquery.js"></script>
+      <script type="text/javascript" src="static/underscore.js"></script>
+      <script type="text/javascript" src="static/doctools.js"></script>
+      <script type="text/javascript" src="static/language_data.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

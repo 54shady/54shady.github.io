@@ -1,0 +1,410 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>SPI 使用 &mdash; qop 0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="qop 0.1 documentation" href="index.html"/> 
+
+  
+  <script src="static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> qop
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">开发板简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hardware.html">硬件接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="flash.html">烧写镜像</a></li>
+<li class="toctree-l1"><a class="reference internal" href="driver_dev.html">驱动开发</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">常见问题</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/54shady/kernel_drivers_examples/tree/Firefly_RK3399">More Documentation</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">qop</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>SPI 使用</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="sources/driver_spi.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="spi">
+<h1>SPI 使用<a class="headerlink" href="#spi" title="Permalink to this headline">¶</a></h1>
+<p>SPI是一种高速的，全双工，同步串行通信接口，用于连接微控制器、传感器、
+存储设备等。 AIO-3399C SPI引出来了一路SPI2(可复用GPIO)给外部使用。</p>
+<div class="section" id="id1">
+<h2>SPI工作方式<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>SPI以主从方式工作，这种模式通常有一个主设备和一个或多个从设备，需要至
+少4根线，分别是：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>CS      片选信号
+SCLK        时钟信号
+MOSI        主设备数据输出、从设备数据输入
+MISO        主设备数据输入，从设备数据输出
+</pre></div>
+</div>
+<p>Linux内核用CPOL和CPHA的组合来表示当前SPI的四种工作模式：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>CPOL＝0，CPHA＝0       SPI_MODE_0
+CPOL＝0，CPHA＝1       SPI_MODE_1
+CPOL＝1，CPHA＝0       SPI_MODE_2
+CPOL＝1，CPHA＝1       SPI_MODE_3
+</pre></div>
+</div>
+<p>CPOL：表示时钟信号的初始电平的状态，０为低电平，１为高电平。CPHA：表示
+在哪个时钟沿采样，０为第一个时钟沿采样，１为第二个时钟沿采样。SPI的四
+种工作模式波形图如下：</p>
+<div class="figure align-default" id="id7">
+<img alt="spi1" src="images/spi1.jpg" />
+<p class="caption"><span class="caption-text">spi1</span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
+</div>
+<p>驱动编写</p>
+<p>下面以 W25Q128FV Flash模块为例简单介绍SPI驱动的编写。</p>
+<p>硬件连接</p>
+<p>Qop-CoreBoard 与 W25Q128FV 硬件连接如下表：</p>
+<div class="figure align-default" id="id8">
+<img alt="spi3" src="images/spi3.jpg" />
+<p class="caption"><span class="caption-text">spi3</span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="makefile-kconfig">
+<h2>编写Makefile/Kconfig<a class="headerlink" href="#makefile-kconfig" title="Permalink to this headline">¶</a></h2>
+<p>在kernel/drivers/spi/Kconfig中添加对应的驱动文件配置：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">config</span> <span class="n">SPI_FIREFLY</span>
+         <span class="n">tristate</span> <span class="s2">&quot;Firefly SPI demo support &quot;</span>
+         <span class="n">default</span> <span class="n">y</span>
+          <span class="n">help</span>
+             <span class="n">Select</span> <span class="n">this</span> <span class="n">option</span> <span class="k">if</span> <span class="n">your</span> <span class="n">Firefly</span> <span class="n">board</span> <span class="n">needs</span> <span class="n">to</span> <span class="n">run</span> <span class="n">SPI</span> <span class="n">demo</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>在kernel/drivers/spi/Makefile中添加对应的驱动文件名：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>obj-$(CONFIG_SPI_FIREFLY)                 += spi-firefly-demo.o
+</pre></div>
+</div>
+<p>config中选中所添加的驱动文件，如：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>│ Symbol: SPI_FIREFLY [=y]
+│ Type  : tristate
+│ Prompt: Firefly SPI demo support
+│ Location:
+│   -&gt; Device Drivers
+│      -&gt; SPI support (SPI [=y])
+│ Defined at drivers/spi/Kconfig:704
+│ Depends on: SPI [=y] &amp;&amp; SPI_MASTER [=y]
+</pre></div>
+</div>
+</div>
+<div class="section" id="dts">
+<h2>配置DTS节点<a class="headerlink" href="#dts" title="Permalink to this headline">¶</a></h2>
+<p>在kernel/arch/arm64/boot/dts/rockchip/rk3399-firefly-demo.dtsi中添加
+SPI驱动结点描述，如下所示：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/*</span> <span class="n">Firefly</span> <span class="n">SPI</span> <span class="n">demo</span> <span class="o">*/</span>
+<span class="o">&amp;</span><span class="n">spi2</span> <span class="p">{</span>
+     <span class="n">spi_demo</span><span class="p">:</span> <span class="n">spi</span><span class="o">-</span><span class="n">demo</span><span class="nd">@00</span><span class="p">{</span>
+          <span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;okay&quot;</span><span class="p">;</span>
+          <span class="n">compatible</span> <span class="o">=</span> <span class="s2">&quot;firefly,rk3399-spi&quot;</span><span class="p">;</span>
+          <span class="n">reg</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mh">0x00</span><span class="o">&gt;</span><span class="p">;</span>
+          <span class="n">spi</span><span class="o">-</span><span class="nb">max</span><span class="o">-</span><span class="n">frequency</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mi">48000000</span><span class="o">&gt;</span><span class="p">;</span>
+          <span class="o">/*</span> <span class="n">rk3399</span> <span class="n">driver</span> <span class="n">support</span> <span class="n">SPI_CPOL</span> <span class="o">|</span> <span class="n">SPI_CPHA</span> <span class="o">|</span> <span class="n">SPI_CS_HIGH</span> <span class="o">*/</span>
+          <span class="o">//</span><span class="n">spi</span><span class="o">-</span><span class="n">cpha</span><span class="p">;</span>       <span class="o">/*</span> <span class="n">SPI</span> <span class="n">mode</span><span class="p">:</span> <span class="n">CPHA</span><span class="o">=</span><span class="mi">1</span> <span class="o">*/</span>
+          <span class="o">//</span><span class="n">spi</span><span class="o">-</span><span class="n">cpol</span><span class="p">;</span>       <span class="o">/*</span> <span class="n">SPI</span> <span class="n">mode</span><span class="p">:</span> <span class="n">CPOL</span><span class="o">=</span><span class="mi">1</span> <span class="o">*/</span>
+          <span class="o">//</span><span class="n">spi</span><span class="o">-</span><span class="n">cs</span><span class="o">-</span><span class="n">high</span><span class="p">;</span>
+     <span class="p">};</span>
+<span class="p">};</span>
+
+<span class="o">&amp;</span><span class="n">spidev0</span> <span class="p">{</span>
+    <span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;disabled&quot;</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>status:如果要启用SPI，则设为okay，如不启用，设为disable。</p>
+<p><a class="reference external" href="mailto:spi-demo&#37;&#52;&#48;00">spi-demo<span>&#64;</span>00</a>:由于本例子使用CS0，故此处设为00，如果使用CS1，则设为01。</p>
+<p>compatible:这里的属性必须与驱动中的结构体：of_device_id 中的成员
+compatible 保持一致。</p>
+<p>reg:此处与spi-demo&#64;00保持一致，本例设为：0x00。</p>
+<p>spi-max-frequency：此处设置spi使用的最高频率。Firefly-RK3399最高支持
+48000000。</p>
+<p>spi-cpha，spi-cpol：SPI的工作模式在此设置，本例所用的模块SPI工作模式为
+SPI_MODE_0或者SPI_MODE_3，这里我们选用SPI_MODE_0，如果使用SPI_MODE_3，
+spi_demo中打开spi-cpha和spi-cpol即可。</p>
+<p>spidev0: 由于spi_demo与spidev0使用一样的硬件资源，需要把spidev0关掉才
+能打开spi_demo</p>
+</div>
+<div class="section" id="id2">
+<h2>定义SPI驱动<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>在内核源码目录kernel/drivers/spi/中创建新的驱动文件，如：spi-firefly-
+demo.c 在定义 SPI 驱动之前，用户首先要定义变量 of_device_id 。
+of_device_id 用于在驱动中调用dts文件中定义的设备信息，其定义如下所示：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">static</span> <span class="n">struct</span> <span class="n">of_device_id</span> <span class="n">firefly_match_table</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{{</span> <span class="o">.</span><span class="n">compatible</span> <span class="o">=</span> <span class="s2">&quot;firefly,rk3399-spi&quot;</span><span class="p">,},{},};</span>
+</pre></div>
+</div>
+<p>此处的compatible与DTS文件中的保持一致。</p>
+<p>spi_driver定义如下所示：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">static</span> <span class="n">struct</span> <span class="n">spi_driver</span> <span class="n">firefly_spi_driver</span> <span class="o">=</span> <span class="p">{</span>
+     <span class="o">.</span><span class="n">driver</span> <span class="o">=</span> <span class="p">{</span>
+          <span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;firefly-spi&quot;</span><span class="p">,</span>
+          <span class="o">.</span><span class="n">owner</span> <span class="o">=</span> <span class="n">THIS_MODULE</span><span class="p">,</span>
+          <span class="o">.</span><span class="n">of_match_table</span> <span class="o">=</span> <span class="n">firefly_match_table</span><span class="p">,},</span>
+     <span class="o">.</span><span class="n">probe</span> <span class="o">=</span> <span class="n">firefly_spi_probe</span><span class="p">,</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>注册SPI设备<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>在初始化函数</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>static int __init spidev_init(void)中向内核注册SPI驱动： spi_register_driver(&amp;firefly_spi_driver);
+</pre></div>
+</div>
+<p>如果内核启动时匹配成功，则SPI核心会配置SPI的参数（mode、speed等），并
+调用firefly_spi_probe。</p>
+</div>
+<div class="section" id="id4">
+<h2>读写 SPI 数据<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>firefly_spi_probe中使用了两种接口操作读取W25Q128FV的ID:
+firefly_spi_read_w25x_id_0接口直接使用了spi_transfer和spi_message来传
+送数据。 firefly_spi_read_w25x_id_1接口则使用SPI接口
+spi_write_then_read来读写数据。</p>
+<p>成功后会打印：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">root</span><span class="nd">@rk3399_firefly_box</span><span class="p">:</span><span class="o">/</span> <span class="c1"># dmesg | grep firefly-spi</span>
+<span class="p">[</span>    <span class="mf">1.006235</span><span class="p">]</span> <span class="n">firefly</span><span class="o">-</span><span class="n">spi</span> <span class="n">spi0</span><span class="o">.</span><span class="mi">0</span><span class="p">:</span> <span class="n">Firefly</span> <span class="n">SPI</span> <span class="n">demo</span> <span class="n">program</span>
+<span class="p">[</span>    <span class="mf">1.006246</span><span class="p">]</span> <span class="n">firefly</span><span class="o">-</span><span class="n">spi</span> <span class="n">spi0</span><span class="o">.</span><span class="mi">0</span><span class="p">:</span> <span class="n">firefly_spi_probe</span><span class="p">:</span> <span class="n">setup</span> <span class="n">mode</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">8</span> <span class="n">bits</span><span class="o">/</span><span class="n">w</span><span class="p">,</span> <span class="mi">48000000</span> <span class="n">Hz</span> <span class="nb">max</span>
+<span class="p">[</span>    <span class="mf">1.006298</span><span class="p">]</span> <span class="n">firefly</span><span class="o">-</span><span class="n">spi</span> <span class="n">spi0</span><span class="o">.</span><span class="mi">0</span><span class="p">:</span> <span class="n">firefly_spi_read_w25x_id_0</span><span class="p">:</span> <span class="n">ID</span> <span class="o">=</span> <span class="n">ef</span> <span class="mi">40</span> <span class="mi">18</span> <span class="mi">00</span> <span class="mi">00</span>
+<span class="p">[</span>    <span class="mf">1.006361</span><span class="p">]</span> <span class="n">firefly</span><span class="o">-</span><span class="n">spi</span> <span class="n">spi0</span><span class="o">.</span><span class="mi">0</span><span class="p">:</span> <span class="n">firefly_spi_read_w25x_id_1</span><span class="p">:</span> <span class="n">ID</span> <span class="o">=</span> <span class="n">ef</span> <span class="mi">40</span> <span class="mi">18</span> <span class="mi">00</span> <span class="mi">00</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="spi-demo">
+<h2>打开SPI demo<a class="headerlink" href="#spi-demo" title="Permalink to this headline">¶</a></h2>
+<p>spi-firefly-demo默认没有打开，如果需要的话可以使用以下补丁打开demo驱动
+：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">---</span> <span class="n">a</span><span class="o">/</span><span class="n">kernel</span><span class="o">/</span><span class="n">arch</span><span class="o">/</span><span class="n">arm64</span><span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">dts</span><span class="o">/</span><span class="n">rockchip</span><span class="o">/</span><span class="n">rk3399</span><span class="o">-</span><span class="n">firefly</span><span class="o">-</span><span class="n">demo</span><span class="o">.</span><span class="n">dtsi</span>
+<span class="o">+++</span> <span class="n">b</span><span class="o">/</span><span class="n">kernel</span><span class="o">/</span><span class="n">arch</span><span class="o">/</span><span class="n">arm64</span><span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">dts</span><span class="o">/</span><span class="n">rockchip</span><span class="o">/</span><span class="n">rk3399</span><span class="o">-</span><span class="n">firefly</span><span class="o">-</span><span class="n">demo</span><span class="o">.</span><span class="n">dtsi</span>
+<span class="o">@@</span> <span class="o">-</span><span class="mi">64</span><span class="p">,</span><span class="mi">7</span> <span class="o">+</span><span class="mi">64</span><span class="p">,</span><span class="mi">7</span> <span class="o">@@</span> <span class="o">/*</span> <span class="n">Firefly</span> <span class="n">SPI</span> <span class="n">demo</span> <span class="o">*/</span>
+ <span class="o">&amp;</span><span class="n">spi1</span> <span class="p">{</span><span class="n">spi_demo</span><span class="p">:</span> <span class="n">spi</span><span class="o">-</span><span class="n">demo</span><span class="nd">@00</span><span class="p">{</span>
+ <span class="o">-</span>                   <span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;disabled&quot;</span><span class="p">;</span>
+ <span class="o">+</span>                  <span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;okay&quot;</span><span class="p">;</span>
+                         <span class="n">compatible</span> <span class="o">=</span> <span class="s2">&quot;firefly,rk3399-spi&quot;</span><span class="p">;</span>
+                         <span class="n">reg</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mh">0x00</span><span class="o">&gt;</span><span class="p">;</span>
+                         <span class="n">spi</span><span class="o">-</span><span class="nb">max</span><span class="o">-</span><span class="n">frequency</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mi">48000000</span><span class="o">&gt;</span><span class="p">;</span>
+ <span class="o">@@</span> <span class="o">-</span><span class="mi">76</span><span class="p">,</span><span class="mi">6</span> <span class="o">+</span><span class="mi">76</span><span class="p">,</span><span class="mi">6</span> <span class="o">@@</span>
+  <span class="p">};</span>
+
+    <span class="o">&amp;</span><span class="n">spidev0</span> <span class="p">{</span>
+    <span class="o">-</span>        <span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;okay&quot;</span><span class="p">;</span>
+    <span class="o">+</span>        <span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;disabled&quot;</span><span class="p">;</span>
+ <span class="p">};</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>常用SPI接口<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>下面是常用的 SPI API 定义：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">void</span> <span class="n">spi_message_init</span><span class="p">(</span><span class="n">struct</span> <span class="n">spi_message</span> <span class="o">*</span><span class="n">m</span><span class="p">);</span>
+<span class="n">void</span> <span class="n">spi_message_add_tail</span><span class="p">(</span><span class="n">struct</span> <span class="n">spi_transfer</span> <span class="o">*</span><span class="n">t</span><span class="p">,</span> <span class="n">struct</span> <span class="n">spi_message</span> <span class="o">*</span><span class="n">m</span><span class="p">);</span>
+<span class="nb">int</span> <span class="n">spi_sync</span><span class="p">(</span><span class="n">struct</span> <span class="n">spi_device</span> <span class="o">*</span><span class="n">spi</span><span class="p">,</span> <span class="n">struct</span> <span class="n">spi_message</span> <span class="o">*</span><span class="n">message</span><span class="p">)</span> <span class="p">;</span>
+<span class="nb">int</span> <span class="n">spi_write</span><span class="p">(</span><span class="n">struct</span> <span class="n">spi_device</span> <span class="o">*</span><span class="n">spi</span><span class="p">,</span> <span class="n">const</span> <span class="n">void</span> <span class="o">*</span><span class="n">buf</span><span class="p">,</span> <span class="n">size_t</span> <span class="nb">len</span><span class="p">);</span>
+<span class="nb">int</span> <span class="n">spi_read</span><span class="p">(</span><span class="n">struct</span> <span class="n">spi_device</span> <span class="o">*</span><span class="n">spi</span><span class="p">,</span> <span class="n">void</span> <span class="o">*</span><span class="n">buf</span><span class="p">,</span> <span class="n">size_t</span> <span class="nb">len</span><span class="p">);</span>
+<span class="n">ssize_t</span> <span class="n">spi_w8r8</span><span class="p">(</span><span class="n">struct</span> <span class="n">spi_device</span> <span class="o">*</span><span class="n">spi</span><span class="p">,</span> <span class="n">u8</span> <span class="n">cmd</span><span class="p">);</span>
+<span class="n">ssize_t</span> <span class="n">spi_w8r16</span><span class="p">(</span><span class="n">struct</span> <span class="n">spi_device</span> <span class="o">*</span><span class="n">spi</span><span class="p">,</span> <span class="n">u8</span> <span class="n">cmd</span><span class="p">);</span>
+<span class="n">ssize_t</span> <span class="n">spi_w8r16be</span><span class="p">(</span><span class="n">struct</span> <span class="n">spi_device</span> <span class="o">*</span><span class="n">spi</span><span class="p">,</span> <span class="n">u8</span> <span class="n">cmd</span><span class="p">);</span>
+<span class="nb">int</span> <span class="n">spi_write_then_read</span><span class="p">(</span><span class="n">struct</span> <span class="n">spi_device</span> <span class="o">*</span><span class="n">spi</span><span class="p">,</span> <span class="n">const</span> <span class="n">void</span> <span class="o">*</span><span class="n">txbuf</span><span class="p">,</span> <span class="n">unsigned</span> <span class="n">n_tx</span><span class="p">,</span> <span class="n">void</span> <span class="o">*</span><span class="n">rxbuf</span><span class="p">,</span> <span class="n">unsigned</span> <span class="n">n_rx</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>接口使用<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>Linux提供了一个功能有限的SPI用户接口，如果不需要用到IRQ或者其他内核驱
+动接口，可以考虑使用接口spidev编写用户层程序控制SPI设备。 在 Firefly-
+RK3399 开发板中对应的路径为： /dev/spidev0.0</p>
+<p>spidev对应的驱动代码： kernel/drivers/spi/spidev.c</p>
+<p>内核config需要选上SPI_SPIDEV：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>│ Symbol: SPI_SPIDEV [=y]
+│ Type  : tristate
+│ Prompt: User mode SPI device driver support
+│  Location:
+│    -&gt; Device Drivers
+│       -&gt; SPI support (SPI [=y])
+│  Defined at drivers/spi/Kconfig:684
+│  Depends on: SPI [=y] &amp;&amp; SPI_MASTER [=y]
+</pre></div>
+</div>
+<p>DTS配置如下：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&amp;</span><span class="n">spi1</span> <span class="p">{</span>
+     <span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;okay&quot;</span><span class="p">;</span>
+     <span class="nb">max</span><span class="o">-</span><span class="n">freq</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mi">48000000</span><span class="o">&gt;</span><span class="p">;</span>
+     <span class="n">spidev</span><span class="nd">@00</span> <span class="p">{</span>
+          <span class="n">compatible</span> <span class="o">=</span> <span class="s2">&quot;linux,spidev&quot;</span><span class="p">;</span>
+          <span class="n">reg</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mh">0x00</span><span class="o">&gt;</span><span class="p">;</span>
+          <span class="n">spi</span><span class="o">-</span><span class="nb">max</span><span class="o">-</span><span class="n">frequency</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mi">48000000</span><span class="o">&gt;</span><span class="p">;</span>
+     <span class="p">};</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>详细使用说明请参考文档 spidev 。</p>
+<p>FAQs</p>
+<p>Q1: SPI数据传送异常</p>
+<p>A1: 确保 SPI 4个引脚的 IOMUX 配置正确， 确认 TX 送数据时，TX 引脚有正
+常的波形，CLK 频率正确，CS 信号有拉低，mode 与设备匹配。</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, qop.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="static/jquery.js"></script>
+      <script type="text/javascript" src="static/underscore.js"></script>
+      <script type="text/javascript" src="static/doctools.js"></script>
+      <script type="text/javascript" src="static/language_data.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

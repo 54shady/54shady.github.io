@@ -1,0 +1,297 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>UART 使用 &mdash; qop 0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="qop 0.1 documentation" href="index.html"/> 
+
+  
+  <script src="static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> qop
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">开发板简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hardware.html">硬件接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="flash.html">烧写镜像</a></li>
+<li class="toctree-l1"><a class="reference internal" href="driver_dev.html">驱动开发</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">常见问题</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/54shady/kernel_drivers_examples/tree/Firefly_RK3399">More Documentation</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">qop</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>UART 使用</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="sources/driver_uart.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="uart">
+<h1>UART 使用<a class="headerlink" href="#uart" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>简介<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>Qop-CoreBoard 支持SPI桥接/扩展4个增强功能串口(UART)的功能，分别为UART1，
+UART2，RS232，RS485。每个UART都拥有256字节的FIFO缓冲区，用于数据接收和
+发送。 其中：</p>
+<p>UART1，UART2为TTL电平接口，RS232为RS232电平接口，RS485为RS485电平接口</p>
+<p>UART1 UART2最高支持波特率691200。RS232 RS485受通讯媒介影响一般只支持
+115200以下。</p>
+<p>每个子通道具备收/发独立的256 BYTE FIFO,FIFO的中断可按用户需求进行编程
+触发点</p>
+<p>具备子串口接收FIFO超时中断</p>
+<p>支持起始位错误检测</p>
+</div>
+<div class="section" id="dts">
+<h2>DTS配置<a class="headerlink" href="#dts" title="Permalink to this headline">¶</a></h2>
+<p>文件kernel/arch/arm64/boot/dts/rockchip/rk3399-firefly-port.dtsi 有spi
+转uart相关节点的定义：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&amp;</span><span class="n">spi1</span> <span class="p">{</span>
+     <span class="n">spi_wk2xxx</span><span class="p">:</span> <span class="n">spi_wk2xxx</span><span class="nd">@00</span><span class="p">{</span>
+     <span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;disabled&quot;</span><span class="p">;</span>
+     <span class="n">compatible</span> <span class="o">=</span> <span class="s2">&quot;firefly,spi-wk2xxx&quot;</span><span class="p">;</span>
+     <span class="n">reg</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mh">0x00</span><span class="o">&gt;</span><span class="p">;</span>
+     <span class="n">spi</span><span class="o">-</span><span class="nb">max</span><span class="o">-</span><span class="n">frequency</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mi">10000000</span><span class="o">&gt;</span><span class="p">;</span>
+     <span class="n">power</span><span class="o">-</span><span class="n">gpio</span> <span class="o">=</span> <span class="o">&lt;&amp;</span><span class="n">gpio2</span> <span class="mi">4</span> <span class="n">GPIO_ACTIVE_HIGH</span><span class="o">&gt;</span><span class="p">;</span>
+     <span class="n">reset</span><span class="o">-</span><span class="n">gpio</span> <span class="o">=</span> <span class="o">&lt;&amp;</span><span class="n">gpio1</span> <span class="mi">17</span> <span class="mi">3</span> <span class="n">GPIO_ACTIVE_HIGH</span><span class="o">&gt;</span><span class="p">;</span>
+     <span class="n">irq</span><span class="o">-</span><span class="n">gpio</span> <span class="o">=</span> <span class="o">&lt;&amp;</span><span class="n">gpio1</span> <span class="mi">2</span> <span class="n">IRQ_TYPE_EDGE_FALLING</span><span class="o">&gt;</span><span class="p">;</span>
+     <span class="n">cs</span><span class="o">-</span><span class="n">gpio</span> <span class="o">=</span> <span class="o">&lt;&amp;</span><span class="n">gpio1</span> <span class="mi">10</span> <span class="n">GPIO_ACTIVE_HIGH</span><span class="o">&gt;</span><span class="p">;</span>
+     <span class="o">/*</span> <span class="n">rk3399</span> <span class="n">driver</span> <span class="n">support</span> <span class="n">SPI_CPOL</span> <span class="o">|</span> <span class="n">SPI_CPHA</span> <span class="o">|</span>             <span class="n">SPI_CS_HIGH</span> <span class="o">*/</span>
+     <span class="o">//</span><span class="n">spi</span><span class="o">-</span><span class="n">cpha</span><span class="p">;</span>      <span class="o">/*</span> <span class="n">SPI</span> <span class="n">mode</span><span class="p">:</span> <span class="n">CPHA</span><span class="o">=</span><span class="mi">1</span> <span class="o">*/</span>
+     <span class="o">//</span><span class="n">spi</span><span class="o">-</span><span class="n">cpol</span><span class="p">;</span>      <span class="o">/*</span> <span class="n">SPI</span> <span class="n">mode</span><span class="p">:</span> <span class="n">CPOL</span><span class="o">=</span><span class="mi">1</span> <span class="o">*/</span>
+     <span class="o">//</span><span class="n">spi</span><span class="o">-</span><span class="n">cs</span><span class="o">-</span><span class="n">high</span><span class="p">;</span>
+      <span class="p">};</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>可以看到，在kernel/arch/arm64/boot/dts/rockchip/rk3399-firefly-
+aioc.dts文件中使能该节点即可使用。另外，由于我们板子使用的spi转uart串
+口模块挂到spi1上，所以还要使能spi1节点。如下：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&amp;</span><span class="n">spi1</span> <span class="p">{</span>
+     <span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;okay&quot;</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="o">&amp;</span><span class="n">spi_wk2xxx</span> <span class="p">{</span>
+     <span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;okay&quot;</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>注意：由于spi1_rxd和spi1_txd两个脚可复用为uart4_rx和uart4_tx，所以要留
+意关闭掉uart4的使用，如下：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&amp;</span><span class="n">uart4</span> <span class="p">{</span>
+     <span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;disabled&quot;</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>调试方法<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>配置好串口后，硬件接口对应软件上的节点分别为：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>RS485：/dev/ttysWK0
+RS232：/dev/ttysWK1
+UART2：/dev/ttysWK2
+UART1：/dev/ttysWK3
+</pre></div>
+</div>
+<p>用户可以根据不同的接口使用不同的主机的 USB 转串口适配器向开发板的串口
+收发数据，例如RS485的调试步骤如下：</p>
+<ol class="arabic simple">
+<li><p>连接硬件</p></li>
+</ol>
+<p>将开发板RS485 的A、B、GND 引脚分别和主机串口适配器（USB转485转串口模块
+）的 A、B、GND 引脚相连。</p>
+<ol class="arabic simple" start="2">
+<li><p>打开主机的串口终端</p></li>
+</ol>
+<p>在终端打开kermit,并设置波特率：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sudo kermit
+C-Kermit&gt; set line /dev/ttyUSB0
+C-Kermit&gt; set speed 9600
+C-Kermit&gt; set flow-control none
+C-Kermit&gt; connect
+</pre></div>
+</div>
+<p>/dev/ttyUSB0 为 USB 转串口适配器的设备文件</p>
+<ol class="arabic simple" start="3">
+<li><p>发送数据</p></li>
+</ol>
+<p>RS485 的设备文件为 /dev/ttysWK0。在设备上运行下列命令：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">echo</span> <span class="n">firefly</span> <span class="n">RS485</span> <span class="n">test</span><span class="o">...</span> <span class="o">&gt;</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">ttysWK0</span>
+</pre></div>
+</div>
+<p>主机中的串口终端即可接收到字符串“firefly RS485 test…”</p>
+<ol class="arabic simple" start="4">
+<li><p>接收数据</p></li>
+</ol>
+<p>首先在设备上运行下列命令：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">ttysWK0</span>
+</pre></div>
+</div>
+<p>然后在主机的串口终端输入字符串 “Firefly RS485 test…”，设备端即可见到
+相同的字符串。</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, qop.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="static/jquery.js"></script>
+      <script type="text/javascript" src="static/underscore.js"></script>
+      <script type="text/javascript" src="static/doctools.js"></script>
+      <script type="text/javascript" src="static/language_data.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

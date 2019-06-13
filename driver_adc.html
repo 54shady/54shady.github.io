@@ -1,0 +1,349 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>ADC 使用 &mdash; qop 0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="qop 0.1 documentation" href="index.html"/> 
+
+  
+  <script src="static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> qop
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">开发板简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hardware.html">硬件接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="flash.html">烧写镜像</a></li>
+<li class="toctree-l1"><a class="reference internal" href="driver_dev.html">驱动开发</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">常见问题</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/54shady/kernel_drivers_examples/tree/Firefly_RK3399">More Documentation</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">qop</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>ADC 使用</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="sources/driver_adc.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="adc">
+<h1>ADC 使用<a class="headerlink" href="#adc" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>简介<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>AIO-3399C 开发板上的 AD 接口有两种，分别为：温度传感器 (Temperature
+Sensor)、逐次逼近ADC (Successive Approximation Register)。其中：</p>
+<p>TS-ADC(Temperature Sensor)：支持两通道，时钟频率必须低于800KHZ</p>
+<p>SAR-ADC(Successive Approximation Register)：支持六通道单端10位的SAR-
+ADC，时钟频率必须小于13MHZ。</p>
+<p>内核采用工业 I/O 子系统来控制 ADC，该子系统主要为 AD 转换或者 DA 转换
+的传感器设计。</p>
+<p>AIO-3399C 只提供一路外接的ADC(ADC_IN0)给客户使用。</p>
+<p>下面以SAR-ADC使用ADC风扇为例子，介绍 ADC 的基本配置方法。</p>
+</div>
+<div class="section" id="dts">
+<h2>DTS配置<a class="headerlink" href="#dts" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id2">
+<h3>配置DTS节点<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>AIO-3399C SAR-ADC 的 DTS 节点在
+kernel/arch/arm64/boot/dts/rockchip/rk3399.dtsi 文件中定义，如下所示：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">saradc</span><span class="p">:</span> <span class="n">saradc</span><span class="nd">@ff100000</span> <span class="p">{</span>
+     <span class="n">compatible</span> <span class="o">=</span> <span class="s2">&quot;rockchip,rk3399-saradc&quot;</span><span class="p">;</span>
+     <span class="n">reg</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mh">0x0</span> <span class="mh">0xff100000</span> <span class="mh">0x0</span> <span class="mh">0x100</span><span class="o">&gt;</span><span class="p">;</span>
+     <span class="n">interrupts</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">GIC_SPI</span> <span class="mi">62</span> <span class="n">IRQ_TYPE_LEVEL_HIGH</span> <span class="mi">0</span><span class="o">&gt;</span><span class="p">;</span>
+     <span class="c1">#io-channel-cells = &lt;1&gt;;</span>
+     <span class="n">clocks</span> <span class="o">=</span> <span class="o">&lt;&amp;</span><span class="n">cru</span> <span class="n">SCLK_SARADC</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;&amp;</span><span class="n">cru</span> <span class="n">PCLK_SARADC</span><span class="o">&gt;</span><span class="p">;</span>
+     <span class="n">clock</span><span class="o">-</span><span class="n">names</span> <span class="o">=</span> <span class="s2">&quot;saradc&quot;</span><span class="p">,</span> <span class="s2">&quot;apb_pclk&quot;</span><span class="p">;</span>
+     <span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;disabled&quot;</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>用户首先需在DTS文件中添加ADC的资源描述：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">kernel</span><span class="o">/</span><span class="n">arch</span><span class="o">/</span><span class="n">arm64</span><span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">dts</span><span class="o">/</span><span class="n">rockchip</span><span class="o">/</span><span class="n">rk3399</span><span class="o">-</span><span class="n">firefly</span><span class="o">-</span><span class="n">demo</span><span class="o">.</span><span class="n">dtsi</span> <span class="p">:</span>
+<span class="n">adc_demo</span><span class="p">:</span> <span class="n">adc_demo</span><span class="p">{</span>
+     <span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;disabled&quot;</span><span class="p">;</span>
+     <span class="n">compatible</span> <span class="o">=</span> <span class="s2">&quot;firefly,rk3399-adc&quot;</span><span class="p">;</span>
+     <span class="n">io</span><span class="o">-</span><span class="n">channels</span> <span class="o">=</span> <span class="o">&lt;&amp;</span><span class="n">saradc</span> <span class="mi">3</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>这里申请的是SARADC通道3，在AIOC-3399中是不提供给客户外部使用的，而且也
+没有风扇接口，这里只是提供一个参考， 客户可自行参考这个例子 运用SARADC
+通道0 去做自己的一些开发。</p>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>在驱动文件中匹配 DTS 节点<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>用户驱动可参考Firefly adc demo :kernel/drivers/adc/adc-firefly-demo.c
+，这是一个侦测Firefly-rk3399风扇状态的驱动。 首先在驱动文件中定义
+of_device_id 结构体数组：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">static</span> <span class="n">const</span> <span class="n">struct</span> <span class="n">of_device_id</span> <span class="n">firefly_adc_match</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+     <span class="p">{</span> <span class="o">.</span><span class="n">compatible</span> <span class="o">=</span> <span class="s2">&quot;firefly,rk3399-adc&quot;</span> <span class="p">},</span>
+     <span class="p">{},</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>然后将该结构体数组填充到要使用 ADC 的 platform_driver 中：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">static</span> <span class="n">struct</span> <span class="n">platform_driver</span> <span class="n">firefly_adc_driver</span> <span class="o">=</span> <span class="p">{</span>
+     <span class="o">.</span><span class="n">probe</span>     <span class="o">=</span> <span class="n">firefly_adc_probe</span><span class="p">,</span>
+     <span class="o">.</span><span class="n">remove</span>      <span class="o">=</span> <span class="n">firefly_adc_remove</span><span class="p">,</span>
+     <span class="o">.</span><span class="n">driver</span>      <span class="o">=</span> <span class="p">{</span>
+          <span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;firefly_adc&quot;</span><span class="p">,</span>
+          <span class="o">.</span><span class="n">owner</span>  <span class="o">=</span> <span class="n">THIS_MODULE</span><span class="p">,</span>
+          <span class="o">.</span><span class="n">of_match_table</span> <span class="o">=</span> <span class="n">firefly_adc_match</span><span class="p">,</span>
+          <span class="p">},</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>接着在firefly_adc_probe中对DTS所添加的资源进行解析：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">static</span> <span class="nb">int</span> <span class="n">firefly_adc_probe</span><span class="p">(</span><span class="n">struct</span> <span class="n">platform_device</span> <span class="o">*</span><span class="n">pdev</span><span class="p">)</span>
+<span class="p">{</span>
+     <span class="n">printk</span><span class="p">(</span><span class="s2">&quot;firefly_adc_probe!</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">);</span>
+     <span class="n">chan</span> <span class="o">=</span> <span class="n">iio_channel_get</span><span class="p">(</span><span class="o">&amp;</span><span class="p">(</span><span class="n">pdev</span><span class="o">-&gt;</span><span class="n">dev</span><span class="p">),</span> <span class="n">NULL</span><span class="p">);</span>
+     <span class="k">if</span> <span class="p">(</span><span class="n">IS_ERR</span><span class="p">(</span><span class="n">chan</span><span class="p">)){</span>
+          <span class="n">chan</span> <span class="o">=</span> <span class="n">NULL</span><span class="p">;</span>
+          <span class="n">printk</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">() have not set adc chan</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">__FUNCTION__</span><span class="p">);</span>
+          <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+     <span class="p">}</span>
+     <span class="n">fan_insert</span> <span class="o">=</span> <span class="n">false</span><span class="p">;</span>
+     <span class="k">if</span> <span class="p">(</span><span class="n">chan</span><span class="p">)</span> <span class="p">{</span>
+          <span class="n">INIT_DELAYED_WORK</span><span class="p">(</span><span class="o">&amp;</span><span class="n">adc_poll_work</span><span class="p">,</span> <span class="n">firefly_demo_adc_poll</span><span class="p">);</span>
+          <span class="n">schedule_delayed_work</span><span class="p">(</span><span class="o">&amp;</span><span class="n">adc_poll_work</span><span class="p">,</span><span class="mi">1000</span><span class="p">);</span>
+     <span class="p">}</span>
+     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>驱动说明<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="ad">
+<h3>获取 AD 通道<a class="headerlink" href="#ad" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">struct</span> <span class="n">iio_channel</span> <span class="o">*</span><span class="n">chan</span><span class="p">;</span> <span class="o">//</span><span class="n">定义</span> <span class="n">IIO</span> <span class="n">通道结构体chan</span> <span class="o">=</span> <span class="n">iio_channel_get</span><span class="p">(</span><span class="o">&amp;</span><span class="n">pdev</span><span class="o">-&gt;</span><span class="n">dev</span><span class="p">,</span> <span class="n">NULL</span><span class="p">);</span> <span class="o">//</span><span class="n">获取</span> <span class="n">IIO</span> <span class="n">通道结构体</span>
+</pre></div>
+</div>
+<p>注：iio_channel_get 通过 probe 函数传进来的参数 pdev 获取 IIO 通道结构
+体，probe 函数如下：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">static</span> <span class="nb">int</span> <span class="n">XXX_probe</span><span class="p">(</span><span class="n">struct</span> <span class="n">platform_device</span> <span class="o">*</span><span class="n">pdev</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id5">
+<h3>读取 AD 采集到的原始数据<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">val</span><span class="p">,</span><span class="n">ret</span><span class="p">;</span>
+<span class="n">ret</span> <span class="o">=</span> <span class="n">iio_read_channel_raw</span><span class="p">(</span><span class="n">chan</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">val</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>调用 iio_read_channel_raw 函数读取 AD 采集的原始数据并存入 val 中。</p>
+</div>
+<div class="section" id="id6">
+<h3>计算采集到的电压<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>使用标准电压将 AD 转换的值转换为用户所需要的电压值。其计算公式如下：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Vref</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">^</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="n">Vresult</span> <span class="o">/</span> <span class="n">raw</span>
+</pre></div>
+</div>
+<p>注：</p>
+<p>Vref 为标准电压</p>
+<p>n 为 AD 转换的位数</p>
+<p>Vresult 为用户所需要的采集电压</p>
+<p>raw 为 AD 采集的原始数据</p>
+<p>例如，标准电压为 1.8V，AD 采集位数为 10 位，AD 采集到的原始数据为 568
+，则：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Vresult</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1800</span><span class="n">mv</span> <span class="o">*</span> <span class="mi">568</span><span class="p">)</span> <span class="o">/</span> <span class="mi">1023</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id7">
+<h3>接口说明<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">struct</span> <span class="n">iio_channel</span> <span class="o">*</span><span class="n">iio_channel_get</span><span class="p">(</span><span class="n">struct</span> <span class="n">device</span> <span class="o">*</span><span class="n">dev</span><span class="p">,</span> <span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">consumer_channel</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>功能：获取 iio 通道描述</p>
+<p>参数： dev: 使用该通道的设备描述指针 consumer_channel: 该设备所使用 的
+IIO 通道描述指针</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">void</span> <span class="n">iio_channel_release</span><span class="p">(</span><span class="n">struct</span> <span class="n">iio_channel</span> <span class="o">*</span><span class="n">chan</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>功能：释放 iio_channel_get 函数获取到的通道</p>
+<p>参数： chan：要被释放的通道描述指针</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">iio_read_channel_raw</span><span class="p">(</span><span class="n">struct</span> <span class="n">iio_channel</span> <span class="o">*</span><span class="n">chan</span><span class="p">,</span> <span class="nb">int</span> <span class="o">*</span><span class="n">val</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>功能：读取 chan 通道 AD 采集的原始数据。</p>
+<p>参数： chan：要读取的采集通道指针 val：存放读取结果的指针</p>
+</div>
+</div>
+<div class="section" id="faqs">
+<h2>FAQs<a class="headerlink" href="#faqs" title="Permalink to this headline">¶</a></h2>
+<p>为何按上面的步骤申请SARADC，会出现申请报错的情况？</p>
+<p>驱动需要获取ADC通道来使用时，需要对驱动的加载时间进行控制，必须要在
+saradc初始化之后。saradc是使用module_platform_driver()进行平台设备驱动
+注册，最终调用的是module_init()。所以用户的驱动加载函数只需使用比
+module_init()优先级低的，例如：late_initcall()，就能保证驱动的加载的时
+间比saradc初始化时间晚，可避免出错。</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, qop.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="static/jquery.js"></script>
+      <script type="text/javascript" src="static/underscore.js"></script>
+      <script type="text/javascript" src="static/doctools.js"></script>
+      <script type="text/javascript" src="static/language_data.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

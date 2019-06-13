@@ -1,0 +1,300 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>PWM 使用 &mdash; qop 0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="qop 0.1 documentation" href="index.html"/> 
+
+  
+  <script src="static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> qop
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">开发板简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hardware.html">硬件接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="flash.html">烧写镜像</a></li>
+<li class="toctree-l1"><a class="reference internal" href="driver_dev.html">驱动开发</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">常见问题</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/54shady/kernel_drivers_examples/tree/Firefly_RK3399">More Documentation</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">qop</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>PWM 使用</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="sources/driver_pwm.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="pwm">
+<h1>PWM 使用<a class="headerlink" href="#pwm" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>前言<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>Qop-CoreBoard开发板上引出有 3 路 PWM 输出，分别为：</p>
+<ul class="simple">
+<li><p>PWM0 屏背光</p></li>
+<li><p>PWM2 VDDLOG供电</p></li>
+<li><p>PWM3 红外IR</p></li>
+</ul>
+<p>本章主要描述如何配置 PWM。</p>
+<p>RK3399的 PWM 驱动为： kernel/drivers/pwm/pwm-rockchip.c</p>
+</div>
+<div class="section" id="dts">
+<h2>DTS配置<a class="headerlink" href="#dts" title="Permalink to this headline">¶</a></h2>
+<p>配置 PWM 主要有以下三大步骤：配置 PWM DTS 节点、配置 PWM 内核驱动、控 制
+PWM 设备。</p>
+</div>
+<div class="section" id="pwm-dts">
+<h2>配置 PWM DTS节点<a class="headerlink" href="#pwm-dts" title="Permalink to this headline">¶</a></h2>
+<p>在 DTS 源文件kernel/arch/arm64/boot/dts/rockchip/rk3399-firefly-
+demo.dtsi 添加 PWM DTS 配置，如下所示：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pwm_demo</span><span class="p">:</span> <span class="n">pwm_demo</span> <span class="p">{</span>
+    <span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;okay&quot;</span><span class="p">;</span>
+    <span class="n">compatible</span> <span class="o">=</span> <span class="s2">&quot;firefly,rk3399-pwm&quot;</span><span class="p">;</span>
+    <span class="n">pwm_id</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">;</span>
+    <span class="n">min_period</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">;</span>
+    <span class="n">max_period</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mi">10000</span><span class="o">&gt;</span><span class="p">;</span>
+    <span class="n">duty_ns</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mi">5000</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>pwm_id：需要申请的pwm通道数。</p>
+<p>min_period：周期时长最小值。</p>
+<p>max_period：周期时长最大值。</p>
+<p>duty_ns：pwm 的占空比激活的时长，单位 ns。</p>
+</div>
+<div class="section" id="id2">
+<h2>接口说明<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>用户可在其它驱动文件中使用以上步骤生成的 PWM 节点。具体方法如下：</p>
+<p>(1)、在要使用 PWM 控制的设备驱动文件中包含以下头文件：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#include &lt;linux/pwm.h&gt;</span>
+</pre></div>
+</div>
+<p>该头文件主要包含 PWM 的函数接口。</p>
+<p>(2)、申请 PWM使用</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">struct</span> <span class="n">pwm_device</span> <span class="o">*</span><span class="n">pwm_request</span><span class="p">(</span><span class="nb">int</span> <span class="n">pwm_id</span><span class="p">,</span> <span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">label</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>函数申请 PWM。 例如：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>struct pwm_device * pwm1 = NULL;pwm0 = pwm_request(1, “firefly-pwm”);
+</pre></div>
+</div>
+<p>(3)、配置 PWM使用</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">pwm_config</span><span class="p">(</span><span class="n">struct</span> <span class="n">pwm_device</span> <span class="o">*</span><span class="n">pwm</span><span class="p">,</span> <span class="nb">int</span> <span class="n">duty_ns</span><span class="p">,</span> <span class="nb">int</span> <span class="n">period_ns</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>配置 PWM 的占空比， 例如：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>pwm_config(pwm0, 500000, 1000000)；
+</pre></div>
+</div>
+<p>(4)、使能PWM 函数</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">pwm_enable</span><span class="p">(</span><span class="n">struct</span> <span class="n">pwm_device</span> <span class="o">*</span><span class="n">pwm</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>用于使能 PWM，例如：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pwm_enable</span><span class="p">(</span><span class="n">pwm0</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>(5)控制 PWM 输出主要使用以下接口函数：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">struct</span> <span class="n">pwm_device</span> <span class="o">*</span><span class="n">pwm_request</span><span class="p">(</span><span class="nb">int</span> <span class="n">pwm_id</span><span class="p">,</span> <span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">label</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>功能：用于申请 pwm</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">void</span> <span class="n">pwm_free</span><span class="p">(</span><span class="n">struct</span> <span class="n">pwm_device</span> <span class="o">*</span><span class="n">pwm</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>功能：用于释放所申请的 pwm</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">pwm_config</span><span class="p">(</span><span class="n">struct</span> <span class="n">pwm_device</span> <span class="o">*</span><span class="n">pwm</span><span class="p">,</span> <span class="nb">int</span> <span class="n">duty_ns</span><span class="p">,</span> <span class="nb">int</span> <span class="n">period_ns</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>功能：用于配置 pwm 的占空比</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">pwm_enable</span><span class="p">(</span><span class="n">struct</span> <span class="n">pwm_device</span> <span class="o">*</span><span class="n">pwm</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>功能：使能 pwm</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">void</span> <span class="n">pwm_disable</span><span class="p">(</span><span class="n">struct</span> <span class="n">pwm_device</span> <span class="o">*</span><span class="n">pwm</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>功能：禁止 pwm</p>
+<p>参考Demo：kernel/drivers/pwm/pwm-firefly.c</p>
+</div>
+<div class="section" id="id3">
+<h2>调试方法<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>通过内核丰富的debug接口查看pwm注册状态，adb shell或者串口进入android终
+端 cat /sys/kernel/debug/pwm —注册是否成功，成功则返回接口名和寄存
+器地址</p>
+</div>
+<div class="section" id="faqs">
+<h2>FAQs<a class="headerlink" href="#faqs" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id4">
+<h3>Pwm无法注册成功：<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>dts配置文件是否打开对应的pwm。</p>
+<p>pwm所在的io口是否被其他资源占用，可以根据报错的返回值去查看原因。</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, qop.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="static/jquery.js"></script>
+      <script type="text/javascript" src="static/underscore.js"></script>
+      <script type="text/javascript" src="static/doctools.js"></script>
+      <script type="text/javascript" src="static/language_data.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

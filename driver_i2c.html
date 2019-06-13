@@ -1,0 +1,368 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>I2C 使用 &mdash; qop 0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="qop 0.1 documentation" href="index.html"/> 
+
+  
+  <script src="static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> qop
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">开发板简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hardware.html">硬件接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="flash.html">烧写镜像</a></li>
+<li class="toctree-l1"><a class="reference internal" href="driver_dev.html">驱动开发</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">常见问题</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/54shady/kernel_drivers_examples/tree/Firefly_RK3399">More Documentation</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">qop</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>I2C 使用</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="sources/driver_i2c.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="i2c">
+<h1>I2C 使用<a class="headerlink" href="#i2c" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>简介<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>Qop-oreBoard开发板上有 9 个片上 I2C 控制器，各个 I2C 的使用情况如下表：</p>
+<div class="figure align-default" id="id7">
+<img alt="i2c" src="images/i2c.jpg" />
+<p class="caption"><span class="caption-text">i2c</span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
+</div>
+<p>本文主要描述如何在该开发板上配置 I2C。</p>
+<p>配置 I2C 可分为两大步骤：</p>
+<p>定义和注册 I2C 设备</p>
+<p>定义和注册 I2C 驱动</p>
+<p>下面以配置 GSL3680 为例。</p>
+</div>
+<div class="section" id="id2">
+<h2>定义和注册 I2C 设备<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>在注册I2C设备时，需要结构体 i2c_client 来描述 I2C 设备。然而在标准
+Linux中，用户只需要提供相应的 I2C 设备信息，Linux就会根据所提供的信息
+构造 i2c_client 结构体。</p>
+<p>用户所提供的 I2C 设备信息以节点的形式写到 dts 文件中，如下所示：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">kernel</span><span class="o">/</span><span class="n">arch</span><span class="o">/</span><span class="n">arm64</span><span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">dts</span><span class="o">/</span><span class="n">rockchip</span><span class="o">/</span><span class="n">rk3399</span><span class="o">-</span><span class="n">firefly</span><span class="o">-</span><span class="n">mini</span><span class="o">-</span><span class="n">edp</span><span class="o">.</span><span class="n">dts</span>
+<span class="o">&amp;</span><span class="n">i2c4</span> <span class="p">{</span>
+     <span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;okay&quot;</span><span class="p">;</span>
+     <span class="n">gsl3680</span><span class="p">:</span> <span class="n">gsl3680</span><span class="nd">@41</span> <span class="p">{</span>
+          <span class="n">compatible</span> <span class="o">=</span> <span class="s2">&quot;gslX680&quot;</span><span class="p">;</span>
+          <span class="n">reg</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mh">0x41</span><span class="o">&gt;</span><span class="p">;</span>
+          <span class="n">screen_max_x</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mi">1536</span><span class="o">&gt;</span><span class="p">;</span>
+          <span class="n">screen_max_y</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mi">2048</span><span class="o">&gt;</span><span class="p">;</span>
+          <span class="n">touch</span><span class="o">-</span><span class="n">gpio</span> <span class="o">=</span> <span class="o">&lt;&amp;</span><span class="n">gpio1</span> <span class="mi">20</span> <span class="n">IRQ_TYPE_LEVEL_LOW</span><span class="o">&gt;</span><span class="p">;</span>
+          <span class="n">reset</span><span class="o">-</span><span class="n">gpio</span> <span class="o">=</span> <span class="o">&lt;&amp;</span><span class="n">gpio0</span> <span class="mi">12</span> <span class="n">GPIO_ACTIVE_HIGH</span><span class="o">&gt;</span><span class="p">;</span>
+     <span class="p">};</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>定义和注册 I2C 驱动<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id4">
+<h3>定义 I2C 驱动<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>在定义 I2C 驱动之前，用户首先要定义变量 of_device_id 和
+i2c_device_id 。</p>
+<p>of_device_id 用于在驱动中调用dts文件中定义的设备信息，其定义如下所示：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">static</span> <span class="n">struct</span> <span class="n">of_device_id</span> <span class="n">gsl_ts_ids</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+     <span class="p">{</span><span class="o">.</span><span class="n">compatible</span> <span class="o">=</span> <span class="s2">&quot;gslX680&quot;</span><span class="p">},</span>
+     <span class="p">{}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>定义变量 i2c_device_id：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">static</span> <span class="n">const</span> <span class="n">struct</span> <span class="n">i2c_device_id</span> <span class="n">gsl_ts_id</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+     <span class="p">{</span><span class="n">GSLX680_I2C_NAME</span><span class="p">,</span> <span class="mi">0</span><span class="p">},</span>
+     <span class="p">{}</span>
+<span class="p">};</span>
+ <span class="n">MODULE_DEVICE_TABLE</span><span class="p">(</span><span class="n">i2c</span><span class="p">,</span> <span class="n">gsl_ts_id</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>i2c_driver 如下所示：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">static</span> <span class="n">struct</span> <span class="n">i2c_driver</span> <span class="n">gsl_ts_driver</span> <span class="o">=</span> <span class="p">{</span>
+     <span class="o">.</span><span class="n">driver</span> <span class="o">=</span> <span class="p">{</span> <span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">GSLX680_I2C_NAME</span><span class="p">,</span>
+     <span class="o">.</span><span class="n">owner</span> <span class="o">=</span> <span class="n">THIS_MODULE</span><span class="p">,</span>
+     <span class="o">.</span><span class="n">of_match_table</span> <span class="o">=</span> <span class="n">of_match_ptr</span><span class="p">(</span><span class="n">gsl_ts_ids</span><span class="p">),</span>
+     <span class="p">},</span>
+ <span class="c1">#ifndef CONFIG_HAS_EARLYSUSPEND</span>
+     <span class="o">//.</span><span class="n">suspend</span>  <span class="o">=</span> <span class="n">gsl_ts_suspend</span><span class="p">,</span>
+     <span class="o">//.</span><span class="n">resume</span>  <span class="o">=</span> <span class="n">gsl_ts_resume</span><span class="p">,</span>
+ <span class="c1">#endif</span>
+     <span class="o">.</span><span class="n">probe</span>     <span class="o">=</span> <span class="n">gsl_ts_probe</span><span class="p">,</span>
+     <span class="o">.</span><span class="n">remove</span>      <span class="o">=</span> <span class="n">gsl_ts_remove</span><span class="p">,</span>
+     <span class="o">.</span><span class="n">id_table</span>  <span class="o">=</span> <span class="n">gsl_ts_id</span><span class="p">,</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>注：变量id_table指示该驱动所支持的设备。</p>
+</div>
+<div class="section" id="id5">
+<h3>注册 I2C 驱动<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>使用i2c_add_driver函数注册 I2C 驱动。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">i2c_add_driver</span><span class="p">(</span><span class="o">&amp;</span><span class="n">gsl_ts_driver</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>在调用 i2c_add_driver 注册 I2C 驱动时，会遍历 I2C 设备，如果该驱动支持
+所遍历到的设备，则会调用该驱动的 probe 函数。</p>
+</div>
+<div class="section" id="id6">
+<h3>通过 I2C 收发数据<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>在注册好 I2C 驱动后，即可进行 I2C 通讯。</p>
+<p>向从机发送信息：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>int i2c_master_send(const struct i2c_client *client, const char *buf, int count)
+{
+     int ret;
+     struct i2c_adapter *adap = client-&gt;adapter;
+     struct i2c_msg msg;
+     msg.addr = client-&gt;addr;
+     msg.flags = client-&gt;flags &amp; I2C_M_TEN;
+     msg.len = count;
+     msg.buf = (char *)buf;
+     ret = i2c_transfer(adap, &amp;msg, 1);
+     /*
+     + If everything went ok (i.e. 1 msg transmitted), return #bytes
+     + transmitted, else error code.
+     */
+     return (ret == 1) ? count : ret;
+}
+</pre></div>
+</div>
+<p>向从机读取信息：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>int i2c_master_recv(const struct i2c_client *client, char *buf, int count)
+{
+     struct i2c_adapter *adap = client-&gt;adapter;
+     struct i2c_msg msg;
+     int ret;
+     msg.addr = client-&gt;addr;
+     msg.flags = client-&gt;flags &amp; I2C_M_TEN;
+     msg.flags |= I2C_M_RD;
+     msg.len = count;
+     msg.buf = buf;
+     ret = i2c_transfer(adap, &amp;msg, 1);
+     /*
+     + If everything went ok (i.e. 1 msg received), return #bytes received,
+     + else error code.
+     */
+     return (ret == 1) ? count : ret;
+}
+EXPORT_SYMBOL(i2c_master_recv);
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="faqs">
+<h2>FAQs<a class="headerlink" href="#faqs" title="Permalink to this headline">¶</a></h2>
+<p>Q1: 通信失败，出现这种log：”timeout, ipd: 0x00, state: 1”该如何调试？</p>
+<p>A1: 请检查硬件上拉是否给电。</p>
+<p>Q2: 调用i2c_transfer返回值为-6？</p>
+<p>A2: 返回值为-6表示为NACK错误，即对方设备无应答响应，这种情况一般为外设
+的问题，常见的有以下几种情况：</p>
+<p>I2C地址错误，解决方法是测量I2C波形，确认是否I2C 设备地址错误；</p>
+<p>I2C slave 设备不处于正常工作状态，比如未给电，错误的上电时序等；</p>
+<p>时序不符合 I2C slave设备所要求也会产生Nack信号。</p>
+<p>Q3: 当外设对于读时序要求中间是stop信号不是repeat start信号的时候，该如
+何处理？</p>
+<p>A3: 这时需要调用两次i2c_transfer, I2C read 拆分成两次，修改如下：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>static int i2c_read_bytes(struct i2c_client *client, u8 cmd, u8 *data, u8 data_len) {
+     struct i2c_msg msgs[2];
+     int ret;
+     u8 *buffer;
+     buffer = kzalloc(data_len, GFP_KERNEL);
+     if (!buffer)
+          return -ENOMEM;;
+     msgs[0].addr = client-&gt;addr;
+     msgs[0].flags = client-&gt;flags;
+     msgs[0].len = 1;
+     msgs[0].buf = &amp;cmd;
+     ret = i2c_transfer(client-&gt;adapter, msgs, 1);
+     if (ret &lt; 0) {
+          dev_err(&amp;client-&gt;adapter-&gt;dev, &quot;i2c read failed\n&quot;);
+          kfree(buffer);
+          return ret;
+     }
+     msgs[1].addr = client-&gt;addr;
+     msgs[1].flags = client-&gt;flags | I2C_M_RD;
+     msgs[1].len = data_len;
+     msgs[1].buf = buffer;
+     ret = i2c_transfer(client-&gt;adapter, &amp;msgs[1], 1);
+     if (ret &lt; 0)
+          dev_err(&amp;client-&gt;adapter-&gt;dev, &quot;i2c read failed\n&quot;);
+     else
+          memcpy(data, buffer, data_len);
+     kfree(buffer);
+     return ret;
+}
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, qop.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="static/jquery.js"></script>
+      <script type="text/javascript" src="static/underscore.js"></script>
+      <script type="text/javascript" src="static/doctools.js"></script>
+      <script type="text/javascript" src="static/language_data.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,303 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Qop core board &mdash; qop 0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="qop 0.1 documentation" href="#"/>
+        <link rel="next" title="开发板简介" href="intro.html"/> 
+
+  
+  <script src="static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="#" class="icon icon-home"> qop
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">开发板简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hardware.html">硬件接口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="flash.html">烧写镜像</a></li>
+<li class="toctree-l1"><a class="reference internal" href="driver_dev.html">驱动开发</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">常见问题</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/54shady/kernel_drivers_examples/tree/Firefly_RK3399">More Documentation</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="#">qop</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="#">Docs</a> &raquo;</li>
+      
+    <li>Qop core board</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="sources/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="qop-core-board">
+<h1>Qop core board<a class="headerlink" href="#qop-core-board" title="Permalink to this headline">¶</a></h1>
+<img alt="images/logo.png" src="images/logo.png" />
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">开发板简介</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hardware.html">硬件接口</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="flash.html">烧写镜像</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="driver_dev.html">驱动开发</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fiq_debugger.html">FIQ-Debugger</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fiq_debugger.html#id1">代码实现</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fiq_debugger.html#id2">内核配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fiq_debugger.html#id3">进入FIQ Debugger</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fiq_debugger.html#process-thread">Process/Thread状态</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="char.html">字符设备驱动</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="char.html#spinlock">使用spinlock保护临界区资源</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="gpio.html">GPIO状态调试</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gpio.html#gpio1-a0mux">假设现在想要查看GPIO1_A0的mux状态</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gpio.html#io">查看该IO口是高电平还是低电平</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gpio.html#id1">控制IO口输出状态</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="i2c.html">I2C</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="i2c.html#id1">读写时序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="i2c.html#regmap-i2c">regmap i2c</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html">DVFS Usser Guide</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="misc.html#what-is-dvfs">What is DVFS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="misc.html#cpufreq-consists-two-elements">CPUFreq consists two elements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="misc.html#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mmc.html">SD/MMC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="regmap.html">Regmap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="spi.html">SPI</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="spi.html#id1">软件基础</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spi.html#id2">SPI工作方式</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spi.html#w25q128fv">硬件连接(以W25Q128FV为例子介绍)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spi.html#devicetree">DeviceTree</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="uart.html">UART</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="uart.html#firefly-rk3399">Firefly_RK3399</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="usb.html">USB</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="usb.html#id1">USB通信协议基础</a></li>
+<li class="toctree-l3"><a class="reference internal" href="usb.html#usblinux">USB在Linux系统中的架构框图</a></li>
+<li class="toctree-l3"><a class="reference internal" href="usb.html#hostsysfs">Host设备在sysfs的信息</a></li>
+<li class="toctree-l3"><a class="reference internal" href="usb.html#hostdebugfs">Host设备在debugfs的信息</a></li>
+<li class="toctree-l3"><a class="reference internal" href="usb.html#usbmon">usbmon 架构</a></li>
+<li class="toctree-l3"><a class="reference internal" href="usb.html#bulk-only">Bulk-Only传输协议</a></li>
+<li class="toctree-l3"><a class="reference internal" href="usb.html#id2">应用实例1(USB应用编程)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="usb.html#id7">应用实例2(USB设备驱动编程)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="usb.html#firefly-rk3399-usb">Firefly_RK3399 USB</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="wdog.html">看门狗(watchdog)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="wdog.html#id1">使用方法</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="lcd.html">LCD驱动</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="lcd.html#edp">EDP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lcd.html#mipi">MIPI</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="driver_timer.html">TIMER 使用</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="driver_timer.html#id1">前言</a></li>
+<li class="toctree-l3"><a class="reference internal" href="driver_timer.html#id2">框架图</a></li>
+<li class="toctree-l3"><a class="reference internal" href="driver_timer.html#id3">工作模式</a></li>
+<li class="toctree-l3"><a class="reference internal" href="driver_timer.html#id4">软件配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="driver_timer.html#id5">对应寄存器和使用</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">常见问题</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/54shady/kernel_drivers_examples/tree/Firefly_RK3399">More Documentation</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="intro.html" class="btn btn-neutral float-right" title="开发板简介" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, qop.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="static/jquery.js"></script>
+      <script type="text/javascript" src="static/underscore.js"></script>
+      <script type="text/javascript" src="static/doctools.js"></script>
+      <script type="text/javascript" src="static/language_data.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
