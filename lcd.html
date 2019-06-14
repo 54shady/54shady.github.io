@@ -13,44 +13,40 @@
 
   
   
+  
+  
 
   
+  <script type="text/javascript" src="static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="static/documentation_options.js"></script>
+        <script type="text/javascript" src="static/jquery.js"></script>
+        <script type="text/javascript" src="static/underscore.js"></script>
+        <script type="text/javascript" src="static/doctools.js"></script>
+        <script type="text/javascript" src="static/language_data.js"></script>
+    
+    <script type="text/javascript" src="static/js/theme.js"></script>
 
-  
-  
     
 
   
-
-  
-  
-    <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="qop 0.1 documentation" href="index.html"/>
-        <link rel="up" title="驱动开发" href="driver_dev.html"/>
-        <link rel="next" title="TIMER 使用" href="driver_timer.html"/>
-        <link rel="prev" title="看门狗(watchdog)" href="wdog.html"/> 
-
-  
-  <script src="static/js/modernizr.min.js"></script>
-
+  <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="TIMER 使用" href="driver_timer.html" />
+    <link rel="prev" title="看门狗(watchdog)" href="wdog.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
+   
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -81,7 +77,10 @@
           
             
             
-                <ul class="current">
+              
+            
+            
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="intro.html">开发板简介</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hardware.html">硬件接口</a></li>
 <li class="toctree-l1"><a class="reference internal" href="flash.html">烧写镜像</a></li>
@@ -98,16 +97,9 @@
 <li class="toctree-l2"><a class="reference internal" href="usb.html">USB</a></li>
 <li class="toctree-l2"><a class="reference internal" href="wdog.html">看门狗(watchdog)</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">LCD驱动</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#edp">EDP</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#vopb-edp-panel-vopl-ff8f0000-vopb-ff900000">配置VOPB-&gt;eDP-&gt;Panel(vopl:ff8f0000, vopb:ff900000)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id1">调试相关</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#mipi">MIPI</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#vopl-dsi-panel-vopl-ff8f0000-vopb-ff900000">配置VOPL-&gt;DSI-&gt;Panel(vopl:ff8f0000, vopb:ff900000)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id2">调试相关</a></li>
-</ul>
-</li>
+<li class="toctree-l3"><a class="reference internal" href="#edp-lp079qx1">EDP(LP079QX1)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#vopb-edp-panel">配置VOPB-&gt;eDP-&gt;Panel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">调试相关</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="driver_timer.html">TIMER 使用</a></li>
@@ -126,36 +118,56 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">qop</a>
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">qop</a>
+        
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
           <li><a href="driver_dev.html">驱动开发</a> &raquo;</li>
-      
-    <li>LCD驱动</li>
+        
+      <li>LCD驱动</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
             <a href="sources/lcd.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -163,12 +175,12 @@
             
   <div class="section" id="lcd">
 <h1>LCD驱动<a class="headerlink" href="#lcd" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="edp">
-<h2>EDP<a class="headerlink" href="#edp" title="Permalink to this headline">¶</a></h2>
-<p>EDP(LP079QX1)时序如下图</p>
-<div class="figure align-default" id="id3">
+<div class="section" id="edp-lp079qx1">
+<h2>EDP(LP079QX1)<a class="headerlink" href="#edp-lp079qx1" title="Permalink to this headline">¶</a></h2>
+<p>LP079QX1时序如下图</p>
+<div class="figure align-center" id="id2">
 <img alt="edp timing" src="images/lp079qx1.png" />
-<p class="caption"><span class="caption-text">edp timing</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">edp timing</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
 </div>
 <p>lcd panel在dts中的描述</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">panel</span><span class="p">:</span> <span class="n">panel</span> <span class="p">{</span>
@@ -228,8 +240,9 @@
 <span class="p">};</span>
 </pre></div>
 </div>
-<div class="section" id="vopb-edp-panel-vopl-ff8f0000-vopb-ff900000">
-<h3>配置VOPB-&gt;eDP-&gt;Panel(vopl:ff8f0000, vopb:ff900000)<a class="headerlink" href="#vopb-edp-panel-vopl-ff8f0000-vopb-ff900000" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="vopb-edp-panel">
+<h2>配置VOPB-&gt;eDP-&gt;Panel<a class="headerlink" href="#vopb-edp-panel" title="Permalink to this headline">¶</a></h2>
 <p>配置VOPB-&gt;eDP</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&amp;</span><span class="n">edp_in_vopl</span> <span class="p">{</span>
     <span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;disabled&quot;</span><span class="p">;</span>
@@ -272,7 +285,7 @@
 </div>
 </div>
 <div class="section" id="id1">
-<h3>调试相关<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<h2>调试相关<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>查看当前显示信息</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">root</span><span class="nd">@rk3399</span><span class="p">:</span><span class="o">/</span><span class="p">]</span><span class="c1"># cat /sys/kernel/debug/dri/0/summary</span>
 <span class="n">VOP</span> <span class="p">[</span><span class="n">ff900000</span><span class="o">.</span><span class="n">vop</span><span class="p">]:</span> <span class="n">ACTIVE</span>
@@ -306,164 +319,19 @@
 </div>
 </div>
 </div>
-<div class="section" id="mipi">
-<h2>MIPI<a class="headerlink" href="#mipi" title="Permalink to this headline">¶</a></h2>
-<p>MIPI(sitronix,st7703)</p>
-<p>panel和dsi配置</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&amp;</span><span class="n">dsi</span> <span class="p">{</span>
-    <span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;okay&quot;</span><span class="p">;</span>
-
-    <span class="n">panel</span><span class="nd">@0</span> <span class="p">{</span>
-        <span class="n">compatible</span> <span class="o">=</span> <span class="s2">&quot;sitronix,st7703&quot;</span><span class="p">,</span> <span class="s2">&quot;simple-panel-dsi&quot;</span><span class="p">;</span>
-        <span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;okay&quot;</span><span class="p">;</span>
-        <span class="n">reg</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">;</span>
-        <span class="n">backlight</span> <span class="o">=</span> <span class="o">&lt;&amp;</span><span class="n">backlight</span><span class="o">&gt;</span><span class="p">;</span>
-        <span class="n">prepare</span><span class="o">-</span><span class="n">delay</span><span class="o">-</span><span class="n">ms</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mi">2</span><span class="o">&gt;</span><span class="p">;</span>
-        <span class="n">reset</span><span class="o">-</span><span class="n">delay</span><span class="o">-</span><span class="n">ms</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">;</span>
-        <span class="n">init</span><span class="o">-</span><span class="n">delay</span><span class="o">-</span><span class="n">ms</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mi">20</span><span class="o">&gt;</span><span class="p">;</span>
-        <span class="n">enable</span><span class="o">-</span><span class="n">delay</span><span class="o">-</span><span class="n">ms</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mi">120</span><span class="o">&gt;</span><span class="p">;</span>
-        <span class="n">disable</span><span class="o">-</span><span class="n">delay</span><span class="o">-</span><span class="n">ms</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mi">50</span><span class="o">&gt;</span><span class="p">;</span>
-        <span class="n">unprepare</span><span class="o">-</span><span class="n">delay</span><span class="o">-</span><span class="n">ms</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mi">20</span><span class="o">&gt;</span><span class="p">;</span>
-        <span class="n">enable</span><span class="o">-</span><span class="n">gpios</span> <span class="o">=</span> <span class="o">&lt;&amp;</span><span class="n">gpio1</span> <span class="mi">13</span> <span class="n">GPIO_ACTIVE_HIGH</span><span class="o">&gt;</span><span class="p">;</span>
-
-        <span class="n">width</span><span class="o">-</span><span class="n">mm</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mi">68</span><span class="o">&gt;</span><span class="p">;</span>
-        <span class="n">height</span><span class="o">-</span><span class="n">mm</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mi">121</span><span class="o">&gt;</span><span class="p">;</span>
-
-        <span class="n">dsi</span><span class="p">,</span><span class="n">flags</span> <span class="o">=</span> <span class="o">&lt;</span><span class="p">(</span><span class="n">MIPI_DSI_MODE_VIDEO</span> <span class="o">|</span> <span class="n">MIPI_DSI_MODE_VIDEO_BURST</span> <span class="o">|</span>
-                  <span class="n">MIPI_DSI_MODE_LPM</span> <span class="o">|</span> <span class="n">MIPI_DSI_MODE_EOT_PACKET</span><span class="p">)</span><span class="o">&gt;</span><span class="p">;</span>
-        <span class="n">dsi</span><span class="p">,</span><span class="nb">format</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">MIPI_DSI_FMT_RGB888</span><span class="o">&gt;</span><span class="p">;</span>
-        <span class="n">dsi</span><span class="p">,</span><span class="n">lanes</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mi">4</span><span class="o">&gt;</span><span class="p">;</span>
-
-        <span class="n">panel</span><span class="o">-</span><span class="n">init</span><span class="o">-</span><span class="n">sequence</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="mi">05</span> <span class="n">fa</span> <span class="mi">01</span> <span class="mi">11</span>
-            <span class="mi">39</span> <span class="mi">00</span> <span class="mi">04</span> <span class="n">b9</span> <span class="n">f1</span> <span class="mi">12</span> <span class="mi">83</span>
-            <span class="mi">39</span> <span class="mi">00</span> <span class="mi">1</span><span class="n">c</span> <span class="n">ba</span> <span class="mi">33</span> <span class="mi">81</span> <span class="mi">05</span> <span class="n">f9</span> <span class="mi">0</span><span class="n">e</span> <span class="mi">0</span><span class="n">e</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span>
-                 <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">44</span> <span class="mi">25</span> <span class="mi">00</span> <span class="mi">91</span> <span class="mi">0</span><span class="n">a</span>
-                 <span class="mi">00</span> <span class="mi">00</span> <span class="mi">02</span> <span class="mi">4</span><span class="n">f</span> <span class="mi">01</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">37</span>
-            <span class="mi">15</span> <span class="mi">00</span> <span class="mi">02</span> <span class="n">b8</span> <span class="mi">25</span>
-            <span class="mi">39</span> <span class="mi">00</span> <span class="mi">04</span> <span class="n">bf</span> <span class="mi">02</span> <span class="mi">11</span> <span class="mi">00</span>
-            <span class="mi">39</span> <span class="mi">00</span> <span class="mi">0</span><span class="n">b</span> <span class="n">b3</span> <span class="mi">0</span><span class="n">c</span> <span class="mi">10</span> <span class="mi">0</span><span class="n">a</span> <span class="mi">50</span> <span class="mi">03</span> <span class="n">ff</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span>
-                 <span class="mi">00</span>
-            <span class="mi">39</span> <span class="mi">00</span> <span class="mi">0</span><span class="n">a</span> <span class="n">c0</span> <span class="mi">73</span> <span class="mi">73</span> <span class="mi">50</span> <span class="mi">50</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">08</span> <span class="mi">70</span> <span class="mi">00</span>
-            <span class="mi">15</span> <span class="mi">00</span> <span class="mi">02</span> <span class="n">bc</span> <span class="mi">46</span>
-            <span class="mi">15</span> <span class="mi">00</span> <span class="mi">02</span> <span class="n">cc</span> <span class="mi">0</span><span class="n">b</span>
-            <span class="mi">15</span> <span class="mi">00</span> <span class="mi">02</span> <span class="n">b4</span> <span class="mi">80</span>
-            <span class="mi">39</span> <span class="mi">00</span> <span class="mi">04</span> <span class="n">b2</span> <span class="n">c8</span> <span class="mi">12</span> <span class="mi">30</span>
-            <span class="mi">39</span> <span class="mi">00</span> <span class="mi">0</span><span class="n">f</span> <span class="n">e3</span> <span class="mi">07</span> <span class="mi">07</span> <span class="mi">0</span><span class="n">b</span> <span class="mi">0</span><span class="n">b</span> <span class="mi">03</span> <span class="mi">0</span><span class="n">b</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span>
-                 <span class="mi">00</span> <span class="n">ff</span> <span class="mi">00</span> <span class="n">c0</span> <span class="mi">10</span>
-            <span class="mi">39</span> <span class="mi">00</span> <span class="mi">0</span><span class="n">d</span> <span class="n">c1</span> <span class="mi">53</span> <span class="mi">00</span> <span class="mi">1</span><span class="n">e</span> <span class="mi">1</span><span class="n">e</span> <span class="mi">77</span> <span class="n">e1</span> <span class="n">cc</span> <span class="n">dd</span> <span class="mi">67</span>
-                 <span class="mi">77</span> <span class="mi">33</span> <span class="mi">33</span>
-            <span class="mi">39</span> <span class="mi">00</span> <span class="mi">07</span> <span class="n">c6</span> <span class="mi">00</span> <span class="mi">00</span> <span class="n">ff</span> <span class="n">ff</span> <span class="mi">01</span> <span class="n">ff</span>
-            <span class="mi">39</span> <span class="mi">00</span> <span class="mi">03</span> <span class="n">b5</span> <span class="mi">09</span> <span class="mi">09</span>
-            <span class="mi">39</span> <span class="mi">00</span> <span class="mi">03</span> <span class="n">b6</span> <span class="mi">87</span> <span class="mi">95</span>
-            <span class="mi">39</span> <span class="mi">00</span> <span class="mi">40</span> <span class="n">e9</span> <span class="n">c2</span> <span class="mi">10</span> <span class="mi">05</span> <span class="mi">05</span> <span class="mi">10</span> <span class="mi">05</span> <span class="n">a0</span> <span class="mi">12</span> <span class="mi">31</span>
-                 <span class="mi">23</span> <span class="mi">3</span><span class="n">f</span> <span class="mi">81</span> <span class="mi">0</span><span class="n">a</span> <span class="n">a0</span> <span class="mi">37</span> <span class="mi">18</span> <span class="mi">00</span> <span class="mi">80</span> <span class="mi">01</span>
-                 <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">80</span> <span class="mi">01</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">48</span>
-                 <span class="n">f8</span> <span class="mi">86</span> <span class="mi">42</span> <span class="mi">08</span> <span class="mi">88</span> <span class="mi">88</span> <span class="mi">80</span> <span class="mi">88</span> <span class="mi">88</span> <span class="mi">88</span>
-                 <span class="mi">58</span> <span class="n">f8</span> <span class="mi">87</span> <span class="mi">53</span> <span class="mi">18</span> <span class="mi">88</span> <span class="mi">88</span> <span class="mi">81</span> <span class="mi">88</span> <span class="mi">88</span>
-                 <span class="mi">88</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">01</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span>
-                 <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span>
-            <span class="mi">39</span> <span class="mi">00</span> <span class="mi">3</span><span class="n">e</span> <span class="n">ea</span> <span class="mi">00</span> <span class="mi">1</span><span class="n">a</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">02</span> <span class="mi">00</span> <span class="mi">00</span>
-                 <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">1</span><span class="n">f</span> <span class="mi">88</span> <span class="mi">81</span> <span class="mi">35</span> <span class="mi">78</span> <span class="mi">88</span> <span class="mi">88</span>
-                 <span class="mi">85</span> <span class="mi">88</span> <span class="mi">88</span> <span class="mi">88</span> <span class="mi">0</span><span class="n">f</span> <span class="mi">88</span> <span class="mi">80</span> <span class="mi">24</span> <span class="mi">68</span> <span class="mi">88</span>
-                 <span class="mi">88</span> <span class="mi">84</span> <span class="mi">88</span> <span class="mi">88</span> <span class="mi">88</span> <span class="mi">23</span> <span class="mi">10</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">1</span><span class="n">c</span>
-                 <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span>
-                 <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">30</span> <span class="mi">05</span> <span class="n">a0</span> <span class="mi">00</span> <span class="mi">00</span>
-                 <span class="mi">00</span> <span class="mi">00</span>
-            <span class="mi">39</span> <span class="mi">00</span> <span class="mi">23</span> <span class="n">e0</span> <span class="mi">00</span> <span class="mi">06</span> <span class="mi">08</span> <span class="mi">2</span><span class="n">a</span> <span class="mi">31</span> <span class="mi">3</span><span class="n">f</span> <span class="mi">38</span> <span class="mi">36</span> <span class="mi">07</span>
-                 <span class="mi">0</span><span class="n">c</span> <span class="mi">0</span><span class="n">d</span> <span class="mi">11</span> <span class="mi">13</span> <span class="mi">12</span> <span class="mi">13</span> <span class="mi">11</span> <span class="mi">18</span> <span class="mi">00</span> <span class="mi">06</span>
-                 <span class="mi">08</span> <span class="mi">2</span><span class="n">a</span> <span class="mi">31</span> <span class="mi">3</span><span class="n">f</span> <span class="mi">38</span> <span class="mi">36</span> <span class="mi">07</span> <span class="mi">0</span><span class="n">c</span> <span class="mi">0</span><span class="n">d</span> <span class="mi">11</span>
-                 <span class="mi">13</span> <span class="mi">12</span> <span class="mi">13</span> <span class="mi">11</span> <span class="mi">18</span>
-            <span class="mi">05</span> <span class="mi">32</span> <span class="mi">01</span> <span class="mi">29</span>
-        <span class="p">];</span>
-
-        <span class="n">panel</span><span class="o">-</span><span class="n">exit</span><span class="o">-</span><span class="n">sequence</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="mi">05</span> <span class="mi">00</span> <span class="mi">01</span> <span class="mi">28</span>
-            <span class="mi">05</span> <span class="mi">00</span> <span class="mi">01</span> <span class="mi">10</span>
-        <span class="p">];</span>
-
-        <span class="n">display</span><span class="o">-</span><span class="n">timings</span> <span class="p">{</span>
-            <span class="n">native</span><span class="o">-</span><span class="n">mode</span> <span class="o">=</span> <span class="o">&lt;&amp;</span><span class="n">timing0</span><span class="o">&gt;</span><span class="p">;</span>
-
-            <span class="n">timing0</span><span class="p">:</span> <span class="n">timing0</span> <span class="p">{</span>
-                <span class="n">clock</span><span class="o">-</span><span class="n">frequency</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mi">64000000</span><span class="o">&gt;</span><span class="p">;</span>
-                <span class="n">hactive</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mi">720</span><span class="o">&gt;</span><span class="p">;</span>
-                <span class="n">vactive</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mi">1280</span><span class="o">&gt;</span><span class="p">;</span>
-                <span class="n">hfront</span><span class="o">-</span><span class="n">porch</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mi">40</span><span class="o">&gt;</span><span class="p">;</span>
-                <span class="n">hsync</span><span class="o">-</span><span class="nb">len</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mi">10</span><span class="o">&gt;</span><span class="p">;</span>
-                <span class="n">hback</span><span class="o">-</span><span class="n">porch</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mi">40</span><span class="o">&gt;</span><span class="p">;</span>
-                <span class="n">vfront</span><span class="o">-</span><span class="n">porch</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mi">22</span><span class="o">&gt;</span><span class="p">;</span>
-                <span class="n">vsync</span><span class="o">-</span><span class="nb">len</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mi">4</span><span class="o">&gt;</span><span class="p">;</span>
-                <span class="n">vback</span><span class="o">-</span><span class="n">porch</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mi">11</span><span class="o">&gt;</span><span class="p">;</span>
-                <span class="n">hsync</span><span class="o">-</span><span class="n">active</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">;</span>
-                <span class="n">vsync</span><span class="o">-</span><span class="n">active</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">;</span>
-                <span class="n">de</span><span class="o">-</span><span class="n">active</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">;</span>
-                <span class="n">pixelclk</span><span class="o">-</span><span class="n">active</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">;</span>
-            <span class="p">};</span>
-        <span class="p">};</span>
-    <span class="p">};</span>
-<span class="p">};</span>
-</pre></div>
-</div>
-<div class="section" id="vopl-dsi-panel-vopl-ff8f0000-vopb-ff900000">
-<h3>配置VOPL-&gt;DSI-&gt;Panel(vopl:ff8f0000, vopb:ff900000)<a class="headerlink" href="#vopl-dsi-panel-vopl-ff8f0000-vopb-ff900000" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&amp;</span><span class="n">dsi_in_vopl</span> <span class="p">{</span>
-    <span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;okay&quot;</span><span class="p">;</span>
-<span class="p">};</span>
-
-<span class="o">&amp;</span><span class="n">dsi_in_vopb</span> <span class="p">{</span>
-    <span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;disabled&quot;</span><span class="p">;</span>
-<span class="p">};</span>
-
-<span class="o">&amp;</span><span class="n">route_dsi</span> <span class="p">{</span>
-    <span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;okay&quot;</span><span class="p">;</span>
-<span class="p">};</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="id2">
-<h3>调试相关<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
-<p>查看当前显示信息</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">root</span><span class="nd">@rk3399</span> <span class="o">~</span><span class="p">]</span><span class="c1"># cat /sys/kernel/debug/dri/0/summary</span>
-<span class="n">VOP</span> <span class="p">[</span><span class="n">ff900000</span><span class="o">.</span><span class="n">vop</span><span class="p">]:</span> <span class="n">DISABLED</span>
-<span class="n">VOP</span> <span class="p">[</span><span class="n">ff8f0000</span><span class="o">.</span><span class="n">vop</span><span class="p">]:</span> <span class="n">ACTIVE</span>
-    <span class="n">Connector</span><span class="p">:</span> <span class="n">DSI</span>
-        <span class="n">overlay_mode</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="n">bus_format</span><span class="p">[</span><span class="mi">100</span><span class="n">a</span><span class="p">]</span> <span class="n">output_mode</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="n">color_space</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">Display</span> <span class="n">mode</span><span class="p">:</span> <span class="mi">720</span><span class="n">x1280p60</span>
-        <span class="n">clk</span><span class="p">[</span><span class="mi">64000</span><span class="p">]</span> <span class="n">real_clk</span><span class="p">[</span><span class="mi">64000</span><span class="p">]</span> <span class="nb">type</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="n">flag</span><span class="p">[</span><span class="n">a</span><span class="p">]</span>
-        <span class="n">H</span><span class="p">:</span> <span class="mi">720</span> <span class="mi">760</span> <span class="mi">770</span> <span class="mi">810</span>
-        <span class="n">V</span><span class="p">:</span> <span class="mi">1280</span> <span class="mi">1302</span> <span class="mi">1306</span> <span class="mi">1317</span>
-    <span class="n">win0</span><span class="o">-</span><span class="mi">0</span><span class="p">:</span> <span class="n">ACTIVE</span>
-        <span class="nb">format</span><span class="p">:</span> <span class="n">XR24</span> <span class="n">little</span><span class="o">-</span><span class="n">endian</span> <span class="p">(</span><span class="mh">0x34325258</span><span class="p">)</span> <span class="n">SDR</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="n">color_space</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">csc</span><span class="p">:</span> <span class="n">y2r</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="n">r2r</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="n">r2y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="n">csc</span> <span class="n">mode</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">zpos</span><span class="p">:</span> <span class="mi">0</span>
-        <span class="n">src</span><span class="p">:</span> <span class="n">pos</span><span class="p">[</span><span class="mh">0x0</span><span class="p">]</span> <span class="n">rect</span><span class="p">[</span><span class="mi">720</span><span class="n">x1280</span><span class="p">]</span>
-        <span class="n">dst</span><span class="p">:</span> <span class="n">pos</span><span class="p">[</span><span class="mh">0x0</span><span class="p">]</span> <span class="n">rect</span><span class="p">[</span><span class="mi">720</span><span class="n">x1280</span><span class="p">]</span>
-        <span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="n">addr</span><span class="p">:</span> <span class="mh">0x0000000000384000</span> <span class="n">pitch</span><span class="p">:</span> <span class="mi">2880</span> <span class="n">offset</span><span class="p">:</span> <span class="mi">0</span>
-    <span class="n">win2</span><span class="o">-</span><span class="mi">0</span><span class="p">:</span> <span class="n">DISABLED</span>
-    <span class="n">win2</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span> <span class="n">DISABLED</span>
-    <span class="n">win2</span><span class="o">-</span><span class="mi">2</span><span class="p">:</span> <span class="n">DISABLED</span>
-    <span class="n">win2</span><span class="o">-</span><span class="mi">3</span><span class="p">:</span> <span class="n">DISABLED</span>
-    <span class="n">post</span><span class="p">:</span> <span class="n">sdr2hdr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="n">hdr2sdr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">pre</span> <span class="p">:</span> <span class="n">sdr2hdr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">post</span> <span class="n">CSC</span><span class="p">:</span> <span class="n">r2y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="n">y2r</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="n">CSC</span> <span class="n">mode</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
 
 
            </div>
+           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="driver_timer.html" class="btn btn-neutral float-right" title="TIMER 使用" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="driver_timer.html" class="btn btn-neutral float-right" title="TIMER 使用" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="wdog.html" class="btn btn-neutral" title="看门狗(watchdog)" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="wdog.html" class="btn btn-neutral float-left" title="看门狗(watchdog)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -472,11 +340,11 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, qop.
+        &copy; Copyright 2019, qop
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -489,36 +357,15 @@
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'./',
-            VERSION:'0.1',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
-        };
-    </script>
-      <script type="text/javascript" src="static/jquery.js"></script>
-      <script type="text/javascript" src="static/underscore.js"></script>
-      <script type="text/javascript" src="static/doctools.js"></script>
-      <script type="text/javascript" src="static/language_data.js"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>

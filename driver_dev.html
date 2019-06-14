@@ -13,43 +13,40 @@
 
   
   
+  
+  
 
   
+  <script type="text/javascript" src="static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="static/documentation_options.js"></script>
+        <script type="text/javascript" src="static/jquery.js"></script>
+        <script type="text/javascript" src="static/underscore.js"></script>
+        <script type="text/javascript" src="static/doctools.js"></script>
+        <script type="text/javascript" src="static/language_data.js"></script>
+    
+    <script type="text/javascript" src="static/js/theme.js"></script>
 
-  
-  
     
 
   
-
-  
-  
-    <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="qop 0.1 documentation" href="index.html"/>
-        <link rel="next" title="FIQ-Debugger" href="fiq_debugger.html"/>
-        <link rel="prev" title="烧写镜像" href="flash.html"/> 
-
-  
-  <script src="static/js/modernizr.min.js"></script>
-
+  <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="FIQ-Debugger" href="fiq_debugger.html" />
+    <link rel="prev" title="烧写镜像" href="flash.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
+   
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -80,7 +77,10 @@
           
             
             
-                <ul class="current">
+              
+            
+            
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="intro.html">开发板简介</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hardware.html">硬件接口</a></li>
 <li class="toctree-l1"><a class="reference internal" href="flash.html">烧写镜像</a></li>
@@ -113,34 +113,54 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">qop</a>
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">qop</a>
+        
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li>驱动开发</li>
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>驱动开发</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
             <a href="sources/driver_dev.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -225,16 +245,9 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="lcd.html">LCD驱动</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="lcd.html#edp">EDP</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="lcd.html#vopb-edp-panel-vopl-ff8f0000-vopb-ff900000">配置VOPB-&gt;eDP-&gt;Panel(vopl:ff8f0000, vopb:ff900000)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="lcd.html#id1">调试相关</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="lcd.html#mipi">MIPI</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="lcd.html#vopl-dsi-panel-vopl-ff8f0000-vopb-ff900000">配置VOPL-&gt;DSI-&gt;Panel(vopl:ff8f0000, vopb:ff900000)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="lcd.html#id2">调试相关</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="lcd.html#edp-lp079qx1">EDP(LP079QX1)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lcd.html#vopb-edp-panel">配置VOPB-&gt;eDP-&gt;Panel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lcd.html#id1">调试相关</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="driver_timer.html">TIMER 使用</a><ul>
@@ -251,15 +264,16 @@
 
 
            </div>
+           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="fiq_debugger.html" class="btn btn-neutral float-right" title="FIQ-Debugger" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="fiq_debugger.html" class="btn btn-neutral float-right" title="FIQ-Debugger" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="flash.html" class="btn btn-neutral" title="烧写镜像" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="flash.html" class="btn btn-neutral float-left" title="烧写镜像" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -268,11 +282,11 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, qop.
+        &copy; Copyright 2019, qop
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -285,36 +299,15 @@
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'./',
-            VERSION:'0.1',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
-        };
-    </script>
-      <script type="text/javascript" src="static/jquery.js"></script>
-      <script type="text/javascript" src="static/underscore.js"></script>
-      <script type="text/javascript" src="static/doctools.js"></script>
-      <script type="text/javascript" src="static/language_data.js"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>

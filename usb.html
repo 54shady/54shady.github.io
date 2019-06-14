@@ -13,44 +13,40 @@
 
   
   
+  
+  
 
   
+  <script type="text/javascript" src="static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="static/documentation_options.js"></script>
+        <script type="text/javascript" src="static/jquery.js"></script>
+        <script type="text/javascript" src="static/underscore.js"></script>
+        <script type="text/javascript" src="static/doctools.js"></script>
+        <script type="text/javascript" src="static/language_data.js"></script>
+    
+    <script type="text/javascript" src="static/js/theme.js"></script>
 
-  
-  
     
 
   
-
-  
-  
-    <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="qop 0.1 documentation" href="index.html"/>
-        <link rel="up" title="驱动开发" href="driver_dev.html"/>
-        <link rel="next" title="看门狗(watchdog)" href="wdog.html"/>
-        <link rel="prev" title="UART" href="uart.html"/> 
-
-  
-  <script src="static/js/modernizr.min.js"></script>
-
+  <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="看门狗(watchdog)" href="wdog.html" />
+    <link rel="prev" title="UART" href="uart.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
+   
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -81,7 +77,10 @@
           
             
             
-                <ul class="current">
+              
+            
+            
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="intro.html">开发板简介</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hardware.html">硬件接口</a></li>
 <li class="toctree-l1"><a class="reference internal" href="flash.html">烧写镜像</a></li>
@@ -135,36 +134,56 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">qop</a>
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">qop</a>
+        
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
           <li><a href="driver_dev.html">驱动开发</a> &raquo;</li>
-      
-    <li>USB</li>
+        
+      <li>USB</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
             <a href="sources/usb.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -181,11 +200,11 @@ Guide</a></p>
 </div>
 <div class="section" id="usblinux">
 <h2>USB在Linux系统中的架构框图<a class="headerlink" href="#usblinux" title="Permalink to this headline">¶</a></h2>
-<div class="figure align-default" id="id8">
+<div class="figure align-center" id="id8">
 <img alt="architecture" src="images/architecture.png" />
 <p class="caption"><span class="caption-text">architecture</span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
 </div>
-<div class="figure align-default" id="id9">
+<div class="figure align-center" id="id9">
 <img alt="mass\_storage" src="images/mass_storage.png" />
 <p class="caption"><span class="caption-text">mass_storage</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
 </div>
@@ -213,7 +232,7 @@ Guide</a></p>
 </div>
 <div class="section" id="usbmon">
 <h2>usbmon 架构<a class="headerlink" href="#usbmon" title="Permalink to this headline">¶</a></h2>
-<div class="figure align-default" id="id10">
+<div class="figure align-center" id="id10">
 <img alt="usbmon" src="images/usbmon.png" />
 <p class="caption"><span class="caption-text">usbmon</span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
 </div>
@@ -333,7 +352,7 @@ Host发送cbw,其中cdb里包含读命令,Slave解析后返回相应的数据,Sl
 <p>写流程(usb_write) -
 Host发送cbw,其中cdb里包含写命令,并发送要写的数据,Slave返回csw</p>
 <p>下图中的所有术语是按主机的角度说明的</p>
-<div class="figure align-default" id="id11">
+<div class="figure align-center" id="id11">
 <img alt="work flow" src="images/sequenceDiagram.png" />
 <p class="caption"><span class="caption-text">work flow</span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
 </div>
@@ -458,15 +477,16 @@ Host发送cbw,其中cdb里包含写命令,并发送要写的数据,Slave返回cs
 
 
            </div>
+           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="wdog.html" class="btn btn-neutral float-right" title="看门狗(watchdog)" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="wdog.html" class="btn btn-neutral float-right" title="看门狗(watchdog)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="uart.html" class="btn btn-neutral" title="UART" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="uart.html" class="btn btn-neutral float-left" title="UART" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -475,11 +495,11 @@ Host发送cbw,其中cdb里包含写命令,并发送要写的数据,Slave返回cs
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, qop.
+        &copy; Copyright 2019, qop
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -492,36 +512,15 @@ Host发送cbw,其中cdb里包含写命令,并发送要写的数据,Slave返回cs
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'./',
-            VERSION:'0.1',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
-        };
-    </script>
-      <script type="text/javascript" src="static/jquery.js"></script>
-      <script type="text/javascript" src="static/underscore.js"></script>
-      <script type="text/javascript" src="static/doctools.js"></script>
-      <script type="text/javascript" src="static/language_data.js"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>

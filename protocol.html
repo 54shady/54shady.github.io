@@ -13,41 +13,38 @@
 
   
   
+  
+  
 
   
+  <script type="text/javascript" src="static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="static/documentation_options.js"></script>
+        <script type="text/javascript" src="static/jquery.js"></script>
+        <script type="text/javascript" src="static/underscore.js"></script>
+        <script type="text/javascript" src="static/doctools.js"></script>
+        <script type="text/javascript" src="static/language_data.js"></script>
+    
+    <script type="text/javascript" src="static/js/theme.js"></script>
 
-  
-  
     
 
   
-
-  
-  
-    <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="qop 0.1 documentation" href="index.html"/> 
-
-  
-  <script src="static/js/modernizr.min.js"></script>
-
+  <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
+   
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -78,7 +75,10 @@
           
             
             
-                <ul>
+              
+            
+            
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="intro.html">开发板简介</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hardware.html">硬件接口</a></li>
 <li class="toctree-l1"><a class="reference internal" href="flash.html">烧写镜像</a></li>
@@ -96,34 +96,54 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">qop</a>
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">qop</a>
+        
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li>USB通讯协议</li>
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>USB通讯协议</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="sources/protocol.rst.txt" rel="nofollow"> View page source</a>
+            
+            <a href="sources/protocol.md.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -142,10 +162,10 @@
 <h2>传输类型,事务,包的关系<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>USB的4种传输类型</p>
 <ul class="simple">
-<li><p>控制传输(Control Transfer)</p></li>
-<li><p>批量传输(Bulk Transfer)</p></li>
-<li><p>中断传输(Interrupt Transfer)</p></li>
-<li><p>同步传输(Isochronous)</p></li>
+<li>控制传输(Control Transfer)</li>
+<li>批量传输(Bulk Transfer)</li>
+<li>中断传输(Interrupt Transfer)</li>
+<li>同步传输(Isochronous)</li>
 </ul>
 <p>每种传输都由若干个事务(Transation)组成</p>
 <p>每个事务由一个或多个包(Packet)组成</p>
@@ -154,105 +174,48 @@
 <h2>包(Packet)<a class="headerlink" href="#packet" title="Permalink to this headline">¶</a></h2>
 <p>包(Packet)是USB系统中信息传输的基本单位,其组成如下</p>
 <ul class="simple">
-<li><p>同步字段(SYNC),用来产生同步作用</p></li>
-<li><p>包标识符字段(PID),表示数据分包类型</p></li>
-<li><p>数据字段(可以包含ADDR, ENDP, FrameNumber, DATA)</p></li>
-<li><p>循环冗余校验字段(CRC)</p></li>
-<li><p>包结尾字段(EOP)</p></li>
+<li>同步字段(SYNC),用来产生同步作用</li>
+<li>包标识符字段(PID),表示数据分包类型</li>
+<li>数据字段(可以包含ADDR, ENDP, FrameNumber, DATA)</li>
+<li>循环冗余校验字段(CRC)</li>
+<li>包结尾字段(EOP)</li>
 </ul>
+<p>|SYNC|PID|DATA|CRC
+|–|–|–|–
+|8bit:FS/LS,32bit:HS||ADDR,ENDP,FrameNumber,Data|</p>
 <div class="section" id="id3">
 <h3>包(Packet)类型<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p>根据PID的不同,可以将包分为</p>
 <ul class="simple">
-<li><p>令牌(Token)</p></li>
-<li><p>数据(Data)</p></li>
-<li><p>握手(Handshake)</p></li>
-<li><p>特殊(Special)</p></li>
+<li>令牌(Token)</li>
+<li>数据(Data)</li>
+<li>握手(Handshake)</li>
+<li>特殊(Special)</li>
 </ul>
 <p>重要的包类型如下</p>
 <div class="section" id="token-packets">
 <h4>Token Packets<a class="headerlink" href="#token-packets" title="Permalink to this headline">¶</a></h4>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 23%" />
-<col style="width: 18%" />
-<col style="width: 20%" />
-<col style="width: 20%" />
-<col style="width: 20%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Filed</p></th>
-<th class="head"><p>PID</p></th>
-<th class="head"><p>ADDR</p></th>
-<th class="head"><p>ENDP</p></th>
-<th class="head"><p>CRC5</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>Bits</p></td>
-<td><p>8</p></td>
-<td><p>7</p></td>
-<td><p>4</p></td>
-<td><p>5</p></td>
-</tr>
-</tbody>
-</table>
+<p>|Filed|PID|ADDR|ENDP|CRC5|
+|–|–|–|–|–
+|Bits|8|7|4|5|</p>
 <p>此格式适用于IN,OUT,SETUP,PING</p>
 </div>
 <div class="section" id="sof-packets">
 <h4>SOF Packets<a class="headerlink" href="#sof-packets" title="Permalink to this headline">¶</a></h4>
 <p>SOF包由Host发送给Device</p>
 <ul class="simple">
-<li><p>对于full-speed(FS)总线,每隔1.00 ms±0.0005ms发送一次</p></li>
-<li><p>对于high-speed(HS)总线,每隔125 μs±0.0625μs发送一次</p></li>
+<li>对于full-speed(FS)总线,每隔1.00 ms±0.0005ms发送一次</li>
+<li>对于high-speed(HS)总线,每隔125 μs±0.0625μs发送一次</li>
 </ul>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 23%" />
-<col style="width: 18%" />
-<col style="width: 38%" />
-<col style="width: 21%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Field</p></th>
-<th class="head"><p>PID</p></th>
-<th class="head"><p>FrameNumber</p></th>
-<th class="head"><p>CRC5</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>Bits</p></td>
-<td><p>8</p></td>
-<td><p>11</p></td>
-<td><p>5</p></td>
-</tr>
-</tbody>
-</table>
+<p>|Field|PID|FrameNumber|CRC5|
+|–|–|–|–
+|Bits|8|11|5|</p>
 </div>
 <div class="section" id="data-packets">
 <h4>Data Packets<a class="headerlink" href="#data-packets" title="Permalink to this headline">¶</a></h4>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 26%" />
-<col style="width: 20%" />
-<col style="width: 29%" />
-<col style="width: 26%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Filed</p></th>
-<th class="head"><p>PID</p></th>
-<th class="head"><p>DATA</p></th>
-<th class="head"><p>CRC16</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>Bits</p></td>
-<td><p>8</p></td>
-<td><p>0-8192</p></td>
-<td><p>16</p></td>
-</tr>
-</tbody>
-</table>
+<p>|Filed|PID|DATA|CRC16|
+|–|–|–|–
+|Bits|8|0-8192|16|</p>
 <p>数据包类型有4种(DATA0,DATA1,DATA2,MDATA),由PID来区分</p>
 </div>
 </div>
@@ -262,111 +225,84 @@
 <p>在USB上数据信息的一次接收或发送的处理过程称为事务处理</p>
 <p>一个事务由一系列的Packets组成</p>
 <ul class="simple">
-<li><p>一个token packet</p></li>
-<li><p>可选的data pcket</p></li>
-<li><p>可选的handshake packet</p></li>
-<li><p>可选的special packet</p></li>
+<li>一个token packet</li>
+<li>可选的data pcket</li>
+<li>可选的handshake packet</li>
+<li>可选的special packet</li>
 </ul>
 <div class="section" id="in">
 <h3>输入(IN)事务处理<a class="headerlink" href="#in" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><p>表示USB主机从总线上的某个USB设备接收一个数据包的过程</p></li>
+<li>表示USB主机从总线上的某个USB设备接收一个数据包的过程</li>
 </ul>
 <p>正常的输入事务处理</p>
-<div class="figure align-default" id="id6">
-<img alt="NORMAL" src="images/tx_in_normal.png" />
-<p class="caption"><span class="caption-text">NORMAL</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
-</div>
+<p><img alt="images/tx_in_normal.png" src="images/tx_in_normal.png" />NORMAL</p>
 <p>设备忙时的输入事务处理</p>
-<div class="figure align-default" id="id7">
-<img alt="BUSY" src="images/tx_in_busy.png" />
-<p class="caption"><span class="caption-text">BUSY</span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
-</div>
+<p><img alt="images/tx_in_busy.png" src="images/tx_in_busy.png" />BUSY</p>
 <p>设备出错时的输入事务处理</p>
-<div class="figure align-default" id="id8">
-<img alt="ERROR" src="images/tx_in_error.png" />
-<p class="caption"><span class="caption-text">ERROR</span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
-</div>
+<p><img alt="images/tx_in_error.png" src="images/tx_in_error.png" />ERROR</p>
 </div>
 <div class="section" id="out">
 <h3>输出(OUT)事务处理<a class="headerlink" href="#out" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><p>表示USB主机把一个数据包输出到总线上的某个USB设备接收的过程</p></li>
+<li>表示USB主机把一个数据包输出到总线上的某个USB设备接收的过程</li>
 </ul>
 <p>正常的输出事务处理</p>
-<div class="figure align-default" id="id9">
-<img alt="NORMAL" src="images/tx_out_normal.png" />
-<p class="caption"><span class="caption-text">NORMAL</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
-</div>
+<p><img alt="images/tx_out_normal.png" src="images/tx_out_normal.png" />NORMAL</p>
 <p>设备忙时的输出事务处理</p>
-<div class="figure align-default" id="id10">
-<img alt="BUSY" src="images/tx_out_busy.png" />
-<p class="caption"><span class="caption-text">BUSY</span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
-</div>
+<p><img alt="images/tx_out_busy.png" src="images/tx_out_busy.png" />BUSY</p>
 <p>设备出错时的输出事务处理</p>
-<div class="figure align-default" id="id11">
-<img alt="ERROR" src="images/tx_out_error.png" />
-<p class="caption"><span class="caption-text">ERROR</span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
-</div>
+<p><img alt="images/tx_out_error.png" src="images/tx_out_error.png" />ERROR</p>
 </div>
 <div class="section" id="setup">
 <h3>设置(SETUP)事务处理<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h3>
 <p>正常的设置事务处理</p>
-<div class="figure align-default" id="id12">
-<img alt="NORMAL" src="images/tx_setup_normal.png" />
-<p class="caption"><span class="caption-text">NORMAL</span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
-</div>
+<p><img alt="images/tx_setup_normal.png" src="images/tx_setup_normal.png" />NORMAL</p>
 <p>设备忙时的设置事务处理</p>
-<div class="figure align-default" id="id13">
-<img alt="BUSY" src="images/tx_setup_busy.png" />
-<p class="caption"><span class="caption-text">BUSY</span><a class="headerlink" href="#id13" title="Permalink to this image">¶</a></p>
-</div>
+<p><img alt="images/tx_setup_busy.png" src="images/tx_setup_busy.png" />BUSY</p>
 <p>设备出错时的设置事务处理</p>
-<div class="figure align-default" id="id14">
-<img alt="ERROR" src="images/tx_setup_error.png" />
-<p class="caption"><span class="caption-text">ERROR</span><a class="headerlink" href="#id14" title="Permalink to this image">¶</a></p>
-</div>
+<p><img alt="images/tx_setup_error.png" src="images/tx_setup_error.png" />ERROR</p>
 </div>
 </div>
 <div class="section" id="id4">
 <h2>传输类型<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>控制传输(Control Transfer)</p></li>
-<li><p>批量传输(Bulk Transfer)</p></li>
-<li><p>中断传输(Interrupt Transfer)</p></li>
-<li><p>同步传输(Isochronous)</p></li>
+<li>控制传输(Control Transfer)</li>
+<li>批量传输(Bulk Transfer)</li>
+<li>中断传输(Interrupt Transfer)</li>
+<li>同步传输(Isochronous)</li>
 </ul>
 <div class="section" id="id5">
 <h3>控制传输<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <p>制传输由2到3个阶段组成</p>
 <ul class="simple">
-<li><p>建立阶段(Setup)</p></li>
-<li><p>数据阶段(无数据控制没有此阶段)(DATA)</p></li>
-<li><p>状态阶段(Status)</p></li>
+<li>建立阶段(Setup)</li>
+<li>数据阶段(无数据控制没有此阶段)(DATA)</li>
+<li>状态阶段(Status)</li>
 </ul>
 <p>每一个阶段都由一个或多个事务传输组成</p>
 </div>
 <div class="section" id="bulk-transfer">
 <h3>批量传输(Bulk Transfer)<a class="headerlink" href="#bulk-transfer" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><p>用于传输大量数据,要求传输不能出错,但对时间没有要求,适用于打印机,存储设备等</p></li>
-<li><p>批量传输是可靠的传输,需要握手包来表明传输的结果</p></li>
+<li>用于传输大量数据,要求传输不能出错,但对时间没有要求,适用于打印机,存储设备等</li>
+<li>批量传输是可靠的传输,需要握手包来表明传输的结果</li>
 </ul>
 </div>
 <div class="section" id="interrupt-transfer">
 <h3>中断传输(Interrupt Transfer)<a class="headerlink" href="#interrupt-transfer" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><p>中断传输由IN或OUT事务组成</p></li>
-<li><p>中断传输在流程上除不支持PING 之外,其他的跟批量传输是一样的</p></li>
-<li><p>中断传输方式总是用于对设备的查询,以确定是否有数据需要传输.因此中断传输的方向总是从USB设备到主机</p></li>
+<li>中断传输由IN或OUT事务组成</li>
+<li>中断传输在流程上除不支持PING 之外,其他的跟批量传输是一样的</li>
+<li>中断传输方式总是用于对设备的查询,以确定是否有数据需要传输.因此中断传输的方向总是从USB设备到主机</li>
 </ul>
 </div>
 <div class="section" id="isochronous-transfer">
 <h3>同步传输(Isochronous Transfer)<a class="headerlink" href="#isochronous-transfer" title="Permalink to this headline">¶</a></h3>
 <p>它由两种包组成</p>
 <ul class="simple">
-<li><p>token</p></li>
-<li><p>data</p></li>
+<li>token</li>
+<li>data</li>
 </ul>
 <p>同步传输不支持handshake和重传能力,所以它是不可靠传输</p>
 <p>实时传输一般用于麦克风,喇叭,UVC Camera等设备</p>
@@ -376,6 +312,7 @@
 
 
            </div>
+           
           </div>
           <footer>
   
@@ -384,11 +321,11 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, qop.
+        &copy; Copyright 2019, qop
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -401,36 +338,15 @@
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'./',
-            VERSION:'0.1',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
-        };
-    </script>
-      <script type="text/javascript" src="static/jquery.js"></script>
-      <script type="text/javascript" src="static/underscore.js"></script>
-      <script type="text/javascript" src="static/doctools.js"></script>
-      <script type="text/javascript" src="static/language_data.js"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>

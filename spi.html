@@ -13,44 +13,40 @@
 
   
   
+  
+  
 
   
+  <script type="text/javascript" src="static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="static/documentation_options.js"></script>
+        <script type="text/javascript" src="static/jquery.js"></script>
+        <script type="text/javascript" src="static/underscore.js"></script>
+        <script type="text/javascript" src="static/doctools.js"></script>
+        <script type="text/javascript" src="static/language_data.js"></script>
+    
+    <script type="text/javascript" src="static/js/theme.js"></script>
 
-  
-  
     
 
   
-
-  
-  
-    <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="qop 0.1 documentation" href="index.html"/>
-        <link rel="up" title="驱动开发" href="driver_dev.html"/>
-        <link rel="next" title="UART" href="uart.html"/>
-        <link rel="prev" title="Regmap" href="regmap.html"/> 
-
-  
-  <script src="static/js/modernizr.min.js"></script>
-
+  <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="UART" href="uart.html" />
+    <link rel="prev" title="Regmap" href="regmap.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
+   
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -81,7 +77,10 @@
           
             
             
-                <ul class="current">
+              
+            
+            
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="intro.html">开发板简介</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hardware.html">硬件接口</a></li>
 <li class="toctree-l1"><a class="reference internal" href="flash.html">烧写镜像</a></li>
@@ -120,36 +119,56 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">qop</a>
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">qop</a>
+        
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
           <li><a href="driver_dev.html">驱动开发</a> &raquo;</li>
-      
-    <li>SPI</li>
+        
+      <li>SPI</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
             <a href="sources/spi.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -195,44 +214,44 @@ CPOL＝1,CPHA＝1       SPI_MODE_3
 <p>CPOL:表示时钟信号的初始电平的状态,０为低电平,１为高电平</p>
 <p>CPHA:表示在哪个时钟沿采样,０为第一个时钟沿采样,１为第二个时钟沿采样</p>
 <p>SPI的四种工作模式波形图如下</p>
-<div class="figure align-default" id="id3">
+<div class="figure align-center" id="id3">
 <img alt="spi mode" src="images/spi4mode.png" />
 <p class="caption"><span class="caption-text">spi mode</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 <div class="section" id="w25q128fv">
 <h2>硬件连接(以W25Q128FV为例子介绍)<a class="headerlink" href="#w25q128fv" title="Permalink to this headline">¶</a></h2>
-<table class="docutils align-default">
+<table border="1" class="docutils">
 <colgroup>
-<col style="width: 34%" />
-<col style="width: 66%" />
+<col width="34%" />
+<col width="66%" />
 </colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>w25q128fv</p></th>
-<th class="head"><p>Firefly-RK3399</p></th>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">w25q128fv</th>
+<th class="head">Firefly-RK3399</th>
 </tr>
 </thead>
-<tbody>
-<tr class="row-even"><td><p>CS</p></td>
-<td><p>SPI1_CSN0</p></td>
+<tbody valign="top">
+<tr class="row-even"><td>CS</td>
+<td>SPI1_CSN0</td>
 </tr>
-<tr class="row-odd"><td><p>VCC</p></td>
-<td><p>VCC3V3_SYS</p></td>
+<tr class="row-odd"><td>VCC</td>
+<td>VCC3V3_SYS</td>
 </tr>
-<tr class="row-even"><td><p>DO</p></td>
-<td><p>SPI1_RXD</p></td>
+<tr class="row-even"><td>DO</td>
+<td>SPI1_RXD</td>
 </tr>
-<tr class="row-odd"><td><p>DI</p></td>
-<td><p>SPI1_TXD</p></td>
+<tr class="row-odd"><td>DI</td>
+<td>SPI1_TXD</td>
 </tr>
-<tr class="row-even"><td><p>GND</p></td>
-<td><p>GND</p></td>
+<tr class="row-even"><td>GND</td>
+<td>GND</td>
 </tr>
-<tr class="row-odd"><td><p>HOLD</p></td>
-<td><p>TP_RST(需要拉高到3V)</p></td>
+<tr class="row-odd"><td>HOLD</td>
+<td>TP_RST(需要拉高到3V)</td>
 </tr>
-<tr class="row-even"><td><p>CLK</p></td>
-<td><p>SPI1_CLK</p></td>
+<tr class="row-even"><td>CLK</td>
+<td>SPI1_CLK</td>
 </tr>
 </tbody>
 </table>
@@ -270,15 +289,16 @@ CPOL＝1,CPHA＝1       SPI_MODE_3
 
 
            </div>
+           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="uart.html" class="btn btn-neutral float-right" title="UART" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="uart.html" class="btn btn-neutral float-right" title="UART" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="regmap.html" class="btn btn-neutral" title="Regmap" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="regmap.html" class="btn btn-neutral float-left" title="Regmap" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -287,11 +307,11 @@ CPOL＝1,CPHA＝1       SPI_MODE_3
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, qop.
+        &copy; Copyright 2019, qop
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -304,36 +324,15 @@ CPOL＝1,CPHA＝1       SPI_MODE_3
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'./',
-            VERSION:'0.1',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
-        };
-    </script>
-      <script type="text/javascript" src="static/jquery.js"></script>
-      <script type="text/javascript" src="static/underscore.js"></script>
-      <script type="text/javascript" src="static/doctools.js"></script>
-      <script type="text/javascript" src="static/language_data.js"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>
