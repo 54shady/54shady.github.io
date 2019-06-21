@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>TIMER &mdash; qop 0.1 documentation</title>
+  <title>TIMER 使用 &mdash; qop 0.1 documentation</title>
   
 
   
@@ -34,7 +34,9 @@
   <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="常见问题" href="faq.html" />
+    <link rel="prev" title="LCD驱动" href="lcd.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -78,11 +80,33 @@
               
             
             
-              <ul>
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="intro.html">开发板简介</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hardware.html">硬件接口</a></li>
 <li class="toctree-l1"><a class="reference internal" href="flash.html">烧写镜像</a></li>
-<li class="toctree-l1"><a class="reference internal" href="driver_dev.html">驱动开发</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="driver_dev.html">驱动开发</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="fiq_debugger.html">FIQ-Debugger</a></li>
+<li class="toctree-l2"><a class="reference internal" href="char.html">字符设备驱动</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gpio.html">GPIO状态调试</a></li>
+<li class="toctree-l2"><a class="reference internal" href="i2c.html">I2C</a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html">DVFS Usser Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mmc.html">SD/MMC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="regmap.html">Regmap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="spi.html">SPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uart.html">UART</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usb.html">USB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wdog.html">看门狗(watchdog)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lcd.html">LCD驱动</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">TIMER 使用</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">前言</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">框架图</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">工作模式</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">软件配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">对应寄存器和使用</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">常见问题</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/54shady/kernel_drivers_examples/tree/Firefly_RK3399">More Documentation</a></li>
 </ul>
@@ -130,7 +154,9 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>TIMER</li>
+          <li><a href="driver_dev.html">驱动开发</a> &raquo;</li>
+        
+      <li>TIMER 使用</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -150,7 +176,63 @@
            <div itemprop="articleBody">
             
   <div class="section" id="timer">
-<h1>TIMER<a class="headerlink" href="#timer" title="Permalink to this headline">¶</a></h1>
+<h1>TIMER 使用<a class="headerlink" href="#timer" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>前言<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>RK3399有12 个Timers (timer0-timer11)，有12 个Secure
+Timers(stimer0~stimer11) 和 2 个Timers(pmutimer0~pmutimer1)， 我们主要
+用到的是Timers(timer0-timer11)时钟频率为24MHZ ，工作模式有 free-
+running 和 user-defined count 模式</p>
+</div>
+<div class="section" id="id2">
+<h2>框架图<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p><img alt="images/timer1.png" src="images/timer1.png" />time1</p>
+</div>
+<div class="section" id="id3">
+<h2>工作模式<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>user-defined count：Timer 先载入初始值到 TIMERn_LOAD_COUNT3 和
+TIMER_LOADn_COUNT2寄存器， 当时间累加的值在寄存器TIMERn_LOAD_COUNT1和
+TIMERn_LOAD_COUNT0时，将不会自动载入到计数寄存器。 用户需要重新关闭计
+数器和然后重新设置计数器相关才能继续工作。</p>
+<p>free-running：Timer先载入初始值到TIMER_LOAD_COUNT3 和
+TIMER_LOAD_COUNT2寄存器， 当时间累加的值在寄存器TIMERn_LOAD_COUNT1和
+TIMERn_LOAD_COUNT0时，Timer将一直自动加载计数寄存器。</p>
+</div>
+<div class="section" id="id4">
+<h2>软件配置<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>1.在 dts 文件中定义 Timer 的相关配置
+kernel/arch/arm64/boot/dts/rockchip/rk3399.dtsi</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rktimer</span><span class="p">:</span> <span class="n">rktimer</span><span class="nd">@ff850000</span> <span class="p">{</span>
+	 <span class="n">compatible</span> <span class="o">=</span> <span class="s2">&quot;rockchip,rk3399-timer&quot;</span><span class="p">;</span>
+	 <span class="n">reg</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mh">0x0</span> <span class="mh">0xff850000</span> <span class="mh">0x0</span> <span class="mh">0x1000</span><span class="o">&gt;</span><span class="p">;</span>
+	 <span class="n">interrupts</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">GIC_SPI</span> <span class="mi">81</span> <span class="n">IRQ_TYPE_LEVEL_HIGH</span> <span class="mi">0</span><span class="o">&gt;</span><span class="p">;</span>
+	 <span class="n">clocks</span> <span class="o">=</span> <span class="o">&lt;&amp;</span><span class="n">cru</span> <span class="n">PCLK_TIMER0</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;&amp;</span><span class="n">cru</span> <span class="n">SCLK_TIMER00</span><span class="o">&gt;</span><span class="p">;</span>
+	 <span class="n">clock</span><span class="o">-</span><span class="n">names</span> <span class="o">=</span> <span class="s2">&quot;pclk&quot;</span><span class="p">,</span> <span class="s2">&quot;timer&quot;</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>其中定义的Timer0 的寄存器和中断号和时钟等</p>
+<p>其他Timer 对应的中断号可看如下图片</p>
+<p><img alt="images/timer2.png" src="images/timer2.png" />timer2</p>
+<p>2.对应的驱动文件Kernel/drivers/clocksource/rockchip_timer.c</p>
+</div>
+<div class="section" id="id5">
+<h2>对应寄存器和使用<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>1.寄存器如下图片</p>
+<p><img alt="images/timer3.png" src="images/timer3.png" />timer3</p>
+<p>2.使用方式 查看对应寄存器</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">root</span><span class="nd">@rk3399_firefly_box</span><span class="p">:</span><span class="o">/</span> <span class="c1"># io -4 0xff85001c  //查看当前控制寄存器的状态</span>
+<span class="n">ff85001c</span><span class="p">:</span>  <span class="mi">00000007</span>
+
+<span class="n">root</span><span class="nd">@rk3399_firefly_box</span><span class="p">:</span><span class="o">/</span> <span class="c1"># io -4 0xff850000  //查看寄存器时时的值</span>
+<span class="n">ff850000</span><span class="p">:</span>  <span class="mi">0001639</span><span class="n">f</span>
+</pre></div>
+</div>
+<p>控制对应寄存器</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">root</span><span class="nd">@rk3399_firefly_box</span><span class="p">:</span><span class="o">/</span> <span class="c1"># io -4 -w 0xff85001c 0x06  //关闭时间计数功能</span>
+</pre></div>
+</div>
+</div>
 </div>
 
 
@@ -158,6 +240,15 @@
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="faq.html" class="btn btn-neutral float-right" title="常见问题" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="lcd.html" class="btn btn-neutral float-left" title="LCD驱动" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

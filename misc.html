@@ -102,7 +102,7 @@
 <li class="toctree-l2"><a class="reference internal" href="usb.html">USB</a></li>
 <li class="toctree-l2"><a class="reference internal" href="wdog.html">看门狗(watchdog)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="lcd.html">LCD驱动</a></li>
-<li class="toctree-l2"><a class="reference internal" href="driver_timer.html">TIMER 使用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="timer.html">TIMER 使用</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">常见问题</a></li>
@@ -160,7 +160,7 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="sources/misc.rst.txt" rel="nofollow"> View page source</a>
+            <a href="sources/misc.md.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -175,8 +175,7 @@
             
   <div class="section" id="dvfs-usser-guide">
 <h1>DVFS Usser Guide<a class="headerlink" href="#dvfs-usser-guide" title="Permalink to this headline">¶</a></h1>
-<p><a class="reference external" href="http://processors.wiki.ti.com/index.php/DVFS_User_Guide">参考文章DVFS User
-Guide</a></p>
+<p><a class="reference external" href="http://processors.wiki.ti.com/index.php/DVFS_User_Guide">参考文章DVFS User Guide</a></p>
 <div class="section" id="what-is-dvfs">
 <h2>What is DVFS<a class="headerlink" href="#what-is-dvfs" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Dynamic</span> <span class="n">Voltage</span> <span class="ow">and</span> <span class="n">Frequency</span> <span class="n">scaling</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">framework</span> <span class="n">to</span> <span class="n">change</span> <span class="n">the</span> <span class="n">frequency</span>
@@ -202,8 +201,7 @@ Guide</a></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span> <span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">devices</span><span class="o">/</span><span class="n">system</span><span class="o">/</span><span class="n">cpu</span><span class="o">/</span><span class="n">cpu0</span><span class="o">/</span><span class="n">cpufreq</span><span class="o">/</span><span class="n">scaling_governor</span>
 </pre></div>
 </div>
-<p>To switch to a different governor(e.g. to switch to ‘userspace’
-governor)</p>
+<p>To switch to a different governor(e.g. to switch to ‘userspace’ governor)</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">echo</span> <span class="o">-</span><span class="n">n</span> <span class="s2">&quot;userspace&quot;</span> <span class="o">&gt;</span> <span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">devices</span><span class="o">/</span><span class="n">system</span><span class="o">/</span><span class="n">cpu</span><span class="o">/</span><span class="n">cpu0</span><span class="o">/</span><span class="n">cpufreq</span><span class="o">/</span><span class="n">scaling_governor</span>
 </pre></div>
 </div>
@@ -215,13 +213,11 @@ governor)</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span> <span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">devices</span><span class="o">/</span><span class="n">system</span><span class="o">/</span><span class="n">cpu</span><span class="o">/</span><span class="n">cpu0</span><span class="o">/</span><span class="n">cpufreq</span><span class="o">/</span><span class="n">scaling_available_frequencies</span>
 </pre></div>
 </div>
-<p>when the frequency is changed, system voltage is also changed to meet
-the new requirements as part of scaling: This is done in two ways</p>
+<p>when the frequency is changed, system voltage is also changed to meet the new
+requirements as part of scaling: This is done in two ways</p>
 <ul class="simple">
-<li>when new frequency is higher (moving to high power state/opp) Voltage
-is increased first then the frequency,</li>
-<li>when new frequency is lower (moving to low power state/opp) Frequency
-is reduced first then the voltage.</li>
+<li>when new frequency is higher (moving to high power state/opp) Voltage is increased first then the frequency,</li>
+<li>when new frequency is lower (moving to low power state/opp) Frequency is reduced first then the voltage.</li>
 </ul>
 </div>
 </div>

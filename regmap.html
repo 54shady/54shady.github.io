@@ -97,7 +97,7 @@
 <li class="toctree-l2"><a class="reference internal" href="usb.html">USB</a></li>
 <li class="toctree-l2"><a class="reference internal" href="wdog.html">看门狗(watchdog)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="lcd.html">LCD驱动</a></li>
-<li class="toctree-l2"><a class="reference internal" href="driver_timer.html">TIMER 使用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="timer.html">TIMER 使用</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">常见问题</a></li>
@@ -155,7 +155,7 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="sources/regmap.rst.txt" rel="nofollow"> View page source</a>
+            <a href="sources/regmap.md.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -172,10 +172,7 @@
 <h1>Regmap<a class="headerlink" href="#regmap" title="Permalink to this headline">¶</a></h1>
 <p><a class="reference external" href="http://www.tinylab.org/kernel-explore-regmap-framework/">参考链接http://www.tinylab.org/kernel-explore-regmap-framework/</a></p>
 <p>Regmap主要目的是减少慢速I/O驱动上的重复逻辑,提供一种通用的接口来操作底层硬件上的寄存器.Regmap除了能做到统一的I/O接口,还可以在驱动和硬件IC之间做一层缓存,从而能减少底层I/O的操作次数</p>
-<div class="figure align-center" id="id1">
-<img alt="regmap" src="images/regmap.png" />
-<p class="caption"><span class="caption-text">regmap</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
-</div>
+<p><img alt="images/regmap.png" src="images/regmap.png" />regmap</p>
 <p><a class="reference external" href="./i2c_regmap.c">I2C Regmap example</a></p>
 </div>
 

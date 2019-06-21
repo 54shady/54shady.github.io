@@ -136,7 +136,7 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="sources/README.md.txt" rel="nofollow"> View page source</a>
+            <a href="sources/README.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -149,15 +149,28 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <p>Generate all the rst files</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>for f in `ls *.md`; do python md2rst.py $f; done
-</pre></div>
-</div>
-<p>link resource</p>
+  <p>Link resource</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">link_res</span><span class="o">.</span><span class="n">sh</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">kernel_drivers_examples</span><span class="o">/</span><span class="n">debug</span>
 </pre></div>
 </div>
-<p>font needed</p>
+<p>Covert markdown file to rst file</p>
+<p>Using web</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>for f in `ls *.md`; do python md2rst.py $f; done
+</pre></div>
+</div>
+<p>Using pandoc(recommend)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>for f in `ls *.md`; do echo $f; pandoc $f -o ${f%.md}.rst; done
+</pre></div>
+</div>
+<p>Copy target build files to gitpage</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cp</span> <span class="n">_build</span><span class="o">/</span><span class="n">html</span><span class="o">/*</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">gitpage</span><span class="o">/</span>
+</pre></div>
+</div>
+<p>Clean resource link files</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>for f in `ls`; do if [ -h $f ]; then rm -rvf $f; rm -rvf ${f%.md}.rst; fi; done
+</pre></div>
+</div>
+<p>Font needed</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>/usr/share/fonts
 ├── ArialUnicodeMS
 ├── cmap

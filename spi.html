@@ -103,7 +103,7 @@
 <li class="toctree-l2"><a class="reference internal" href="usb.html">USB</a></li>
 <li class="toctree-l2"><a class="reference internal" href="wdog.html">看门狗(watchdog)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="lcd.html">LCD驱动</a></li>
-<li class="toctree-l2"><a class="reference internal" href="driver_timer.html">TIMER 使用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="timer.html">TIMER 使用</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">常见问题</a></li>
@@ -161,7 +161,7 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="sources/spi.rst.txt" rel="nofollow"> View page source</a>
+            <a href="sources/spi.md.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -198,77 +198,49 @@
 <div class="section" id="id2">
 <h2>SPI工作方式<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>SPI以主从方式工作,这种模式通常有一个主设备和一个或多个从设备,需要至少4根线</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CS</span>          <span class="n">片选信号</span>
-<span class="n">SCLK</span>        <span class="n">时钟信号</span>
-<span class="n">MOSI</span>        <span class="n">主设备数据输出</span><span class="p">,</span><span class="n">从设备数据输入</span>
-<span class="n">MISO</span>        <span class="n">主设备数据输入</span><span class="p">,</span><span class="n">从设备数据输出</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CS</span>			<span class="n">片选信号</span>
+<span class="n">SCLK</span>		<span class="n">时钟信号</span>
+<span class="n">MOSI</span>		<span class="n">主设备数据输出</span><span class="p">,</span><span class="n">从设备数据输入</span>
+<span class="n">MISO</span>		<span class="n">主设备数据输入</span><span class="p">,</span><span class="n">从设备数据输出</span>
 </pre></div>
 </div>
 <p>Linux内核用CPOL和CPHA的组合来表示当前SPI的四种工作模式</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>CPOL＝0,CPHA＝0       SPI_MODE_0
-CPOL＝0,CPHA＝1       SPI_MODE_1
-CPOL＝1,CPHA＝0       SPI_MODE_2
-CPOL＝1,CPHA＝1       SPI_MODE_3
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>CPOL＝0,CPHA＝0		SPI_MODE_0
+CPOL＝0,CPHA＝1		SPI_MODE_1
+CPOL＝1,CPHA＝0		SPI_MODE_2
+CPOL＝1,CPHA＝1		SPI_MODE_3
 </pre></div>
 </div>
 <p>CPOL:表示时钟信号的初始电平的状态,０为低电平,１为高电平</p>
 <p>CPHA:表示在哪个时钟沿采样,０为第一个时钟沿采样,１为第二个时钟沿采样</p>
 <p>SPI的四种工作模式波形图如下</p>
-<div class="figure align-center" id="id3">
-<img alt="spi mode" src="images/spi4mode.png" />
-<p class="caption"><span class="caption-text">spi mode</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
-</div>
+<p><img alt="images/spi4mode.png" src="images/spi4mode.png" />spi mode</p>
 </div>
 <div class="section" id="w25q128fv">
 <h2>硬件连接(以W25Q128FV为例子介绍)<a class="headerlink" href="#w25q128fv" title="Permalink to this headline">¶</a></h2>
-<table border="1" class="docutils">
-<colgroup>
-<col width="34%" />
-<col width="66%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">w25q128fv</th>
-<th class="head">Firefly-RK3399</th>
-</tr>
-</thead>
-<tbody valign="top">
-<tr class="row-even"><td>CS</td>
-<td>SPI1_CSN0</td>
-</tr>
-<tr class="row-odd"><td>VCC</td>
-<td>VCC3V3_SYS</td>
-</tr>
-<tr class="row-even"><td>DO</td>
-<td>SPI1_RXD</td>
-</tr>
-<tr class="row-odd"><td>DI</td>
-<td>SPI1_TXD</td>
-</tr>
-<tr class="row-even"><td>GND</td>
-<td>GND</td>
-</tr>
-<tr class="row-odd"><td>HOLD</td>
-<td>TP_RST(需要拉高到3V)</td>
-</tr>
-<tr class="row-even"><td>CLK</td>
-<td>SPI1_CLK</td>
-</tr>
-</tbody>
-</table>
+<p>|w25q128fv|Firefly-RK3399|
+|—-|—–
+|CS		|SPI1_CSN0
+|VCC	| 	VCC3V3_SYS
+|DO		|SPI1_RXD
+|DI		|SPI1_TXD
+|GND	| 	GND
+|HOLD	|TP_RST(需要拉高到3V)
+|CLK 	|SPI1_CLK</p>
 </div>
 <div class="section" id="devicetree">
 <h2>DeviceTree<a class="headerlink" href="#devicetree" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&amp;</span><span class="n">spi1</span> <span class="p">{</span>
-    <span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;okay&quot;</span><span class="p">;</span>
-    <span class="nb">max</span><span class="o">-</span><span class="n">freq</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mi">48000000</span><span class="o">&gt;</span><span class="p">;</span>
-    <span class="n">dev</span><span class="o">-</span><span class="n">port</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">;</span>
+	<span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;okay&quot;</span><span class="p">;</span>
+	<span class="nb">max</span><span class="o">-</span><span class="n">freq</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mi">48000000</span><span class="o">&gt;</span><span class="p">;</span>
+	<span class="n">dev</span><span class="o">-</span><span class="n">port</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">;</span>
 
-    <span class="n">w25q128fv</span><span class="nd">@10</span><span class="p">{</span>
-        <span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;okay&quot;</span><span class="p">;</span>
-        <span class="n">compatible</span> <span class="o">=</span> <span class="s2">&quot;firefly,w25q128fv&quot;</span><span class="p">;</span>
-        <span class="n">reg</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mh">0x0</span><span class="o">&gt;</span><span class="p">;</span>
-        <span class="n">spi</span><span class="o">-</span><span class="nb">max</span><span class="o">-</span><span class="n">frequency</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mi">48000000</span><span class="o">&gt;</span><span class="p">;</span>
-    <span class="p">};</span>
+	<span class="n">w25q128fv</span><span class="nd">@10</span><span class="p">{</span>
+		<span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;okay&quot;</span><span class="p">;</span>
+		<span class="n">compatible</span> <span class="o">=</span> <span class="s2">&quot;firefly,w25q128fv&quot;</span><span class="p">;</span>
+		<span class="n">reg</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mh">0x0</span><span class="o">&gt;</span><span class="p">;</span>
+		<span class="n">spi</span><span class="o">-</span><span class="nb">max</span><span class="o">-</span><span class="n">frequency</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mi">48000000</span><span class="o">&gt;</span><span class="p">;</span>
+	<span class="p">};</span>
 <span class="p">};</span>
 </pre></div>
 </div>

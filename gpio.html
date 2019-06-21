@@ -102,7 +102,7 @@
 <li class="toctree-l2"><a class="reference internal" href="usb.html">USB</a></li>
 <li class="toctree-l2"><a class="reference internal" href="wdog.html">看门狗(watchdog)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="lcd.html">LCD驱动</a></li>
-<li class="toctree-l2"><a class="reference internal" href="driver_timer.html">TIMER 使用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="timer.html">TIMER 使用</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">常见问题</a></li>
@@ -160,7 +160,7 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="sources/gpio.rst.txt" rel="nofollow"> View page source</a>
+            <a href="sources/gpio.md.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -178,15 +178,9 @@
 <div class="section" id="gpio1-a0mux">
 <h2>假设现在想要查看GPIO1_A0的mux状态<a class="headerlink" href="#gpio1-a0mux" title="Permalink to this headline">¶</a></h2>
 <p>GPIO1对应的寄存器名为PMUGRF_GPIO1A_IOMUX(offset 0x10)</p>
-<div class="figure align-center" id="id2">
-<img alt="GPIO1 MUX" src="images/pmugrf_gpio1a_iomux.png" />
-<p class="caption"><span class="caption-text">GPIO1 MUX</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
-</div>
+<p><img alt="images/pmugrf_gpio1a_iomux.png" src="images/pmugrf_gpio1a_iomux.png" />GPIO1 MUX</p>
 <p>查看手册知道PMUGRF的基地址如下截图(FF32_0000 - FF33_0000)</p>
-<div class="figure align-center" id="id3">
-<img alt="PMUGRF BASE ADDR" src="images/pmugrf.png" />
-<p class="caption"><span class="caption-text">PMUGRF BASE ADDR</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
-</div>
+<p><img alt="images/pmugrf.png" src="images/pmugrf.png" />PMUGRF BASE ADDR</p>
 <p>查看该寄存器的值</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">io</span> <span class="o">-</span><span class="mi">4</span> <span class="o">-</span><span class="n">r</span> <span class="mh">0xff320010</span>
 </pre></div>
@@ -195,10 +189,7 @@
 <div class="section" id="io">
 <h2>查看该IO口是高电平还是低电平<a class="headerlink" href="#io" title="Permalink to this headline">¶</a></h2>
 <p>GPIO1对应的寄存器基地址为(FF73_0000 - FF74_0000)</p>
-<div class="figure align-center" id="id4">
-<img alt="GPIO1 BASE ADDR" src="images/gpio1.png" />
-<p class="caption"><span class="caption-text">GPIO1 BASE ADDR</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
-</div>
+<p><img alt="images/gpio1.png" src="images/gpio1.png" />GPIO1 BASE ADDR</p>
 </div>
 <div class="section" id="id1">
 <h2>控制IO口输出状态<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>

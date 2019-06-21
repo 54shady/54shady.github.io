@@ -118,7 +118,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="wdog.html">看门狗(watchdog)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="lcd.html">LCD驱动</a></li>
-<li class="toctree-l2"><a class="reference internal" href="driver_timer.html">TIMER 使用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="timer.html">TIMER 使用</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">常见问题</a></li>
@@ -176,7 +176,7 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="sources/usb.rst.txt" rel="nofollow"> View page source</a>
+            <a href="sources/usb.md.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -193,21 +193,14 @@
 <h1>USB<a class="headerlink" href="#usb" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id1">
 <h2>USB通信协议基础<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference external" href="./protocol.md">USB通信协议基础</a></p>
-<p><a class="reference external" href="http://processors.wiki.ti.com/index.php/Linux_Core_DWC3_User%27s_Guide">参考文章Linux Core DWC3 User’s
-Guide</a></p>
+<p><a class="reference internal" href="protocol.html"><span class="doc">USB通信协议基础</span></a></p>
+<p><a class="reference external" href="http://processors.wiki.ti.com/index.php/Linux_Core_DWC3_User%27s_Guide">参考文章Linux Core DWC3 User’s Guide</a></p>
 <p><a class="reference external" href="http://processors.wiki.ti.com/index.php/Usbgeneralpage">参考文章Usbgeneralpage</a></p>
 </div>
 <div class="section" id="usblinux">
 <h2>USB在Linux系统中的架构框图<a class="headerlink" href="#usblinux" title="Permalink to this headline">¶</a></h2>
-<div class="figure align-center" id="id8">
-<img alt="architecture" src="images/architecture.png" />
-<p class="caption"><span class="caption-text">architecture</span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
-</div>
-<div class="figure align-center" id="id9">
-<img alt="mass\_storage" src="images/mass_storage.png" />
-<p class="caption"><span class="caption-text">mass_storage</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
-</div>
+<p><img alt="images/architecture.png" src="images/architecture.png" />architecture</p>
+<p><img alt="images/mass_storage.png" src="images/mass_storage.png" />mass_storage</p>
 </div>
 <div class="section" id="hostsysfs">
 <h2>Host设备在sysfs的信息<a class="headerlink" href="#hostsysfs" title="Permalink to this headline">¶</a></h2>
@@ -232,10 +225,7 @@ Guide</a></p>
 </div>
 <div class="section" id="usbmon">
 <h2>usbmon 架构<a class="headerlink" href="#usbmon" title="Permalink to this headline">¶</a></h2>
-<div class="figure align-center" id="id10">
-<img alt="usbmon" src="images/usbmon.png" />
-<p class="caption"><span class="caption-text">usbmon</span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
-</div>
+<p><img alt="images/usbmon.png" src="images/usbmon.png" />usbmon</p>
 <div class="section" id="usbmon-ascii-capture">
 <h3>usbmon ASCII capture<a class="headerlink" href="#usbmon-ascii-capture" title="Permalink to this headline">¶</a></h3>
 <p>编译内核支持usbmon为模块</p>
@@ -262,36 +252,32 @@ Guide</a></p>
 </div>
 <div class="section" id="bulk-only">
 <h2>Bulk-Only传输协议<a class="headerlink" href="#bulk-only" title="Permalink to this headline">¶</a></h2>
-<p>设备插入到USB后,USB即对设备进行搜索,并要求设备提供相应的描述符.在USBHost得到上述描述符后,即完成了设备的配置,识别出为Bulk-Only的Mass
-Storage设备,然后即进入Bulk-Only传输方式
+<p>设备插入到USB后,USB即对设备进行搜索,并要求设备提供相应的描述符.在USBHost得到上述描述符后,即完成了设备的配置,识别出为Bulk-Only的Mass Storage设备,然后即进入Bulk-Only传输方式
 在此方式下,USB与设备间的所有数据均通过Bulk-In和Bulk-Out来进行传输,不再通过控制端点传输任何数据</p>
 <p>在这种传输方式下,有三种类型的数据在USB和设备之间传送,CBW、CSW和普通数据.</p>
-<p>CBW(Command Block Wrapper,即命令块包)是从USB Host发送到设备的命令,
-命令格式遵从接口中的bInterfaceSubClass
-所指定的命令块,可以是为SCSI或是自定义传输命令集</p>
-<p>USB设备需要将SCSI(自定义的)命令从CBW中提取出来,执行相应的命令,完成以后,向Host发出反映当前命令执行状态的CSW(Command
-Status Wrapper),Host根据CSW来决定是否继续发送下一个CBW或是数据</p>
+<p>CBW(Command Block Wrapper,即命令块包)是从USB Host发送到设备的命令, 命令格式遵从接口中的bInterfaceSubClass 所指定的命令块,可以是为SCSI或是自定义传输命令集</p>
+<p>USB设备需要将SCSI(自定义的)命令从CBW中提取出来,执行相应的命令,完成以后,向Host发出反映当前命令执行状态的CSW(Command Status Wrapper),Host根据CSW来决定是否继续发送下一个CBW或是数据</p>
 <p>Host要求USB设备执行的命令可能为发送数据,则此时需要将特定数据传送出去,完毕后发出CSW,以使Host进行下一步的操作</p>
 <p>CBW数据结构如下(kernel/include/linux/usb/storage.h)</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* command block wrapper */</span>
 <span class="k">struct</span> <span class="n">bulk_cb_wrap</span> <span class="p">{</span>
-    <span class="n">__le32</span>  <span class="n">Signature</span><span class="p">;</span>      <span class="cm">/* Contains &#39;USBC&#39; */</span>
-    <span class="n">u32</span> <span class="n">Tag</span><span class="p">;</span>            <span class="cm">/* Unique per command id */</span>
-    <span class="n">__le32</span>  <span class="n">DataTransferLength</span><span class="p">;</span> <span class="cm">/* Size of the data */</span>
-    <span class="n">u8</span>  <span class="n">Flags</span><span class="p">;</span>          <span class="cm">/* Direction in bit 7 */</span>
-    <span class="n">u8</span>  <span class="n">Lun</span><span class="p">;</span>            <span class="cm">/* LUN (normally 0) */</span>
-    <span class="n">u8</span>  <span class="n">Length</span><span class="p">;</span>         <span class="cm">/* Of the CDB, &lt;= MAX_COMMAND_SIZE */</span>
-    <span class="n">u8</span>  <span class="n">CDB</span><span class="p">[</span><span class="mi">16</span><span class="p">];</span>        <span class="cm">/* Command Data Block */</span>
+	<span class="n">__le32</span>	<span class="n">Signature</span><span class="p">;</span>		<span class="cm">/* Contains &#39;USBC&#39; */</span>
+	<span class="n">u32</span>	<span class="n">Tag</span><span class="p">;</span>			<span class="cm">/* Unique per command id */</span>
+	<span class="n">__le32</span>	<span class="n">DataTransferLength</span><span class="p">;</span>	<span class="cm">/* Size of the data */</span>
+	<span class="n">u8</span>	<span class="n">Flags</span><span class="p">;</span>			<span class="cm">/* Direction in bit 7 */</span>
+	<span class="n">u8</span>	<span class="n">Lun</span><span class="p">;</span>			<span class="cm">/* LUN (normally 0) */</span>
+	<span class="n">u8</span>	<span class="n">Length</span><span class="p">;</span>			<span class="cm">/* Of the CDB, &lt;= MAX_COMMAND_SIZE */</span>
+	<span class="n">u8</span>	<span class="n">CDB</span><span class="p">[</span><span class="mi">16</span><span class="p">];</span>		<span class="cm">/* Command Data Block */</span>
 <span class="p">};</span>
 </pre></div>
 </div>
 <p>CSW数据结构如下</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* command status wrapper */</span>
 <span class="k">struct</span> <span class="n">bulk_cs_wrap</span> <span class="p">{</span>
-    <span class="n">__le32</span>  <span class="n">Signature</span><span class="p">;</span>      <span class="cm">/* Should = &#39;USBS&#39; */</span>
-    <span class="n">u32</span> <span class="n">Tag</span><span class="p">;</span>            <span class="cm">/* Same as original command */</span>
-    <span class="n">__le32</span>  <span class="n">Residue</span><span class="p">;</span>        <span class="cm">/* Amount not transferred */</span>
-    <span class="n">u8</span>  <span class="n">Status</span><span class="p">;</span>         <span class="cm">/* See below */</span>
+	<span class="n">__le32</span>	<span class="n">Signature</span><span class="p">;</span>		<span class="cm">/* Should = &#39;USBS&#39; */</span>
+	<span class="n">u32</span>	<span class="n">Tag</span><span class="p">;</span>			<span class="cm">/* Same as original command */</span>
+	<span class="n">__le32</span>	<span class="n">Residue</span><span class="p">;</span>		<span class="cm">/* Amount not transferred */</span>
+	<span class="n">u8</span>	<span class="n">Status</span><span class="p">;</span>			<span class="cm">/* See below */</span>
 <span class="p">};</span>
 </pre></div>
 </div>
@@ -309,7 +295,7 @@ Status Wrapper),Host根据CSW来决定是否继续发送下一个CBW或是数据
 </pre></div>
 </div>
 <p>Lun</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">对于有多个LUN逻辑单元的设备</span><span class="p">,</span><span class="n">用来选择具体目标</span><span class="o">.</span><span class="n">如果没有多个LUN</span><span class="p">,</span><span class="n">则写0</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="n">对于有多个LUN逻辑单元的设备</span><span class="p">,</span><span class="n">用来选择具体目标</span><span class="o">.</span><span class="n">如果没有多个LUN</span><span class="p">,</span><span class="n">则写0</span>
 </pre></div>
 </div>
 <p>Length</p>
@@ -347,15 +333,16 @@ Status Wrapper),Host根据CSW来决定是否继续发送下一个CBW或是数据
 </div>
 <div class="section" id="id5">
 <h3>数据通信流程简图<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
-<p>读流程(usb_read) -
-Host发送cbw,其中cdb里包含读命令,Slave解析后返回相应的数据,Slave返回csw</p>
-<p>写流程(usb_write) -
-Host发送cbw,其中cdb里包含写命令,并发送要写的数据,Slave返回csw</p>
+<p>读流程(usb_read)</p>
+<ul class="simple">
+<li>Host发送cbw,其中cdb里包含读命令,Slave解析后返回相应的数据,Slave返回csw</li>
+</ul>
+<p>写流程(usb_write)</p>
+<ul class="simple">
+<li>Host发送cbw,其中cdb里包含写命令,并发送要写的数据,Slave返回csw</li>
+</ul>
 <p>下图中的所有术语是按主机的角度说明的</p>
-<div class="figure align-center" id="id11">
-<img alt="work flow" src="images/sequenceDiagram.png" />
-<p class="caption"><span class="caption-text">work flow</span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
-</div>
+<p><img alt="images/sequenceDiagram.png" src="images/sequenceDiagram.png" />work flow</p>
 <p>Libusb编程核心步骤</p>
 <p>初始化,设置调试级别,使用vid,pid打开设备,连接设备,获取设备通讯接口,获取描述符</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">libusb_init</span>
@@ -390,8 +377,7 @@ Host发送cbw,其中cdb里包含写命令,并发送要写的数据,Slave返回cs
 </div>
 <p><a class="reference external" href="./usbmouse_as_key.c">详细流程见代码注释</a></p>
 <p>驱动大致说明如下</p>
-<p>使用usb鼠标来模拟一个键盘设备,将鼠标左键定义为按键”L”,
-鼠标右键定义为按键”S”,滚轮按键定义为”Enter”</p>
+<p>使用usb鼠标来模拟一个键盘设备,将鼠标左键定义为按键”L”, 鼠标右键定义为按键”S”,滚轮按键定义为”Enter”</p>
 <p>测试方法1</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hexdump</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="nb">input</span><span class="o">/</span><span class="n">event3</span> <span class="o">//</span><span class="n">这里的event3对应我的鼠标设备</span>
 </pre></div>
@@ -412,63 +398,63 @@ Host发送cbw,其中cdb里包含写命令,并发送要写的数据,Slave返回cs
 <p>RK3399DTS的默认配置支持Type-C0 USB3 OTG,Type-C1 USB3 HOST</p>
 <p>Type-C0 USB3 OTG(dr_mode = otg)</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usbdrd3_0</span><span class="p">:</span> <span class="n">usb</span><span class="nd">@fe800000</span> <span class="p">{</span>
-    <span class="n">compatible</span> <span class="o">=</span> <span class="s2">&quot;rockchip,rk3399-dwc3&quot;</span><span class="p">;</span>
-    <span class="n">clocks</span> <span class="o">=</span> <span class="o">&lt;&amp;</span><span class="n">cru</span> <span class="n">SCLK_USB3OTG0_REF</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;&amp;</span><span class="n">cru</span> <span class="n">SCLK_USB3OTG0_SUSPEND</span><span class="o">&gt;</span><span class="p">,</span>
-         <span class="o">&lt;&amp;</span><span class="n">cru</span> <span class="n">ACLK_USB3OTG0</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;&amp;</span><span class="n">cru</span> <span class="n">ACLK_USB3_GRF</span><span class="o">&gt;</span><span class="p">;</span>
-    <span class="n">clock</span><span class="o">-</span><span class="n">names</span> <span class="o">=</span> <span class="s2">&quot;ref_clk&quot;</span><span class="p">,</span> <span class="s2">&quot;suspend_clk&quot;</span><span class="p">,</span>
-              <span class="s2">&quot;bus_clk&quot;</span><span class="p">,</span> <span class="s2">&quot;grf_clk&quot;</span><span class="p">;</span>
-    <span class="n">power</span><span class="o">-</span><span class="n">domains</span> <span class="o">=</span> <span class="o">&lt;&amp;</span><span class="n">power</span> <span class="n">RK3399_PD_USB3</span><span class="o">&gt;</span><span class="p">;</span>
-    <span class="n">resets</span> <span class="o">=</span> <span class="o">&lt;&amp;</span><span class="n">cru</span> <span class="n">SRST_A_USB3_OTG0</span><span class="o">&gt;</span><span class="p">;</span>
-    <span class="n">reset</span><span class="o">-</span><span class="n">names</span> <span class="o">=</span> <span class="s2">&quot;usb3-otg&quot;</span><span class="p">;</span>
-    <span class="c1">#address-cells = &lt;2&gt;;</span>
-    <span class="c1">#size-cells = &lt;2&gt;;</span>
-    <span class="n">ranges</span><span class="p">;</span>
-    <span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;disabled&quot;</span><span class="p">;</span>
-    <span class="n">usbdrd_dwc3_0</span><span class="p">:</span> <span class="n">dwc3</span><span class="nd">@fe800000</span> <span class="p">{</span>
-        <span class="n">compatible</span> <span class="o">=</span> <span class="s2">&quot;snps,dwc3&quot;</span><span class="p">;</span>
-        <span class="n">reg</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mh">0x0</span> <span class="mh">0xfe800000</span> <span class="mh">0x0</span> <span class="mh">0x100000</span><span class="o">&gt;</span><span class="p">;</span>
-        <span class="n">interrupts</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">GIC_SPI</span> <span class="mi">105</span> <span class="n">IRQ_TYPE_LEVEL_HIGH</span> <span class="mi">0</span><span class="o">&gt;</span><span class="p">;</span>
-        <span class="n">dr_mode</span> <span class="o">=</span> <span class="s2">&quot;otg&quot;</span><span class="p">;</span>
-        <span class="n">phys</span> <span class="o">=</span> <span class="o">&lt;&amp;</span><span class="n">u2phy0_otg</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;&amp;</span><span class="n">tcphy0</span> <span class="mi">1</span><span class="o">&gt;</span><span class="p">;</span>
-        <span class="n">phy</span><span class="o">-</span><span class="n">names</span> <span class="o">=</span> <span class="s2">&quot;usb2-phy&quot;</span><span class="p">,</span> <span class="s2">&quot;usb3-phy&quot;</span><span class="p">;</span>
-        <span class="n">phy_type</span> <span class="o">=</span> <span class="s2">&quot;utmi_wide&quot;</span><span class="p">;</span>
-        <span class="n">snps</span><span class="p">,</span><span class="n">dis_enblslpm_quirk</span><span class="p">;</span>
-        <span class="n">snps</span><span class="p">,</span><span class="n">dis</span><span class="o">-</span><span class="n">u2</span><span class="o">-</span><span class="n">freeclk</span><span class="o">-</span><span class="n">exists</span><span class="o">-</span><span class="n">quirk</span><span class="p">;</span>
-        <span class="n">snps</span><span class="p">,</span><span class="n">dis</span><span class="o">-</span><span class="k">del</span><span class="o">-</span><span class="n">phy</span><span class="o">-</span><span class="n">power</span><span class="o">-</span><span class="n">chg</span><span class="o">-</span><span class="n">quirk</span><span class="p">;</span>
-        <span class="n">snps</span><span class="p">,</span><span class="n">xhci</span><span class="o">-</span><span class="n">slow</span><span class="o">-</span><span class="n">suspend</span><span class="o">-</span><span class="n">quirk</span><span class="p">;</span>
-        <span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;disabled&quot;</span><span class="p">;</span>
-    <span class="p">};</span>
+	<span class="n">compatible</span> <span class="o">=</span> <span class="s2">&quot;rockchip,rk3399-dwc3&quot;</span><span class="p">;</span>
+	<span class="n">clocks</span> <span class="o">=</span> <span class="o">&lt;&amp;</span><span class="n">cru</span> <span class="n">SCLK_USB3OTG0_REF</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;&amp;</span><span class="n">cru</span> <span class="n">SCLK_USB3OTG0_SUSPEND</span><span class="o">&gt;</span><span class="p">,</span>
+		 <span class="o">&lt;&amp;</span><span class="n">cru</span> <span class="n">ACLK_USB3OTG0</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;&amp;</span><span class="n">cru</span> <span class="n">ACLK_USB3_GRF</span><span class="o">&gt;</span><span class="p">;</span>
+	<span class="n">clock</span><span class="o">-</span><span class="n">names</span> <span class="o">=</span> <span class="s2">&quot;ref_clk&quot;</span><span class="p">,</span> <span class="s2">&quot;suspend_clk&quot;</span><span class="p">,</span>
+		      <span class="s2">&quot;bus_clk&quot;</span><span class="p">,</span> <span class="s2">&quot;grf_clk&quot;</span><span class="p">;</span>
+	<span class="n">power</span><span class="o">-</span><span class="n">domains</span> <span class="o">=</span> <span class="o">&lt;&amp;</span><span class="n">power</span> <span class="n">RK3399_PD_USB3</span><span class="o">&gt;</span><span class="p">;</span>
+	<span class="n">resets</span> <span class="o">=</span> <span class="o">&lt;&amp;</span><span class="n">cru</span> <span class="n">SRST_A_USB3_OTG0</span><span class="o">&gt;</span><span class="p">;</span>
+	<span class="n">reset</span><span class="o">-</span><span class="n">names</span> <span class="o">=</span> <span class="s2">&quot;usb3-otg&quot;</span><span class="p">;</span>
+	<span class="c1">#address-cells = &lt;2&gt;;</span>
+	<span class="c1">#size-cells = &lt;2&gt;;</span>
+	<span class="n">ranges</span><span class="p">;</span>
+	<span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;disabled&quot;</span><span class="p">;</span>
+	<span class="n">usbdrd_dwc3_0</span><span class="p">:</span> <span class="n">dwc3</span><span class="nd">@fe800000</span> <span class="p">{</span>
+		<span class="n">compatible</span> <span class="o">=</span> <span class="s2">&quot;snps,dwc3&quot;</span><span class="p">;</span>
+		<span class="n">reg</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mh">0x0</span> <span class="mh">0xfe800000</span> <span class="mh">0x0</span> <span class="mh">0x100000</span><span class="o">&gt;</span><span class="p">;</span>
+		<span class="n">interrupts</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">GIC_SPI</span> <span class="mi">105</span> <span class="n">IRQ_TYPE_LEVEL_HIGH</span> <span class="mi">0</span><span class="o">&gt;</span><span class="p">;</span>
+		<span class="n">dr_mode</span> <span class="o">=</span> <span class="s2">&quot;otg&quot;</span><span class="p">;</span>
+		<span class="n">phys</span> <span class="o">=</span> <span class="o">&lt;&amp;</span><span class="n">u2phy0_otg</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;&amp;</span><span class="n">tcphy0</span> <span class="mi">1</span><span class="o">&gt;</span><span class="p">;</span>
+		<span class="n">phy</span><span class="o">-</span><span class="n">names</span> <span class="o">=</span> <span class="s2">&quot;usb2-phy&quot;</span><span class="p">,</span> <span class="s2">&quot;usb3-phy&quot;</span><span class="p">;</span>
+		<span class="n">phy_type</span> <span class="o">=</span> <span class="s2">&quot;utmi_wide&quot;</span><span class="p">;</span>
+		<span class="n">snps</span><span class="p">,</span><span class="n">dis_enblslpm_quirk</span><span class="p">;</span>
+		<span class="n">snps</span><span class="p">,</span><span class="n">dis</span><span class="o">-</span><span class="n">u2</span><span class="o">-</span><span class="n">freeclk</span><span class="o">-</span><span class="n">exists</span><span class="o">-</span><span class="n">quirk</span><span class="p">;</span>
+		<span class="n">snps</span><span class="p">,</span><span class="n">dis</span><span class="o">-</span><span class="k">del</span><span class="o">-</span><span class="n">phy</span><span class="o">-</span><span class="n">power</span><span class="o">-</span><span class="n">chg</span><span class="o">-</span><span class="n">quirk</span><span class="p">;</span>
+		<span class="n">snps</span><span class="p">,</span><span class="n">xhci</span><span class="o">-</span><span class="n">slow</span><span class="o">-</span><span class="n">suspend</span><span class="o">-</span><span class="n">quirk</span><span class="p">;</span>
+		<span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;disabled&quot;</span><span class="p">;</span>
+	<span class="p">};</span>
 <span class="p">};</span>
 </pre></div>
 </div>
 <p>Type-C1 USB3 HOST(dr_mode = host)</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usbdrd3_1</span><span class="p">:</span> <span class="n">usb</span><span class="nd">@fe900000</span> <span class="p">{</span>
-    <span class="n">compatible</span> <span class="o">=</span> <span class="s2">&quot;rockchip,rk3399-dwc3&quot;</span><span class="p">;</span>
-    <span class="n">clocks</span> <span class="o">=</span> <span class="o">&lt;&amp;</span><span class="n">cru</span> <span class="n">SCLK_USB3OTG1_REF</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;&amp;</span><span class="n">cru</span> <span class="n">SCLK_USB3OTG1_SUSPEND</span><span class="o">&gt;</span><span class="p">,</span>
-         <span class="o">&lt;&amp;</span><span class="n">cru</span> <span class="n">ACLK_USB3OTG1</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;&amp;</span><span class="n">cru</span> <span class="n">ACLK_USB3_GRF</span><span class="o">&gt;</span><span class="p">;</span>
-    <span class="n">clock</span><span class="o">-</span><span class="n">names</span> <span class="o">=</span> <span class="s2">&quot;ref_clk&quot;</span><span class="p">,</span> <span class="s2">&quot;suspend_clk&quot;</span><span class="p">,</span>
-              <span class="s2">&quot;bus_clk&quot;</span><span class="p">,</span> <span class="s2">&quot;grf_clk&quot;</span><span class="p">;</span>
-    <span class="n">power</span><span class="o">-</span><span class="n">domains</span> <span class="o">=</span> <span class="o">&lt;&amp;</span><span class="n">power</span> <span class="n">RK3399_PD_USB3</span><span class="o">&gt;</span><span class="p">;</span>
-    <span class="n">resets</span> <span class="o">=</span> <span class="o">&lt;&amp;</span><span class="n">cru</span> <span class="n">SRST_A_USB3_OTG1</span><span class="o">&gt;</span><span class="p">;</span>
-    <span class="n">reset</span><span class="o">-</span><span class="n">names</span> <span class="o">=</span> <span class="s2">&quot;usb3-otg&quot;</span><span class="p">;</span>
-    <span class="c1">#address-cells = &lt;2&gt;;</span>
-    <span class="c1">#size-cells = &lt;2&gt;;</span>
-    <span class="n">ranges</span><span class="p">;</span>
-    <span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;disabled&quot;</span><span class="p">;</span>
-    <span class="n">usbdrd_dwc3_1</span><span class="p">:</span> <span class="n">dwc3</span><span class="nd">@fe900000</span> <span class="p">{</span>
-        <span class="n">compatible</span> <span class="o">=</span> <span class="s2">&quot;snps,dwc3&quot;</span><span class="p">;</span>
-        <span class="n">reg</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mh">0x0</span> <span class="mh">0xfe900000</span> <span class="mh">0x0</span> <span class="mh">0x100000</span><span class="o">&gt;</span><span class="p">;</span>
-        <span class="n">interrupts</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">GIC_SPI</span> <span class="mi">110</span> <span class="n">IRQ_TYPE_LEVEL_HIGH</span> <span class="mi">0</span><span class="o">&gt;</span><span class="p">;</span>
-        <span class="n">dr_mode</span> <span class="o">=</span> <span class="s2">&quot;host&quot;</span><span class="p">;</span>
-        <span class="n">phys</span> <span class="o">=</span> <span class="o">&lt;&amp;</span><span class="n">u2phy1_otg</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;&amp;</span><span class="n">tcphy1</span> <span class="mi">1</span><span class="o">&gt;</span><span class="p">;</span>
-        <span class="n">phy</span><span class="o">-</span><span class="n">names</span> <span class="o">=</span> <span class="s2">&quot;usb2-phy&quot;</span><span class="p">,</span> <span class="s2">&quot;usb3-phy&quot;</span><span class="p">;</span>
-        <span class="n">phy_type</span> <span class="o">=</span> <span class="s2">&quot;utmi_wide&quot;</span><span class="p">;</span>
-        <span class="n">snps</span><span class="p">,</span><span class="n">dis_enblslpm_quirk</span><span class="p">;</span>
-        <span class="n">snps</span><span class="p">,</span><span class="n">dis</span><span class="o">-</span><span class="n">u2</span><span class="o">-</span><span class="n">freeclk</span><span class="o">-</span><span class="n">exists</span><span class="o">-</span><span class="n">quirk</span><span class="p">;</span>
-        <span class="n">snps</span><span class="p">,</span><span class="n">dis</span><span class="o">-</span><span class="k">del</span><span class="o">-</span><span class="n">phy</span><span class="o">-</span><span class="n">power</span><span class="o">-</span><span class="n">chg</span><span class="o">-</span><span class="n">quirk</span><span class="p">;</span>
-        <span class="n">snps</span><span class="p">,</span><span class="n">xhci</span><span class="o">-</span><span class="n">slow</span><span class="o">-</span><span class="n">suspend</span><span class="o">-</span><span class="n">quirk</span><span class="p">;</span>
-        <span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;disabled&quot;</span><span class="p">;</span>
-    <span class="p">};</span>
+	<span class="n">compatible</span> <span class="o">=</span> <span class="s2">&quot;rockchip,rk3399-dwc3&quot;</span><span class="p">;</span>
+	<span class="n">clocks</span> <span class="o">=</span> <span class="o">&lt;&amp;</span><span class="n">cru</span> <span class="n">SCLK_USB3OTG1_REF</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;&amp;</span><span class="n">cru</span> <span class="n">SCLK_USB3OTG1_SUSPEND</span><span class="o">&gt;</span><span class="p">,</span>
+		 <span class="o">&lt;&amp;</span><span class="n">cru</span> <span class="n">ACLK_USB3OTG1</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;&amp;</span><span class="n">cru</span> <span class="n">ACLK_USB3_GRF</span><span class="o">&gt;</span><span class="p">;</span>
+	<span class="n">clock</span><span class="o">-</span><span class="n">names</span> <span class="o">=</span> <span class="s2">&quot;ref_clk&quot;</span><span class="p">,</span> <span class="s2">&quot;suspend_clk&quot;</span><span class="p">,</span>
+		      <span class="s2">&quot;bus_clk&quot;</span><span class="p">,</span> <span class="s2">&quot;grf_clk&quot;</span><span class="p">;</span>
+	<span class="n">power</span><span class="o">-</span><span class="n">domains</span> <span class="o">=</span> <span class="o">&lt;&amp;</span><span class="n">power</span> <span class="n">RK3399_PD_USB3</span><span class="o">&gt;</span><span class="p">;</span>
+	<span class="n">resets</span> <span class="o">=</span> <span class="o">&lt;&amp;</span><span class="n">cru</span> <span class="n">SRST_A_USB3_OTG1</span><span class="o">&gt;</span><span class="p">;</span>
+	<span class="n">reset</span><span class="o">-</span><span class="n">names</span> <span class="o">=</span> <span class="s2">&quot;usb3-otg&quot;</span><span class="p">;</span>
+	<span class="c1">#address-cells = &lt;2&gt;;</span>
+	<span class="c1">#size-cells = &lt;2&gt;;</span>
+	<span class="n">ranges</span><span class="p">;</span>
+	<span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;disabled&quot;</span><span class="p">;</span>
+	<span class="n">usbdrd_dwc3_1</span><span class="p">:</span> <span class="n">dwc3</span><span class="nd">@fe900000</span> <span class="p">{</span>
+		<span class="n">compatible</span> <span class="o">=</span> <span class="s2">&quot;snps,dwc3&quot;</span><span class="p">;</span>
+		<span class="n">reg</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mh">0x0</span> <span class="mh">0xfe900000</span> <span class="mh">0x0</span> <span class="mh">0x100000</span><span class="o">&gt;</span><span class="p">;</span>
+		<span class="n">interrupts</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">GIC_SPI</span> <span class="mi">110</span> <span class="n">IRQ_TYPE_LEVEL_HIGH</span> <span class="mi">0</span><span class="o">&gt;</span><span class="p">;</span>
+		<span class="n">dr_mode</span> <span class="o">=</span> <span class="s2">&quot;host&quot;</span><span class="p">;</span>
+		<span class="n">phys</span> <span class="o">=</span> <span class="o">&lt;&amp;</span><span class="n">u2phy1_otg</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;&amp;</span><span class="n">tcphy1</span> <span class="mi">1</span><span class="o">&gt;</span><span class="p">;</span>
+		<span class="n">phy</span><span class="o">-</span><span class="n">names</span> <span class="o">=</span> <span class="s2">&quot;usb2-phy&quot;</span><span class="p">,</span> <span class="s2">&quot;usb3-phy&quot;</span><span class="p">;</span>
+		<span class="n">phy_type</span> <span class="o">=</span> <span class="s2">&quot;utmi_wide&quot;</span><span class="p">;</span>
+		<span class="n">snps</span><span class="p">,</span><span class="n">dis_enblslpm_quirk</span><span class="p">;</span>
+		<span class="n">snps</span><span class="p">,</span><span class="n">dis</span><span class="o">-</span><span class="n">u2</span><span class="o">-</span><span class="n">freeclk</span><span class="o">-</span><span class="n">exists</span><span class="o">-</span><span class="n">quirk</span><span class="p">;</span>
+		<span class="n">snps</span><span class="p">,</span><span class="n">dis</span><span class="o">-</span><span class="k">del</span><span class="o">-</span><span class="n">phy</span><span class="o">-</span><span class="n">power</span><span class="o">-</span><span class="n">chg</span><span class="o">-</span><span class="n">quirk</span><span class="p">;</span>
+		<span class="n">snps</span><span class="p">,</span><span class="n">xhci</span><span class="o">-</span><span class="n">slow</span><span class="o">-</span><span class="n">suspend</span><span class="o">-</span><span class="n">quirk</span><span class="p">;</span>
+		<span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;disabled&quot;</span><span class="p">;</span>
+	<span class="p">};</span>
 <span class="p">};</span>
 </pre></div>
 </div>

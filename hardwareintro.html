@@ -331,1256 +331,685 @@ RK808，支持动态调频等</p>
 <h2>金手指引脚接口<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <table border="1" class="docutils">
 <colgroup>
-<col width="16%" />
-<col width="18%" />
-<col width="36%" />
-<col width="19%" />
-<col width="10%" />
+<col width="50%" />
+<col width="50%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">引脚编号</th>
 <th class="head">信号</th>
-<th class="head">引脚定义</th>
-<th class="head">使用功能</th>
-<th class="head">引脚类型</th>
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td>1,3,5,7,9,11,13,15,17</td>
+<tr class="row-even"><td>1,3,5,7,9,11,
+13,15,17</td>
 <td>VCC5V_SYS</td>
-<td>电源引脚5V</td>
-<td>输入5V电源</td>
-<td>P</td>
 </tr>
 <tr class="row-odd"><td>20,22,24</td>
 <td>VCC3V3_SYS</td>
-<td>电源引脚3.3V</td>
-<td>输入3.3V电源</td>
-<td>P</td>
 </tr>
 <tr class="row-even"><td>26,28,30</td>
 <td>VCC3V3_S3</td>
-<td>电源引脚3.3V</td>
-<td>输出3.3V电源</td>
-<td>P</td>
 </tr>
 <tr class="row-odd"><td>34,36</td>
 <td>VCC_3V0</td>
-<td>电源引脚3V</td>
-<td>输出3V电源</td>
-<td>P</td>
 </tr>
 <tr class="row-even"><td>38,40</td>
 <td>VCC_1V8</td>
-<td>电源引脚1.8V</td>
-<td>输出1.8V电源</td>
-<td>P</td>
 </tr>
 <tr class="row-odd"><td>42</td>
 <td>VCCRTC_CN</td>
-<td>电源引脚3V</td>
-<td>RTC电池输入3V</td>
-<td>P</td>
 </tr>
 <tr class="row-even"><td>44</td>
 <td>VCCA_1V8</td>
-<td>电源引脚1.8V</td>
-<td>输出模拟1.8V电源</td>
-<td>P</td>
 </tr>
 <tr class="row-odd"><td>158</td>
 <td>DC_12V</td>
-<td>电源引脚12V</td>
-<td>输入适配器插入检测</td>
-<td>P</td>
 </tr>
 <tr class="row-even"><td>154</td>
 <td>VCC_5V</td>
-<td>电源引脚5V</td>
-<td>TYPEC电路5V输入电源</td>
-<td>P</td>
 </tr>
 <tr class="row-odd"><td>267,269</td>
-<td>VCCA3V0_CODEC</td>
-<td>电源引脚3V</td>
-<td>输出3V音频电源</td>
-<td>P</td>
+<td>VCCA3V0_CODE
+C</td>
 </tr>
 <tr class="row-even"><td>271,273</td>
-<td>VCCA1V8_CODEC</td>
-<td>电源引脚1.8V</td>
-<td>输出1.8V音频电源</td>
-<td>P</td>
+<td>VCCA1V8_CODE
+C</td>
 </tr>
 <tr class="row-odd"><td>21</td>
 <td>MAC_CLK</td>
-<td>GPIO3_B3_U/MAC_CLK/I2C5_SCL</td>
-<td>千兆以太网参考时钟输入</td>
-<td>I/O(3.3V)</td>
 </tr>
 <tr class="row-even"><td>23</td>
 <td>PHY_RST</td>
-<td>GPIO3_B7_U/MAC_CRS/UART3_RX</td>
-<td>以太网接口物理层CRS信号</td>
-<td>I/O(3.3V)</td>
 </tr>
 <tr class="row-odd"><td>25</td>
 <td>PHY_PMEB</td>
-<td>GPIO1_D0_D/DFTJTAG_CLK/TCPD_VBUS_SOURCE2</td>
-<td>预留GPIO</td>
-<td>I/O(3V)</td>
 </tr>
 <tr class="row-even"><td>29</td>
 <td>MAC_MDC</td>
-<td>GPIO3_B0_U/MAC_MDC/SPI0_CSN1</td>
-<td>MAC控制接口时钟</td>
-<td>I/O(3.3V)</td>
 </tr>
 <tr class="row-odd"><td>31</td>
 <td>PHY_INT</td>
-<td>GPIO3_B2_U/MAC_RXER/I2C5_SDA</td>
-<td>PHY中断输入</td>
-<td>I/O(3.3V)</td>
 </tr>
 <tr class="row-even"><td>33</td>
 <td>MAC_MDIO</td>
-<td>GPIO3_B5_U/MAC_MDIO/UART1_TX</td>
-<td>MAC控制接口数据</td>
-<td>I/O(3.3V)</td>
 </tr>
 <tr class="row-odd"><td>35</td>
 <td>MAC_TXEN</td>
-<td>GPIO3_B4_U/MAC_TXEN/UART1_RX</td>
-<td>MAC数据发送使能</td>
-<td>I/O(3.3V)</td>
 </tr>
 <tr class="row-even"><td>37</td>
 <td>PHY_TXD3</td>
-<td>GPIO3_A1_D/MAC_TXD3/SPI4_TXD</td>
-<td>MAC发送数据3</td>
-<td>I/O(3.3V)</td>
 </tr>
 <tr class="row-odd"><td>39</td>
 <td>PHY_TXD2</td>
-<td>GPIO3_A0_D/MAC_TXD2/SPI4_RXD</td>
-<td>MAC发送数据2</td>
-<td>I/O(3.3V)</td>
 </tr>
 <tr class="row-even"><td>41</td>
 <td>PHY_TXD1</td>
-<td>GPIO3_A5_D/MAC_TXD1/SPI0_TXD</td>
-<td>MAC发送数据1</td>
-<td>I/O(3.3V)</td>
 </tr>
 <tr class="row-odd"><td>43</td>
 <td>PHY_TXD0</td>
-<td>GPIO3_A4_D/MAC_TXD0/SPI0_RXD</td>
-<td>MAC发送数据0</td>
-<td>I/O(3.3V)</td>
 </tr>
 <tr class="row-even"><td>45</td>
 <td>PHY_TXCLK</td>
-<td>GPIO3_C1_U/MAC_TXCLK/UART3_RTSN</td>
-<td>MAC数据发送参考时钟</td>
-<td>I/O(3.3V)</td>
 </tr>
 <tr class="row-odd"><td>49</td>
 <td>MAC_RXDV</td>
-<td>GPIO3_B1_D/MAC_RXDV</td>
-<td>MAX接收数据有效</td>
-<td>I/O(3.3V)</td>
 </tr>
 <tr class="row-even"><td>51</td>
 <td>MAC_RXD0</td>
-<td>GPIO3_A6_U/MAC_RXD0/SPI0_CLK</td>
-<td>MAC接收数据0</td>
-<td>I/O(3.3V)</td>
 </tr>
 <tr class="row-odd"><td>53</td>
 <td>MAC_RXD1</td>
-<td>GPIO3_A7_U/MAC_RXD1/SPI0_CSN0</td>
-<td>MAC接收数据1</td>
-<td>I/O(3.3V)</td>
 </tr>
 <tr class="row-even"><td>55</td>
 <td>MAC_RXD2</td>
-<td>GPIO3_A2_U/MAC_RXD2/SPI4_CLK</td>
-<td>MAC接收数据2</td>
-<td>I/O(3.3V)</td>
 </tr>
 <tr class="row-odd"><td>57</td>
 <td>MAC_RXD3</td>
-<td>GPIO3_A3_U/MAC_RXD3/SPI4_CSN0</td>
-<td>MAC接收数据3</td>
-<td>I/O(3.3V)</td>
 </tr>
 <tr class="row-even"><td>59</td>
 <td>MAC_RXCLK</td>
-<td>GPIO3_B6_U/MAC_RXCLK/UART3_TX</td>
-<td>MAC接收数据参考时钟</td>
-<td>I/O(3.3V)</td>
 </tr>
 <tr class="row-odd"><td>63</td>
 <td>DVP_PDN0_H</td>
-<td>GPIO2_B4_U/SPI2_CSN0</td>
-<td>CIF模块电源控制</td>
-<td>I/O(3V)</td>
 </tr>
 <tr class="row-even"><td>65</td>
 <td>CIF_D0</td>
-<td>GPIO2_A0_U/VOP_D0/CIF_D0/I2C2_SDA</td>
-<td>CIF模块数据0</td>
-<td>I/O(3V)</td>
 </tr>
 <tr class="row-odd"><td>67</td>
 <td>CIF_D1</td>
-<td>GPIO2_A1_U/VOP_D1/CIF_D1/I2C2_SCL</td>
-<td>CIF模块数据1</td>
-<td>I/O(3V)</td>
 </tr>
 <tr class="row-even"><td>69</td>
 <td>CIF_D2</td>
-<td>GPIO2_A2_D/VOP_D2/CIF_D2</td>
-<td>CIF模块数据2</td>
-<td>I/O(3V)</td>
 </tr>
 <tr class="row-odd"><td>71</td>
 <td>CIF_D3</td>
-<td>GPIO2_A3_D/VOP_D3/CIF_D3</td>
-<td>CIF模块数据3</td>
-<td>I/O(3V)</td>
 </tr>
 <tr class="row-even"><td>73</td>
 <td>CIF_D4</td>
-<td>GPIO2_A4_D/VOP_D4/CIF_D4</td>
-<td>CIF模块数据4</td>
-<td>I/O(3V)</td>
 </tr>
 <tr class="row-odd"><td>75</td>
 <td>CIF_D5</td>
-<td>GPIO2_A5_D/VOP_D5/CIF_D5</td>
-<td>CIF模块数据5</td>
-<td>I/O(3V)</td>
 </tr>
 <tr class="row-even"><td>77</td>
 <td>CIF_D6</td>
-<td>GPIO2_A6_D/VOP_D6/CIF_D6</td>
-<td>CIF模块数据6</td>
-<td>I/O(3V)</td>
 </tr>
 <tr class="row-odd"><td>79</td>
 <td>CIF_D7</td>
-<td>GPIO2_A7_U/VOP_D7/CIF_D7/I2C7_SDA</td>
-<td>CIF模块数据7</td>
-<td>I/O(3V)</td>
 </tr>
 <tr class="row-even"><td>81</td>
 <td>CIF_HREF</td>
-<td>GPIO2_B1_U/SPI2_RXD/CIF_HREF/I2C6_SDA</td>
-<td>CIF模块水平同步信号</td>
-<td>I/O(3V)</td>
 </tr>
 <tr class="row-odd"><td>83</td>
 <td>CIF_VSYNC</td>
-<td>GPIO2_B0_U/VOP_CLK/CIF_VSYNC/I2C7_SCL</td>
-<td>CIF模块垂直同步信号</td>
-<td>I/O(3V)</td>
 </tr>
 <tr class="row-even"><td>87</td>
 <td>CIF_CLKI</td>
-<td>GPIO2_B2_U/SPI2_TXD/CIF_CLKIN/I2C6_SCL</td>
-<td>CIF模块输入像素时钟</td>
-<td>I/O(3V)</td>
 </tr>
 <tr class="row-odd"><td>89</td>
 <td>CIF_CLKO</td>
-<td>GPIO2_B3_U/SPI2_CLK/VOP_DEN/CIF_CLKOUT</td>
-<td>CIF模块输出工作时钟</td>
-<td>I/O(3V)</td>
 </tr>
 <tr class="row-even"><td>99</td>
-<td>SPI1_RXD/UART4_RXD</td>
-<td>GPIO1_A7_U/SPI1_RXD/PMCU_UART4DBG_TX</td>
-<td>预留SPI/UART接口</td>
-<td>I/O(3V)</td>
+<td>SPI1_RXD/UAR
+T4_RXD</td>
 </tr>
 <tr class="row-odd"><td>101</td>
-<td>SPI1_TXD/UART4_TXD</td>
-<td>GPIO1_B0_U/SPI1_TXD/PMCU_UART4DBG_RX</td>
-<td>预留SPI/UART接口</td>
-<td>I/O(3V)</td>
+<td>SPI1_TXD/UAR
+T4_TXD</td>
 </tr>
 <tr class="row-even"><td>103</td>
 <td>SPI1_CLK</td>
-<td>GPIO1_B1_U/SPI1_CLK/PMCU_JTAG_TCK</td>
-<td>SPI1接口</td>
-<td>I/O(3V)</td>
 </tr>
 <tr class="row-odd"><td>105</td>
 <td>SPI1_CSN0</td>
-<td>GPIO1_B2_U/SPI1_CSN0/PMCU_JTAG_TMS</td>
-<td>SPI1接口</td>
-<td>I/O(3V)</td>
 </tr>
 <tr class="row-even"><td>109</td>
-<td>PCIE_REF_CLKP</td>
-<td>PCIE_RCLK_100M_P</td>
-<td>PCIE输入100MHz参考时钟</td>
-<td>A</td>
+<td>PCIE_REF_CL
+KP</td>
 </tr>
 <tr class="row-odd"><td>111</td>
-<td>PCIE_REF_CLKN</td>
-<td>PCIE_RCLK_100M_N</td>
-<td>PCIE输入100MHz参考时钟</td>
-<td>A</td>
+<td>PCIE_REF_CL
+KN</td>
 </tr>
 <tr class="row-even"><td>115</td>
 <td>PCIE_TX0N</td>
-<td>PCIE_TX0N</td>
-<td>PCIE LANE0输出</td>
-<td>A</td>
 </tr>
 <tr class="row-odd"><td>117</td>
 <td>PCIE_TX0P</td>
-<td>PCIE_TX0P</td>
-<td>PCIE LANE0输出</td>
-<td>A</td>
 </tr>
 <tr class="row-even"><td>121</td>
 <td>PCIE_RX0_N</td>
-<td>PCIE_RX0_N</td>
-<td>PCIE LANE0输入</td>
-<td>A</td>
 </tr>
 <tr class="row-odd"><td>123</td>
 <td>PCIE_RX0_P</td>
-<td>PCIE_RX0_P</td>
-<td>PCIE LANE0输入</td>
-<td>A</td>
 </tr>
 <tr class="row-even"><td>127</td>
 <td>PCIE_TX1N</td>
-<td>PCIE_TX1N</td>
-<td>PCIE LANE1输出</td>
-<td>A</td>
 </tr>
 <tr class="row-odd"><td>129</td>
 <td>PCIE_TX1P</td>
-<td>PCIE_TX1P</td>
-<td>PCIE LANE1输出</td>
-<td>A</td>
 </tr>
 <tr class="row-even"><td>133</td>
 <td>PCIE_RX1_N</td>
-<td>PCIE_RX1_N</td>
-<td>PCIE LANE1输入</td>
-<td>A</td>
 </tr>
 <tr class="row-odd"><td>135</td>
 <td>PCIE_RX1_P</td>
-<td>PCIE_RX1_P</td>
-<td>PCIE LANE1输入</td>
-<td>A</td>
 </tr>
 <tr class="row-even"><td>139</td>
 <td>PCIE_TX2N</td>
-<td>PCIE_TX2N</td>
-<td>PCIE LANE2输出</td>
-<td>A</td>
 </tr>
 <tr class="row-odd"><td>141</td>
 <td>PCIE_TX2P</td>
-<td>PCIE_TX2P</td>
-<td>PCIE LANE2输出</td>
-<td>A</td>
 </tr>
 <tr class="row-even"><td>145</td>
 <td>PCIE_RX2_P</td>
-<td>PCIE_RX2_P</td>
-<td>PCIE LANE2输入</td>
-<td>A</td>
 </tr>
 <tr class="row-odd"><td>147</td>
 <td>PCIE_RX2_N</td>
-<td>PCIE_RX2_N</td>
-<td>PCIE LANE2输入</td>
-<td>A</td>
 </tr>
 <tr class="row-even"><td>151</td>
 <td>PCIE_TX3N</td>
-<td>PCIE_TX3N</td>
-<td>PCIE LANE3输出</td>
-<td>A</td>
 </tr>
 <tr class="row-odd"><td>153</td>
 <td>PCIE_TX3P</td>
-<td>PCIE_TX3P</td>
-<td>PCIE LANE3输出</td>
-<td>A</td>
 </tr>
 <tr class="row-even"><td>157</td>
 <td>PCIE_RX3_N</td>
-<td>PCIE_RX3_N</td>
-<td>PCIE LANE3输入</td>
-<td>A</td>
 </tr>
 <tr class="row-odd"><td>159</td>
 <td>PCIE_RX3_P</td>
-<td>PCIE_RX3_P</td>
-<td>PCIE LANE3输入</td>
-<td>A</td>
 </tr>
 <tr class="row-even"><td>48</td>
 <td>EDPAUXN</td>
-<td>EDP_AUXN</td>
-<td>EDP_AUX通道输出</td>
-<td>A</td>
 </tr>
 <tr class="row-odd"><td>50</td>
 <td>EDPAUXP</td>
-<td>EDP_AUXP</td>
-<td>EDP_AUX通道输出</td>
-<td>A</td>
 </tr>
 <tr class="row-even"><td>54</td>
 <td>EDP_TX0N</td>
-<td>EDP_TX0N</td>
-<td>EDP 0通道输出</td>
-<td>A</td>
 </tr>
 <tr class="row-odd"><td>56</td>
 <td>EDP_TX0P</td>
-<td>EDP_TX0P</td>
-<td>EDP 0通道输出</td>
-<td>A</td>
 </tr>
 <tr class="row-even"><td>60</td>
 <td>EDP_TX1N</td>
-<td>EDP_TX1N</td>
-<td>EDP 1通道输出</td>
-<td>A</td>
 </tr>
 <tr class="row-odd"><td>62</td>
 <td>EDP_TX1P</td>
-<td>EDP_TX1P</td>
-<td>EDP 1通道输出</td>
-<td>A</td>
 </tr>
 <tr class="row-even"><td>66</td>
 <td>EDP_TX2N</td>
-<td>EDP_TX2N</td>
-<td>EDP 2通道输出</td>
-<td>A</td>
 </tr>
 <tr class="row-odd"><td>68</td>
 <td>EDP_TX2P</td>
-<td>EDP_TX2P</td>
-<td>EDP 2通道输出</td>
-<td>A</td>
 </tr>
 <tr class="row-even"><td>72</td>
 <td>EDP_TX3N</td>
-<td>EDP_TX3N</td>
-<td>EDP 3通道输出</td>
-<td>A</td>
 </tr>
 <tr class="row-odd"><td>74</td>
 <td>EDP_TX3P</td>
-<td>EDP_TX3P</td>
-<td>EDP 3通道输出</td>
-<td>A</td>
 </tr>
 <tr class="row-even"><td>78</td>
 <td>GPIO3_C0</td>
-<td>GPIO3_C0_U/MAC_COL/UART3_CTSN</td>
-<td>预留GPIO</td>
-<td>I/O(3.3V)</td>
 </tr>
 <tr class="row-odd"><td>82</td>
 <td>TP_RST</td>
-<td>GPIO4_C5_D/SPDIF_TX</td>
-<td>预留GPIO</td>
-<td>I/O(3V)</td>
 </tr>
 <tr class="row-even"><td>84</td>
-<td>SDMMC0_DET_L</td>
-<td>GPIO0_A7_U/SDMMC0_DET</td>
-<td>SD卡插入检测</td>
-<td>I/O(1.8V)</td>
+<td>SDMMC0_DET_
+L</td>
 </tr>
 <tr class="row-odd"><td>86</td>
 <td>SDMMC0_D2</td>
-<td>GPIO4_B2_U/SDMMC0_D2/APJTAG_TCK</td>
-<td>SD数据2</td>
-<td>I/O(3V)/1.8V</td>
 </tr>
 <tr class="row-even"><td>88</td>
 <td>SDMMC0_D3</td>
-<td>GPIO4_B3_U/SDMMC0_D3/APJTAG_TMS</td>
-<td>SD数据3</td>
-<td>I/O(3V)/1.8V</td>
 </tr>
 <tr class="row-odd"><td>90</td>
 <td>SDMMC0_CMD</td>
-<td>GPIO4_B5_U/SDMMC0_CMD/MCUJTAG_TMS</td>
-<td>SD卡命令信号</td>
-<td>I/O(3V)/1.8V</td>
 </tr>
 <tr class="row-even"><td>92</td>
 <td>SDMMC0_CLK</td>
-<td>GPIO4_B4_D/SDMMC0_CLKOUT/MUCJTAG_TCK</td>
-<td>SD卡时钟信号</td>
-<td>I/O(3V)/1.8V</td>
 </tr>
 <tr class="row-odd"><td>94</td>
 <td>SDMMC0_D0</td>
-<td>GPIO4_B0_U/SDMMC0_D0/UART2DBG_RX</td>
-<td>SD数据0</td>
-<td>I/O(3V)/1.8V</td>
 </tr>
 <tr class="row-even"><td>96</td>
 <td>SDMMC0_D1</td>
-<td>GPIO4_B1_U/SDMMC0_D1/UART2DBG_TX</td>
-<td>SD数据1</td>
-<td>I/O(3V)/1.8V</td>
 </tr>
 <tr class="row-odd"><td>98</td>
 <td>BL_EN</td>
-<td>GPIO1_A1_D/ISP_SHUTTER_TRIG/TCPD_CC0_VCONN_EN</td>
-<td>预留GPIO</td>
-<td>I/O(3V)</td>
 </tr>
 <tr class="row-even"><td>100</td>
 <td>LCD_EN</td>
-<td>GPIO1_A4_D/ISP_PRELIGHT_TRIG</td>
-<td>预留GPIO</td>
-<td>I/O(3V)</td>
 </tr>
 <tr class="row-odd"><td>102</td>
-<td>VCC5V0_TYPEC0_EN</td>
-<td>GPIO1_A3_D/ISP_FLASHTRIGOUT</td>
-<td>TYPEC 5V电源使能信号</td>
-<td>I/O(3V)</td>
+<td>VCC5V0_TYPEC
+0_EN</td>
 </tr>
 <tr class="row-even"><td>104</td>
 <td>VCC5V0_HOST_EN</td>
-<td>GPIO1_A0_D/ISP_SHUTTER_EN/TCPD_VBUS_SINK_EN</td>
-<td>USB HOST 5V电源使能</td>
-<td>I/O(3V)</td>
 </tr>
 <tr class="row-odd"><td>106</td>
-<td>TYPEC0_U2VBUSDET</td>
-<td>TYPEC0_U2VBUSDET</td>
-<td>TYPEC0 VBUS检测信号</td>
-<td>A</td>
+<td>TYPEC0_U2VBU
+SDET</td>
 </tr>
 <tr class="row-even"><td>112</td>
 <td>DVP_PWR_H</td>
-<td>GPIO0_B0_U/SDMMC0_WRPT/TEST_CLKOUT2</td>
-<td>预留GPIO</td>
-<td>I/O(1.8V)</td>
 </tr>
 <tr class="row-odd"><td>118</td>
 <td>FAN_INT</td>
-<td>GPIO0_A2_D/WIFI_26MHZ</td>
-<td>预留GPIO</td>
-<td>I/O(1.8V)</td>
 </tr>
 <tr class="row-even"><td>120</td>
 <td>ADC_IN0</td>
-<td>ADC_IN0</td>
-<td>ADC转换0</td>
-<td>A</td>
 </tr>
 <tr class="row-odd"><td>122</td>
 <td>RECOVER</td>
-<td>ADC_IN1</td>
-<td>RECOVER</td>
-<td>A</td>
 </tr>
 <tr class="row-even"><td>124</td>
 <td>ADC_IN2</td>
-<td>ADC_IN2</td>
-<td>ADC转换2</td>
-<td>A</td>
 </tr>
 <tr class="row-odd"><td>128</td>
 <td>HOST1_DM</td>
-<td>HOST1_DM</td>
-<td>USB HOST1</td>
-<td>A</td>
 </tr>
 <tr class="row-even"><td>130</td>
 <td>HOST1_DP</td>
-<td>HOST1_DP</td>
-<td>USB HOST1</td>
-<td>A</td>
 </tr>
 <tr class="row-odd"><td>134</td>
 <td>HOST0_DM</td>
-<td>HOST0_DM</td>
-<td>USB HOST0</td>
-<td>A</td>
 </tr>
 <tr class="row-even"><td>136</td>
 <td>HOST0_DP</td>
-<td>HOST0_DP</td>
-<td>USB HOST0</td>
-<td>A</td>
 </tr>
 <tr class="row-odd"><td>140</td>
-<td>TYPE_C0_DISCHARGE</td>
-<td>GPIO0_B4_D/TCPD_VBUS_BDIS</td>
-<td>预留GPIO</td>
-<td>I/O(1.8V)</td>
+<td>TYPE_C0_DIS
+CHARGE</td>
 </tr>
 <tr class="row-even"><td>144</td>
 <td>SDMMC0_PWR</td>
-<td>GPIO_D6</td>
-<td>SD卡电源控制使能</td>
-<td>I/O(3V)</td>
 </tr>
 <tr class="row-odd"><td>146</td>
 <td>VCC_5V_EN</td>
-<td>GPIO1_C7_D/DFTJTAG_TDO/TCPD_VBUS_SOURCE1</td>
-<td>5V输出使能</td>
-<td>I/O(3V)</td>
 </tr>
 <tr class="row-even"><td>148</td>
 <td>EDP_HPD</td>
-<td>GPIO1_C4_U/I2C8_SDA</td>
-<td>预留GPIO</td>
-<td>I/O(3V)</td>
 </tr>
 <tr class="row-odd"><td>150</td>
 <td>GPIO1_B5</td>
-<td>GPIO1_B5</td>
-<td>预留GPIO</td>
-<td>I/O(3V)</td>
 </tr>
 <tr class="row-even"><td>152</td>
-<td>VCC5V0_USB30_EN</td>
-<td>GPIO4_D5_D</td>
-<td>预留GPIO</td>
-<td>I/O(3V)</td>
+<td>VCC5V0_USB30
+_EN</td>
 </tr>
 <tr class="row-odd"><td>165</td>
 <td>TP_INT</td>
-<td>GPIO4_D4_D</td>
-<td>预留GPIO</td>
-<td>I/O(3V)</td>
 </tr>
 <tr class="row-even"><td>167</td>
 <td>I2C4_SDA</td>
-<td>GPIO1_B3_U/I2C4_SDA</td>
-<td>I2C4数据</td>
-<td>I/O(3V)</td>
 </tr>
 <tr class="row-odd"><td>169</td>
 <td>I2C4_SCL</td>
-<td>GPIO1_B4_U/I2C4_SCL</td>
-<td>I2C4时钟</td>
-<td>I/O(3V)</td>
 </tr>
 <tr class="row-even"><td>171</td>
 <td>PWR_EN</td>
-<td>PMIC_RK808_VDC</td>
-<td>RK808适配器插入检测</td>
-<td>脉冲信号</td>
 </tr>
 <tr class="row-odd"><td>173</td>
 <td>POWER_ON</td>
-<td>POWER_KEY</td>
-<td>RK808开机信号</td>
-<td>脉冲信号</td>
 </tr>
 <tr class="row-even"><td>177</td>
 <td>IR_INT</td>
-<td>GPIO0_A6_D/PWM3A_IR</td>
-<td>预留GPIO</td>
-<td>I/O(1.8V)</td>
 </tr>
 <tr class="row-odd"><td>179</td>
 <td>DIY_LED</td>
-<td>GPIO0_B5_D/TCPD_VBUS_SOURCE3/TCPD_VBUS_FDIS</td>
-<td>预留GPIO</td>
-<td>I/O(1.8V)</td>
 </tr>
 <tr class="row-even"><td>181</td>
 <td>RESET_L</td>
-<td>复位信号</td>
-<td>&#160;</td>
-<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>183</td>
 <td>4G_PWR_EN</td>
-<td>GPIO0_A1_U/DDRIO_PWROFF/TCPD_CCDB_E</td>
-<td>4G电源控制使能</td>
-<td>I/O(1.8V)</td>
 </tr>
 <tr class="row-even"><td>187</td>
 <td>PWR_KEY_L</td>
-<td>GPIO0_A5_U/EMMC_PWRON</td>
-<td>开关机键软件检测</td>
-<td>I/O(1.8V)</td>
 </tr>
 <tr class="row-odd"><td>189</td>
 <td>WORK_LED</td>
-<td>GPIO2_D3_D/SDIO0_PWREN</td>
-<td>工作指示灯</td>
-<td>I/O(1.8V)</td>
 </tr>
 <tr class="row-even"><td>191</td>
 <td>HDMI_CEC</td>
-<td>GPIO4_C7_U/HDMI_CECINOUT/EDP_HOTPLUG</td>
-<td>HDMI CEC通信</td>
-<td>I/O(3V)</td>
 </tr>
 <tr class="row-odd"><td>193</td>
 <td>PORT_HPD</td>
-<td>HDMI_HPD</td>
-<td>HDMI插入检测</td>
-<td>A</td>
 </tr>
 <tr class="row-even"><td>195</td>
-<td>I2C_SCL_HDMI</td>
-<td>GPIO4_C1_U/I2C3_SCL_HDMI/UART2DBG_TX</td>
-<td>I2C3时钟</td>
-<td>I/O(3V)</td>
+<td>I2C_SCL_HDM
+I</td>
 </tr>
 <tr class="row-odd"><td>197</td>
-<td>I2C_SDA_HDMI</td>
-<td>GPIO4_C0_U/I2C3_SDA_HDMI/UART2DBG_RX</td>
-<td>I2C3数据</td>
-<td>I/O(3V)</td>
+<td>I2C_SDA_HDM
+I</td>
 </tr>
 <tr class="row-even"><td>199</td>
-<td>CHG_CC0_INT_L</td>
-<td>GPIO1_A2_D/ISP_FLASHTRIGIN/TCPD_CC1_VCONN_EN</td>
-<td>TYPEC充电CC信号</td>
-<td>I/O(3V)</td>
+<td>CHG_CC0_INT
+_L</td>
 </tr>
 <tr class="row-odd"><td>201</td>
-<td>RTC_CLKO_SOC_PIN</td>
-<td>RK808</td>
-<td>RK808输出给RK3399的32K时钟</td>
-<td>I/O(3V)</td>
+<td>RTC_CLKO_SO
+C_PIN</td>
 </tr>
 <tr class="row-even"><td>205</td>
-<td>BT_HOST_WAKE_L</td>
-<td>GPIO0_A4_D/SDIO0_INTn</td>
-<td>预留GPIO</td>
-<td>I/O(1.8V)</td>
+<td>BT_HOST_WAK
+E_L</td>
 </tr>
 <tr class="row-odd"><td>207</td>
 <td>BT_WAKE_L</td>
-<td>GPIO2_D2_U/SDIO0_DETN/PCIE_CLKREQN</td>
-<td>预留GPIO</td>
-<td>I/O(1.8V)</td>
 </tr>
 <tr class="row-even"><td>209</td>
 <td>UART0_RTS</td>
-<td>GPIO2_C3_U/UART0_RTSN</td>
-<td>UART0信号</td>
-<td>I/O(1.8V)</td>
 </tr>
 <tr class="row-odd"><td>211</td>
 <td>UART0_CTS</td>
-<td>GPIO2_C2_U/UART0_CTSN</td>
-<td>UART0信号</td>
-<td>I/O(1.8V)</td>
 </tr>
 <tr class="row-even"><td>213</td>
 <td>UART0_TXD</td>
-<td>GPIO2_C1_U/UART0_TX</td>
-<td>UART0信号</td>
-<td>I/O(1.8V)</td>
 </tr>
 <tr class="row-odd"><td>215</td>
 <td>UART0_RXD</td>
-<td>GPIO2_C0_U/UART0_RX</td>
-<td>UART0信号</td>
-<td>I/O(1.8V)</td>
 </tr>
 <tr class="row-even"><td>217</td>
-<td>BT_REG_ON_H</td>
-<td>GPIO0_B1_D/PMUIO2_1833_VOLSEL</td>
-<td>预留GPIO</td>
-<td>I/O(1.8V)</td>
+<td>BT_REG_ON_
+H</td>
 </tr>
 <tr class="row-odd"><td>219</td>
 <td>SDIO0_D1</td>
-<td>GPIO2_C5_U/SDIO0_D1/SPI5_TXD</td>
-<td>SDIO0接口数据1</td>
-<td>I/O(1.8V)</td>
 </tr>
 <tr class="row-even"><td>221</td>
 <td>SDIO0_D0</td>
-<td>GPIO2_C4_U/SDIO0_D0/SPI5_RXD</td>
-<td>SDIO0接口数据0</td>
-<td>I/O(1.8V)</td>
 </tr>
 <tr class="row-odd"><td>223</td>
 <td>SDIO0_D2</td>
-<td>GPIO2_C6_U/SDIO0_D2/SPI5_CLK</td>
-<td>SDIO0接口数据2</td>
-<td>I/O(1.8V)</td>
 </tr>
 <tr class="row-even"><td>225</td>
 <td>SDIO0_D3</td>
-<td>GPIO2_C7_U/SDIO0_D3/SPI5_CSN0</td>
-<td>SDIO0接口数据3</td>
-<td>I/O(1.8V)</td>
 </tr>
 <tr class="row-odd"><td>227</td>
 <td>SDIO0_CLK</td>
-<td>GPIO2_D1_U/SDIO0_CLKOUT/TEST_CLKOUT1</td>
-<td>SDIO0接口参考时钟</td>
-<td>I/O(1.8V)</td>
 </tr>
 <tr class="row-even"><td>229</td>
 <td>SDIO0_CMD</td>
-<td>GPIO2_D0_U/SDIO0_CMD</td>
-<td>SDIO0接口命令信号</td>
-<td>I/O(1.8V)</td>
 </tr>
 <tr class="row-odd"><td>231</td>
-<td>WIFI_HOST_WAKE_L</td>
-<td>GPIO0_A3_D/SDIO0_WRPT</td>
-<td>预留GPIO</td>
-<td>I/O(1.8V)</td>
+<td>WIFI_HOST_W
+AKE_L</td>
 </tr>
 <tr class="row-even"><td>233</td>
-<td>WIFI_REG_ON_H</td>
-<td>GPIO0_B2_D</td>
-<td>预留GPIO</td>
-<td>I/O(1.8V)</td>
+<td>WIFI_REG_ON
+_H</td>
 </tr>
 <tr class="row-odd"><td>237</td>
-<td>RTC_CLKO_WIFI</td>
-<td>RK808信号</td>
-<td>预留32K时钟</td>
-<td>&#160;</td>
+<td>RTC_CLKO_WI
+FI</td>
 </tr>
 <tr class="row-even"><td>239</td>
 <td>EXT_EN RK808</td>
-<td>&#160;</td>
-<td>&#160;</td>
-<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>241</td>
 <td>OTP_RST</td>
-<td>&#160;</td>
-<td>OTP电源控制</td>
-<td>3V/5V</td>
 </tr>
 <tr class="row-even"><td>245</td>
 <td>TYPEC0_ID</td>
-<td>TYPEC0_ID</td>
-<td>TYPEC0 OTG ID检测信号</td>
-<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>247</td>
 <td>TP_INT1</td>
-<td>GPIO1_C1_D/SPI3_CLK</td>
-<td>预留GPIO</td>
-<td>I/O(3V)</td>
 </tr>
 <tr class="row-even"><td>249</td>
 <td>LCD_RST</td>
-<td>GPIO2_D4_D/SDIO0_BKPWR</td>
-<td>预留GPIO</td>
-<td>I/O(1.8V)</td>
 </tr>
 <tr class="row-odd"><td>251</td>
 <td>UART2_RXD</td>
-<td>GPIO4_C3_U/UART2DBG_RX</td>
-<td>UART2接收数据</td>
-<td>I/O(3V)</td>
 </tr>
 <tr class="row-even"><td>253</td>
 <td>UART2_TXD</td>
-<td>GPIO4_C4_U/UART2DBG_TX</td>
-<td>UART2发送数据</td>
-<td>I I/O(3V)</td>
 </tr>
 <tr class="row-odd"><td>255</td>
 <td>WK2124_RST</td>
-<td>GPIO4_D3_D</td>
-<td>预留GPIO</td>
-<td>I/O(3V)</td>
 </tr>
 <tr class="row-even"><td>257</td>
-<td>GPIO4_D0/MIPI_PWR_EN</td>
-<td>GPIO4_D0_U/PCIE_CLKREQN</td>
-<td>预留GPIO</td>
-<td>I/O(3V）</td>
+<td>GPIO4_D0/MIP
+I_PWR_EN</td>
 </tr>
 <tr class="row-odd"><td>259</td>
-<td>GPIO4_D1/RESX</td>
-<td>GPIO4_D1_D</td>
-<td>预留GPIO</td>
-<td>I/O(3V)</td>
+<td>GPIO4_D1/RES
+X</td>
 </tr>
 <tr class="row-even"><td>261</td>
 <td>WK2124_INT</td>
-<td>GPIO4_D2_D</td>
-<td>预留GPIO</td>
-<td>I/O(3V)</td>
 </tr>
 <tr class="row-odd"><td>263</td>
 <td>LCD_BL_PWM1</td>
-<td>GPIO4_C6_D/PWM1</td>
-<td>预留LCD背光PWM信号</td>
-<td>I/O(3V)</td>
 </tr>
 <tr class="row-even"><td>265</td>
 <td>LCD_BL_PWM</td>
-<td>GPIO4_C2_D/PWM0/VOP1_PWM_CABC</td>
-<td>预留LCD背光PWM信号</td>
-<td>I/O(3V)</td>
 </tr>
 <tr class="row-odd"><td>277</td>
 <td>I2S0_SCLK</td>
-<td>GPIO3_D0_D/I2S0_SCLK</td>
-<td>I2S0接口信号</td>
-<td>I/O(1.8V)</td>
 </tr>
 <tr class="row-even"><td>279</td>
-<td>I2S0_LRCK_RX</td>
-<td>GPIO3_D1_D/I2S0_LRCK_RX</td>
-<td>I2S0接口信号</td>
-<td>I/O(1.8V)</td>
+<td>I2S0_LRCK_R
+X</td>
 </tr>
 <tr class="row-odd"><td>281</td>
-<td>I2S0_LRCK_TX</td>
-<td>GPIO3_D2_D/I2S0_LRCK_TX</td>
-<td>I2S0接口信号</td>
-<td>I/O(1.8V)</td>
+<td>I2S0_LRCK_T
+X</td>
 </tr>
 <tr class="row-even"><td>283</td>
 <td>I2S0_SDI0</td>
-<td>GPIO3_D3_D/I2S0_SDI0</td>
-<td>I2S0接口信号</td>
-<td>I/O(1.8V)</td>
 </tr>
 <tr class="row-odd"><td>285</td>
 <td>I2S0_SDI1</td>
-<td>GPIO3_D4_D/I2S0_SDI1SDO3</td>
-<td>I2S0接口信号</td>
-<td>I/O(1.8V)</td>
 </tr>
 <tr class="row-even"><td>287</td>
 <td>I2S0_SDO2</td>
-<td>GPIO3_D5_D/I2S0_SDI2SDO2</td>
-<td>I2S0接口信号</td>
-<td>I/O(1.8V)</td>
 </tr>
 <tr class="row-odd"><td>289</td>
 <td>I2S0_SDO1</td>
-<td>GPIO3_D6_D/I2S0_SDI3SDO1</td>
-<td>I2S0接口信号</td>
-<td>I/O(1.8V)</td>
 </tr>
 <tr class="row-even"><td>291</td>
 <td>I2S0_SDO0</td>
-<td>GPIO3_D7_D/I2S0_SDO0</td>
-<td>I2S0接口信号</td>
-<td>I/O(1.8V)</td>
 </tr>
 <tr class="row-odd"><td>293</td>
 <td>I2S_CLK</td>
-<td>GPIO4_A0_D/I2S_CLK</td>
-<td>I2S接口信号</td>
-<td>I/O(1.8V)</td>
 </tr>
 <tr class="row-even"><td>295</td>
 <td>I2S1_SCLK</td>
-<td>GPIO4_A3_D/I2S1_SCLK</td>
-<td>I2S1接口信号</td>
-<td>I/O(1.8V)</td>
 </tr>
 <tr class="row-odd"><td>297</td>
-<td>I2S1_LRCK_RX</td>
-<td>GPIO4_A4_D/I2S1_LRCK_RX</td>
-<td>I2S1接口信号</td>
-<td>I/O(1.8V)</td>
+<td>I2S1_LRCK_R
+X</td>
 </tr>
 <tr class="row-even"><td>299</td>
-<td>I2S1_LRCK_TX</td>
-<td>GPIO4_A5_D/I2S1_LRCK_TX</td>
-<td>I2S1接口信号</td>
-<td>I/O(1.8V)</td>
+<td>I2S1_LRCK_T
+X</td>
 </tr>
 <tr class="row-odd"><td>301</td>
 <td>I2S1_SDI0</td>
-<td>GPIO4_A6_D/I2S1_SDI0</td>
-<td>I2S1接口信号</td>
-<td>I/O(1.8V)</td>
 </tr>
 <tr class="row-even"><td>303</td>
 <td>I2S1_SDO0</td>
-<td>GPIO4_A7_D/I2S1_SDO0</td>
-<td>I2S1接口信号</td>
-<td>I/O(1.8V)</td>
 </tr>
 <tr class="row-odd"><td>307</td>
 <td>I2C1_SDA</td>
-<td>GPIO4_A1_U/I2C1_SDA</td>
-<td>I2C1数据</td>
-<td>I/O(1.8V)</td>
 </tr>
 <tr class="row-even"><td>309</td>
 <td>I2C1_SCL</td>
-<td>GPIO4_A2_U/I2C1_SCL</td>
-<td>I2C1时钟</td>
-<td>I/O(1.8V)</td>
 </tr>
 <tr class="row-odd"><td>311</td>
 <td>EAR_CTL</td>
-<td>GPIO1_C6_D/DFTJTAG_TDI/TCPD_VBUS_SOURCE0</td>
-<td>预留GPIO</td>
-<td>I/O(3V)</td>
 </tr>
 <tr class="row-even"><td>162</td>
 <td>USB3_SSTXN</td>
-<td>TYPEC1_TX1N</td>
-<td>USB3.0发送数据负</td>
-<td>A</td>
 </tr>
 <tr class="row-odd"><td>164</td>
 <td>USB3_SSTXP</td>
-<td>TYPEC1_TX1P</td>
-<td>USB3.0发送数据正</td>
-<td>A</td>
 </tr>
 <tr class="row-even"><td>166</td>
 <td>USB3_SSRXP</td>
-<td>TYPEC1_RX1P</td>
-<td>USB3.0接收数据正</td>
-<td>A</td>
 </tr>
 <tr class="row-odd"><td>168</td>
 <td>USB3_SSRXN</td>
-<td>TYPEC1_RX1N</td>
-<td>USB3.0接收数据负</td>
-<td>A</td>
 </tr>
 <tr class="row-even"><td>170</td>
 <td>USB3_DP</td>
-<td>TYPEC1_DP</td>
-<td>USB3.0兼容USB2.0数据DP</td>
-<td>A</td>
 </tr>
 <tr class="row-odd"><td>172</td>
 <td>USB3_DM</td>
-<td>TYPEC1_DM</td>
-<td>USB3.0兼容USB2.0数据DM</td>
-<td>A</td>
 </tr>
 <tr class="row-even"><td>174</td>
-<td>MIPI_TX1/RX1_D3P</td>
-<td>MIPI_TX1/RX1_D3P</td>
-<td>MIPI TX1/RX1 LANE3数据</td>
-<td>A</td>
+<td>MIPI_TX1/RX1
+_D3P</td>
 </tr>
 <tr class="row-odd"><td>176</td>
-<td>MIPI_TX1/RX1_D3N</td>
-<td>MIPI_TX1/RX1_D3N</td>
-<td>MIPI TX1/RX1 LANE3数据</td>
-<td>A</td>
+<td>MIPI_TX1/RX1
+_D3N</td>
 </tr>
 <tr class="row-even"><td>180</td>
-<td>MIPI_TX1/RX1_D2P</td>
-<td>MIPI_TX1/RX1_D2P</td>
-<td>MIPI TX1/RX1 LANE2数据</td>
-<td>A</td>
+<td>MIPI_TX1/RX1
+_D2P</td>
 </tr>
 <tr class="row-odd"><td>182</td>
-<td>MIPI_TX1/RX1_D2N</td>
-<td>MIPI_TX1/RX1_D2N</td>
-<td>MIPI TX1/RX1 LANE2数据</td>
-<td>A</td>
+<td>MIPI_TX1/RX1
+_D2N</td>
 </tr>
 <tr class="row-even"><td>186</td>
-<td>MIPI_TX1/RX1_CLKP</td>
-<td>MIPI_TX1/RX1_CLKP</td>
-<td>MIPI TX1/RX1 时钟</td>
-<td>A</td>
+<td>MIPI_TX1/RX1
+_CLKP</td>
 </tr>
 <tr class="row-odd"><td>188</td>
-<td>MIPI_TX1/RX1_CLKN</td>
-<td>MIPI_TX1/RX1_CLKN</td>
-<td>MIPI TX1/RX1 时钟</td>
-<td>A</td>
+<td>MIPI_TX1/RX1
+_CLKN</td>
 </tr>
 <tr class="row-even"><td>204</td>
 <td>HDMI_TX2P</td>
-<td>HDMI_TX2P</td>
-<td>HDMI数据通道2</td>
-<td>A</td>
 </tr>
 <tr class="row-odd"><td>206</td>
 <td>HDMI_TX2N</td>
-<td>HDMI_TX2N</td>
-<td>HDMI数据通道2</td>
-<td>A</td>
 </tr>
 <tr class="row-even"><td>208</td>
 <td>HDMI_TX1P</td>
-<td>HDMI_TX1P</td>
-<td>HDMI数据通道1</td>
-<td>A</td>
 </tr>
 <tr class="row-odd"><td>210</td>
 <td>HDMI_TX1N</td>
-<td>HDMI_TX1N</td>
-<td>HDMI数据通道1</td>
-<td>A</td>
 </tr>
 <tr class="row-even"><td>212</td>
 <td>HDMI_TX0P</td>
-<td>HDMI_TX0P</td>
-<td>HDMI数据通道0</td>
-<td>A</td>
 </tr>
 <tr class="row-odd"><td>214</td>
 <td>HDMI_TX0N</td>
-<td>HDMI_TX0N</td>
-<td>HDMI数据通道0</td>
-<td>A</td>
 </tr>
 <tr class="row-even"><td>216</td>
 <td>HDMI_TXCN</td>
-<td>HDMI_TXCN</td>
-<td>HDMI参考时钟</td>
-<td>A</td>
 </tr>
 <tr class="row-odd"><td>218</td>
 <td>HDMI_TXCP</td>
-<td>HDMI_TXCP</td>
-<td>HDMI参考时钟</td>
-<td>A</td>
 </tr>
 <tr class="row-even"><td>222</td>
-<td>MIPI_TX0_D0P</td>
-<td>MIPI_TX0_D0P</td>
-<td>MIPI TX0 LANE0数据</td>
-<td>A</td>
+<td>MIPI_TX0_D0
+P</td>
 </tr>
 <tr class="row-odd"><td>224</td>
-<td>MIPI_TX0_D0N</td>
-<td>MIPI_TX0_D0N</td>
-<td>MIPI TX0 LANE0数据</td>
-<td>A</td>
+<td>MIPI_TX0_D0
+N</td>
 </tr>
 <tr class="row-even"><td>228</td>
-<td>MIPI_TX0_D1P</td>
-<td>MIPI_TX0_D1P</td>
-<td>MIPI TX0 LANE1数据</td>
-<td>A</td>
+<td>MIPI_TX0_D1
+P</td>
 </tr>
 <tr class="row-odd"><td>230</td>
-<td>MIPI_TX0_D1N</td>
-<td>MIPI_TX0_D1N</td>
-<td>MIPI TX0 LANE1数据</td>
-<td>A</td>
+<td>MIPI_TX0_D1
+N</td>
 </tr>
 <tr class="row-even"><td>234</td>
-<td>MIPI_TX0_CLKN</td>
-<td>MIPI_TX0_CLKN</td>
-<td>MIPI TX0 参考时钟</td>
-<td>A</td>
+<td>MIPI_TX0_CL
+KN</td>
 </tr>
 <tr class="row-odd"><td>236</td>
-<td>MIPI_TX0_CLKP</td>
-<td>MIPI_TX0_CLKP</td>
-<td>MIPI TX0 参考时钟</td>
-<td>A</td>
+<td>MIPI_TX0_CL
+KP</td>
 </tr>
 <tr class="row-even"><td>240</td>
-<td>MIPI_TX0_D2N</td>
-<td>MIPI_TX0_D2N</td>
-<td>MIPI TX0 LANE2数据</td>
-<td>A</td>
+<td>MIPI_TX0_D2
+N</td>
 </tr>
 <tr class="row-odd"><td>242</td>
-<td>MIPI_TX0_D2P</td>
-<td>MIPI_TX0_D2P</td>
-<td>MIPI TX0 LANE2数据</td>
-<td>A</td>
+<td>MIPI_TX0_D2
+P</td>
 </tr>
 <tr class="row-even"><td>246</td>
-<td>MIPI_TX0_D3N</td>
-<td>MIPI_TX0_D3N</td>
-<td>MIPI TX0 LANE3数据</td>
-<td>A</td>
+<td>MIPI_TX0_D3
+N</td>
 </tr>
 <tr class="row-odd"><td>248</td>
-<td>MIPI_TX0_D3P</td>
-<td>MIPI_TX0_D3P</td>
-<td>MIPI TX0 LANE3数据</td>
-<td>A</td>
+<td>MIPI_TX0_D3
+P</td>
 </tr>
 <tr class="row-even"><td>252</td>
-<td>MIPI_RX0_D0P</td>
-<td>MIPI_RX0_D0P</td>
-<td>MIPI RX0 LANE0数据</td>
-<td>A</td>
+<td>MIPI_RX0_D0
+P</td>
 </tr>
 <tr class="row-odd"><td>254</td>
-<td>MIPI_RX0_D0N</td>
-<td>MIPI_RX0_D0N</td>
-<td>MIPI RX0 LANE0数据</td>
-<td>A</td>
+<td>MIPI_RX0_D0
+N</td>
 </tr>
 <tr class="row-even"><td>258</td>
-<td>MIPI_RX0_D1P</td>
-<td>MIPI_RX0_D1P</td>
-<td>MIPI RX0 LANE1数据</td>
-<td>A</td>
+<td>MIPI_RX0_D1
+P</td>
 </tr>
 <tr class="row-odd"><td>260</td>
-<td>MIPI_RX0_D1N</td>
-<td>MIPI_RX0_D1N</td>
-<td>MIPI RX0 LANE1数据</td>
-<td>A</td>
+<td>MIPI_RX0_D1
+N</td>
 </tr>
 <tr class="row-even"><td>264</td>
-<td>MIPI_RX0_CLKP</td>
-<td>MIPI_RX0_CLKP</td>
-<td>MIPI RX0参考时钟</td>
-<td>A</td>
+<td>MIPI_RX0_CL
+KP</td>
 </tr>
 <tr class="row-odd"><td>266</td>
-<td>MIPI_RX0_CLKN</td>
-<td>MIPI_RX0_CLKN</td>
-<td>MIPI RX0参考时钟</td>
-<td>A</td>
+<td>MIPI_RX0_CL
+KN</td>
 </tr>
 <tr class="row-even"><td>270</td>
-<td>MIPI_RX0_D2P</td>
-<td>MIPI_RX0_D2P</td>
-<td>MIPI RX0 LANE2数据</td>
-<td>A</td>
+<td>MIPI_RX0_D2
+P</td>
 </tr>
 <tr class="row-odd"><td>272</td>
-<td>MIPI_RX0_D2N</td>
-<td>MIPI_RX0_D2N</td>
-<td>MIPI RX0 LANE2数据</td>
-<td>A</td>
+<td>MIPI_RX0_D2
+N</td>
 </tr>
 <tr class="row-even"><td>276</td>
-<td>MIPI_RX0_D3P</td>
-<td>MIPI_RX0_D3P</td>
-<td>MIPI RX0 LANE3数据</td>
-<td>A</td>
+<td>MIPI_RX0_D3
+P</td>
 </tr>
 <tr class="row-odd"><td>278</td>
-<td>MIPI_RX0_D3N</td>
-<td>MIPI_RX0_D3N</td>
-<td>MIPI RX0 LANE3数据</td>
-<td>A</td>
+<td>MIPI_RX0_D3
+N</td>
 </tr>
 </tbody>
 </table>
